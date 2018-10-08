@@ -38,6 +38,37 @@ findMinM = function(n,p){
   
 }
 
+findMinM2 = function(n,p){
+  m=(n/2) #minus 1 for first step of loop
+  lselected=m
+  rselected=m
+  numTries=10000
+  while (TRUE) {
+    numCorrect=0
+    results = rbinom(numTries,n,0.5)
+    l = ((m-results)>=0)
+    r = ((m - (n-results))>=0)
+    numCorrectvec=l&r
+    numCorrect=length(numCorrectvec[numCorrectvec=="TRUE"])
+    #print(numCorrect)
+    sum = numCorrect/numTries
+    if(sum>=0.95)
+    {
+      return(m)
+    }
+    else
+    {
+      m= m+1
+    }
+  }
+  
+}
+
+for (ns in n)
+{
+  print(findMinM2(ns,0.5))
+}
+
 for (ns in n)
 {
   print(findMinM(ns,0.5))
