@@ -1,0 +1,391 @@
+\documentclass[11pt]{article}
+\usepackage{amsgen,amsmath,amstext,amsbsy,amsopn,amssymb}
+%\usepackage[dvips]{graphicx,color}
+\usepackage{graphicx,color}
+\usepackage{graphicx,color,bm}
+\usepackage{epsfig}
+\usepackage{enumerate}
+\usepackage{float}
+
+%\setlength{\oddsidemargin}{0.1 in} \setlength{\evensidemargin}{-0.1
+%in} \setlength{\topmargin}{-0.6 in} \setlength{\textwidth}{6.5 in}
+%\setlength{\textheight}{8.5 in} \setlength{\headsep}{0.75 in}
+%\setlength{\parindent}{0 in} \setlength{\parskip}{0.1 in}
+
+\textwidth 6.3in \textheight 8.8in \topmargin -0.5truein
+\oddsidemargin .15truein
+\parskip .1in
+\renewcommand{\baselinestretch}{1.53}  % double spaced
+
+
+\newcommand{\homework}[9]{
+	\pagestyle{myheadings}
+	\thispagestyle{plain}
+	\newpage
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{
+			\vbox{\vspace{2mm}
+				\hbox to 6.28in { {\bf Math531:~Regression - I  \hfill} }
+				\vspace{6mm}
+				\hbox to 6.28in { {\Large \hfill #1 (#2)  \hfill} }
+				\vspace{6mm}
+				\hbox to 6.28in { {\it Instructor: #3 \hfill} }
+				\hbox to 6.28in { {\it Office hours: #4  \hfill #6}}
+				\vspace{2mm}}
+		}
+	\end{center}
+	\markboth{#1}{#1}
+	\vspace*{4mm}
+}
+
+% ----------------------- MATH -------------------------
+\def\av{\boldsymbol a}
+\def\bv{\boldsymbol b}
+\def\cv{\boldsymbol c}
+\def\dv{\boldsymbol d}
+\def\ev{\boldsymbol e}
+\def\fv{\boldsymbol f}
+\def\gv{\boldsymbol g}
+\def\hv{\boldsymbol h}
+\def\iv{\boldsymbol i}
+\def\gv{\boldsymbol j}
+\def\kv{\boldsymbol k}
+\def\lv{\boldsymbol l}
+\def\mv{\boldsymbol m}
+\def\nv{\boldsymbol n}
+\def\ov{\boldsymbol o}
+\def\pv{\boldsymbol p}
+\def\qv{\boldsymbol q}
+\def\rv{\boldsymbol r}
+\def\sv{\boldsymbol s}
+\def\tv{\boldsymbol t}
+\def\uv{\boldsymbol u}
+\def\vv{\boldsymbol v}
+\def\wv{\boldsymbol w}
+\def\xv{\boldsymbol x}
+\def\yv{\boldsymbol y}
+\def\zv{\boldsymbol z}
+\def\Av{\boldsymbol A}
+\def\Bv{\boldsymbol B}
+\def\Cv{\boldsymbol C}
+\def\Dv{\boldsymbol D}
+\def\Ev{\boldsymbol E}
+\def\Fv{\boldsymbol F}
+\def\Gv{\boldsymbol G}
+\def\Hv{\boldsymbol H}
+\def\Iv{\boldsymbol I}
+\def\Gv{\boldsymbol J}
+\def\Kv{\boldsymbol K}
+\def\Lv{\boldsymbol L}
+\def\Mv{\boldsymbol M}
+\def\Nv{\boldsymbol N}
+\def\Ov{\boldsymbol O}
+\def\Pv{\boldsymbol P}
+\def\Qv{\boldsymbol Q}
+\def\Rv{\boldsymbol R}
+\def\Sv{\boldsymbol S}
+\def\Tv{\boldsymbol T}
+\def\Uv{\boldsymbol U}
+\def\Vv{\boldsymbol V}
+\def\Wv{\boldsymbol W}
+\def\Xv{\boldsymbol X}
+\def\Yv{\boldsymbol Y}
+\def\Zv{\boldsymbol Z}
+\def\Abf{\mathbf A}
+\def\Bbf{\mathbf B}
+\def\Cbf{\mathbf C}
+\def\Dbf{\mathbf D}
+\def\Ebf{\mathbf E}
+\def\Fbf{\mathbf F}
+\def\Gbf{\mathbf G}
+\def\Hbf{\mathbf H}
+\def\Ibf{\mathbf I}
+\def\Gbf{\mathbf J}
+\def\Kbf{\mathbf K}
+\def\Lbf{\mathbf L}
+\def\Mbf{\mathbf M}
+\def\Nbf{\mathbf N}
+\def\Obf{\mathbf O}
+\def\Pbf{\mathbf P}
+\def\Qbf{\mathbf Q}
+\def\Rbf{\mathbf R}
+\def\Sbf{\mathbf S}
+\def\Tbf{\mathbf T}
+\def\Ubf{\mathbf U}
+\def\Vbf{\mathbf V}
+\def\Wbf{\mathbf W}
+\def\Xbf{\mathbf X}
+\def\Ybf{\mathbf Y}
+\def\Jbf{\mathbf J}
+\def\Zbf{\mathbf Z}
+\def\Am{\mathrm A}
+\def\Bm{\mathrm B}
+\def\Cm{\mathrm C}
+\def\Dm{\mathrm D}
+\def\Em{\mathrm E}
+\def\Fm{\mathrm F}
+\def\Gm{\mathrm G}
+\def\Hm{\mathrm H}
+\def\Im{\mathrm I}
+\def\Gm{\mathrm J}
+\def\Km{\mathrm K}
+\def\Lm{\mathrm L}
+\def\Mm{\mathrm M}
+\def\Nm{\mathrm N}
+\def\Om{\mathrm O}
+\def\Pm{\mathrm P}
+\def\Qm{\mathrm Q}
+\def\Rm{\mathrm R}
+\def\Sm{\mathrm S}
+\def\Tm{\mathrm T}
+\def\Um{\mathrm U}
+\def\mv{\mathrm V}
+\def\Wm{\mathrm W}
+\def\Xm{\mathrm X}
+\def\Ym{\mathrm Y}
+\def\Zm{\mathrm Z}
+\newcommand{\Ac}{\mathcal{A}}
+\newcommand{\Bc}{\mathcal{B}}
+\newcommand{\Cc}{\mathcal{C}}
+\newcommand{\Dc}{\mathcal{D}}
+\newcommand{\Ec}{\mathcal{E}}
+\newcommand{\Fc}{\mathcal{F}}
+\newcommand{\Gc}{\mathcal{G}}
+\newcommand{\Hc}{\mathcal{H}}
+\newcommand{\Ic}{\mathcal{I}}
+\newcommand{\Jc}{\mathcal{J}}
+\newcommand{\Kc}{\mathcal{K}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Mc}{\mathcal{M}}
+\newcommand{\Nc}{\mathcal{N}}
+\newcommand{\Oc}{\mathcal{O}}
+\newcommand{\Pc}{\mathcal{P}}
+\newcommand{\Qc}{\mathcal{Q}}
+\newcommand{\Rc}{\mathcal{R}}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\Tc}{\mathcal{T}}
+\newcommand{\Uc}{\mathcal{U}}
+\newcommand{\Vc}{\mathcal{V}}
+\newcommand{\Wc}{\mathcal{W}}
+\newcommand{\Xc}{\mathcal{X}}
+\newcommand{\Yc}{\mathcal{Y}}
+\newcommand{\Zc}{\mathcal{Z}}
+\newcommand{\alphav}{\mbox{\boldmath{$\alpha$}}}
+\newcommand{\betav}{\mbox{\boldmath{$\beta$}}}
+\newcommand{\gammav}{\mbox{\boldmath{$\gamma$}}}
+\newcommand{\deltav}{\mbox{\boldmath{$\delta$}}}
+\newcommand{\epsilonv}{\mbox{\boldmath{$\epsilon$}}}
+\newcommand{\zetav}{\mbox{\boldmath$\zeta$}}
+\newcommand{\etav}{\mbox{\boldmath{$\eta$}}}
+\newcommand{\iotav}{\mbox{\boldmath{$\iota$}}}
+\newcommand{\kappav}{\mbox{\boldmath{$\kappa$}}}
+\newcommand{\lambdav}{\mbox{\boldmath{$\lambda$}}}
+\newcommand{\muv}{\mbox{\boldmath{$\mu$}}}
+\newcommand{\nuv}{\mbox{\boldmath{$\nu$}}}
+\newcommand{\xiv}{\mbox{\boldmath{$\xi$}}}
+\newcommand{\omicronv}{\mbox{\boldmath{$\omicron$}}}
+\newcommand{\piv}{\mbox{\boldmath{$\pi$}}}
+\newcommand{\rhov}{\mbox{\boldmath{$\rho$}}}
+\newcommand{\sigmav}{\mbox{\boldmath{$\sigma$}}}
+\newcommand{\tauv}{\mbox{\boldmath{$\tau$}}}
+\newcommand{\upsilonv}{\mbox{\boldmath{$\upsilon$}}}
+\newcommand{\phiv}{\mbox{\boldmath{$\phi$}}}
+\newcommand{\varphiv}{\mbox{\boldmath{$\varphi$}}}
+\newcommand{\chiv}{\mbox{\boldmath{$\chi$}}}
+\newcommand{\psiv}{\mbox{\boldmath{$\psi$}}}
+\newcommand{\omegav}{\mbox{\boldmath{$\omega$}}}
+\newcommand{\Sigmav}{\mbox{\boldmath{$\Sigma$}}}
+\newcommand{\Lambdav}{\mbox{\boldmath{$\Lambda$}}}
+\newcommand{\Deltav}{\mbox{\boldmath{$\Delta$}}}
+\newcommand{\Omegav}{\mbox{\boldmath{$\Omega$}}}
+\newcommand{\varepsilonv}{\mbox{\boldmath{$\varepsilon$}}}
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\epsv}{\mbox{\boldmath{$\varepsilon$}}}
+
+\def\1v{\mathbf 1}
+\def\0v{\mathbf 0}
+\def\Id{\mathbf I} % identity matrix
+\newcommand{\ind}[1]{\mathbbm{1}_{\left[ {#1} \right] }}
+\newcommand{\Ind}[1]{\mathbbm{1}_{\left\{ {#1} \right\} }}
+\newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+\newcommand{\QED}{\begin{flushright} {\bf QED} \end{flushright}}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Real}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\E}{\mathbb E}
+\newcommand{\sgn}{\mathop{\mathrm{sign}}}
+\def\Pr{\mathrm P}
+\def\pr{\mathrm P}
+\newcommand{\Var}{\mathop{\rm Var}}
+\newcommand{\var}{\mathop{\rm Var}}
+\newcommand{\Cov}{\mathop{\rm Cov}}
+\newcommand{\cov}{\mathop{\rm Cov}}
+\newcommand{\Corr}{\mathop{\rm Corr}}
+\newcommand{\ang}{\mathop{\rm Angle}}
+\newcommand{\tr}{\mathop{\rm trace}}
+\newcommand{\proj}{\mathop{\rm Proj}}
+\newcommand{\rank}{\mathop{\rm rank}}
+
+\newcommand{\diag}{\mathop{\rm diag}}
+\newcommand{\Diag}{\mathop{\rm diag}}
+\newcommand{\sk}{\vspace{0.5cm}}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mb}{\mbox}
+\newcommand{\wh}{\widehat}
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+
+\newcommand{\To}{\longrightarrow}
+
+\def\equalLaw{\stackrel{\mathcal{L}}{=}}
+\def\equallaw{\stackrel{\mathcal{L}}{=}}
+
+\def\half{\frac{1}{2}}
+
+\usepackage{caption}
+
+\begin{document}
+
+\begin{title}
+	{\Large\bf Homework 2, DATA 556: Due Tuesday, 10/09/2018}
+\end{title}
+
+\author{\bf Alexander Van Roijen}
+
+\maketitle
+
+\newpage
+Please complete the following:
+\begin{enumerate}
+\item  Let $X$ be a random variable with CDF $F$, and $Y = \mu+\sigma X$, where $\mu$ and $\sigma$ are real numbers with $\sigma > 0$. Find the CDF of $Y$, in terms of $F$.
+\\
+\\
+\begin{gather}
+	P(X\leq x) = F(x)\\
+	P(Y\leq y) = P(\mu + \sigma X \leq y) \\
+	= P(\sigma X \leq y - \mu) \\
+	= P(X \leq \frac{y-\mu}{\sigma})\\
+	= F(\frac{y-\mu}{\sigma})
+\end{gather}	
+\item
+\begin{enumerate}
+	\item  Show that p(n) = $(\frac{1}{2})^{n+1}$, for $n = 0, 1, 2, . . .$ is a valid PMF for a discrete random variable.
+	\begin{enumerate}
+		\item Showing p(n) $>$ 0 $\forall n \ge 0$ by induction 	
+		\begin{gather}
+				\text{base case, n=0:}\\
+				p(0) = (\frac{1}{2}) ^ {0+1} = 0.5 > 0 \\
+				\text{Now assume this is true for all 0 ... n, NTS for n+1}\\
+				p(n+1) = (\frac{1}{2}) ^ {n+1+1} = (\frac{1}{2}) ^ {n+1} * (\frac{1}{2}) ^ {1} = p(n) * p(1) > 0 \text{ by the induction hypothesis} 
+		\end{gather}
+		\item $\sum_{n=0}^{\infty} p(n) = 1$\\
+		This is trivial, as a well known geometric series that sums to one. Thus this property is also satisfied and the problem is done $\square$	
+	\end{enumerate}
+	\item Find the CDF of a random variable with PMF from (a)
+	\begin{gather}
+		F(x) = p(X\leq x) = p(X=0) + p(X=1) + p(X=2) ... + P(X=x) \\
+		\text{This is due to the discrete nature of $p(n)$} \\
+		p(X=x) = (\frac{1}{2})^{n+1}\\
+		=> F(x) = 
+		\begin{cases}
+			0 & x<0 \\
+			(\frac{1}{2})^{x+1} + F(x-1) & x \geq 0
+		\end{cases}
+		\\
+		\text{Further, this sum will look eerily like the geometric series shown above} 		
+	\end{gather}
+\end{enumerate}
+\item Let X, Y and Z be discrete random variables such that X and Y have the same conditional distribution given
+Z, i.e., for all a and z we have
+$P(X = a | Z = z) = P(Y = a | Z = z)$
+Show that X and Y have the same distribution (unconditionally, not just when given Z)
+\begin{gather}
+	\text{The law of total probability states} P(X) = \sum_{i=0}^{\infty}P(X|Z=z_i) * P(Z=z_i)\\
+	\text{We NTS P(X) = P(Y)}\\
+	P(X=x|Z=z) = P(Y=x|Z=z) \forall x,z \in S \\
+	=> \sum_{i=0}^{\infty} P(X=x|Z=z_i) = \sum_{i=0}^{\infty} P(Y=x|Z=z_i) \\
+	=>\sum_{i=0}^{\infty} P(X=x|Z=z_i)*P(Z=z_i) = \sum_{i=0}^{\infty} P(Y=x|Z=z_i)*P(Z=z_i) \\
+	\text{the above is true as we are simply multiplying each factor of the sum by the same value on both sides}\\
+	=> \text{Thus, by the definition of the law of total probablity we have }  P(X) = P(Y) \square
+\end{gather}
+\item
+\begin{enumerate}
+	\item Let X $\sim$ DUnif(C), and B be a nonempty subset of C. Find the conditional distribution of X, given
+	that X is in B.
+	\begin{gather}
+		\text{we have $B\subset C$ and X $\sim$ DUnif(C)} => P(X=x) = \frac{1}{|C|}\\
+		P(X=x|x\in B) = \frac{P(X=x \cap x \in B)}{P(x\in B)} \text{ (Definition of the conditional)}\\
+		\text{we further know the following}\\
+		P(x \in B) = \sum_{j=0}^{\infty} P(X=x_j | x \in B)*P(x_j) \text{ (law of total probability)}\\
+	\text{we know} P(X=x_j) = \frac{1}{|C|} \text{ and } \sum_{j=0}^{\infty} P(X=x_j | x \in B) = |B| \text{ as } B \subset C \text{ and } B \neq \emptyset \\
+	=> P(X=x|x\in B) = \frac{P(X=x \cap x \in B)}{\frac{|B|}{|C|}} 
+	=  \frac{(\frac{1}{|C|})}{\frac{|B|}{|C|}} = \frac{1}{|B|}\\
+	=> P(X=x|x\in B) \sim \text{DUnif(B)}
+	\end{gather}
+	Since we know that $x \in B$, then we do not need to concern ourselves of any values outside of the space of $B \subset C$
+	\\
+	Further, since X follows a uniform distribution within the space of C and $B \subset C$, then similarly, X has equal chances of taking values on within $B$
+	\\
+	Thus, $X|B \sim DUnif(B)$
+	\item  $\text{If X follows HGeom(w, b, n), what is the distribution of } n - X?$
+	\begin{gather}
+		 X ∼ HGeom(w, b, n) => P(X=k) = \frac{\binom{w}{k} * \binom{b}{n-k}}{\binom{n}{k}}\\
+		 P(n-X=k) = P(X=n-k) = \frac{\binom{w}{n-k} * \binom{b}{n-(n-k)}}{\binom{n}{n-k}} = \frac{\binom{w}{n-k} * \binom{b}{k}}{\binom{n}{k}} \\
+		 \text{ *This is due to the symmetric property of n choose k and n choose n - k}\\
+		 =>n-X \sim \text{HGeom(b,w,n)}
+	\end{gather}
+
+
+\end{enumerate}
+\item A copy machine is used to make n pages of copies per day. The machine has two trays in which paper gets
+loaded, and each page is taken randomly and independently from one of the other trays. At the beginning
+of the day, the trays are refilled so that they each have m pages. Using simulations in R, find the smallest
+value of m for which there is at least a 95 percent chance that both trays have enough paper on a particular day,
+for n = 10, n = 100, n = 1000, and n = 10000.
+\begin{verbatim}
+
+	n=c(10,100,1000,10000)
+
+	findMinM2 = function(n,p){
+		m=(n/2) 
+		numTries=10000
+		while (TRUE) {
+			numCorrect=0
+			results = rbinom(numTries,n,0.5)
+			l = ((m-results)>=0)
+			r = ((m - (n-results))>=0)
+			numCorrectvec=l&r
+			numCorrect=length(numCorrectvec[numCorrectvec=="TRUE"])
+			#print(numCorrect)
+			sum = numCorrect/numTries
+			if(sum>=0.95)
+			{
+				return(m)
+			}
+			else
+			{
+				m= m+1
+			}
+	}
+	
+	for (ns in n)
+	{
+		print(findMinM2(ns,0.5))
+	}
+	> [1] 8
+	> [1] 60
+	> [1] 531
+	> [1] 5097
+\end{verbatim}
+
+\text{it is worth noting that this is easily checked using pbinom. This code can be found on my github!}
+\end{enumerate}
+
+\end{document}
