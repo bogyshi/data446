@@ -254,7 +254,7 @@
 \begin{document}
 
 \begin{title}
-	{\Large\bf Homework 2, DATA 556: Due Tuesday, 10/09/2018}
+	{\Large\bf Homework 3, DATA 556: Due Tuesday, 10/16/2018}
 \end{title}
 
 \author{\bf Alexander Van Roijen}
@@ -264,15 +264,45 @@
 \newpage
 Please complete the following:
 \begin{enumerate}
-\item  Let $X$ be a random variable with CDF $F$, and $Y = \mu+\sigma X$, where $\mu$ and $\sigma$ are real numbers with $\sigma > 0$. Find the CDF of $Y$, in terms of $F$.
+\item Problem 1
+\begin{enumerate}
+	\item Find the mean and the variance of a Discrete Uniform random variable on 1, 2, . . . , n.\\
+	Let $X \sim $ DUnif
+	\begin{gather}
+	P(X = x) = \frac{1}{n} \text{ by the def of uniform distrib}\\
+	E[X] = \sum_{j=0}^{n} P(X=j)*j = \sum_{j=0}^{n} \frac{1}{n}*j = \frac{1}{n} *\sum_{j=0}^{n} j = \frac{1}{n} * \frac{n(n+1)}{2} = \frac{n+1}{2}\\
+	\text{It is a similar proof with a different subsitution for the expected value of X squared} \\
+	E[X^2] = \sum_{j=0}^{n} P(X=j)*(j^2) \text{ LOTUS} \\
+	= \sum_{j=0}^{n} \frac{1}{n}*(j^2) = \frac{1}{n} *\sum_{j=0}^{n} (j^2) = \frac{1}{n} * \frac{n(n+1)(2n+1)}{6} = \frac{(n+1)(2n+1)}{6}\\
+	E[X^2]-(E[X])^2 = \frac{(n+1)(2n+1)}{6} - (\frac{n+1}{2})^2\\
+	\frac{4*(n+1)(2n+1)}{24} - (\frac{6*(n+1)^2}{24}) = \frac{n^2-1}{12}
+	\end{gather}
+	\item Let X be a discrete random variable that satisfies the properties listed in the homework. Find E[X]
+	\begin{gather}
+		\text{We have a symmetry such that } P(X=x)=P(X=-x)\\
+		E[X]= \sum_{x=-n}^{n} P(X=x)*x\\
+		= P(X=-n)*-n + P(X=-(n-1))*(-(n-1)) + ... + P(X=n)*n \\
+		= -1*(P(X=-n)*n - P(X=n)*n) + ... P(X=0)*0 \\
+		=  -1*(P(X=n)*n - P(X=n)*n) + ... P(X=0)*0 = 0+0+...+0 \\
+		\text{due to the symmetry of the probs}\\
+		=> E[X] = 0
+	\end{gather}
+\end{enumerate}
+\item We have X with PMF $P(X = k) = \frac{-1*p^k}{log(1-p)*k}$
+for k = 1, 2, . . .. Here p is a parameter with 0 < p < 1. Find the mean and the variance of X
 \\
-\\
+First, note that the value $\frac{-1}{log(1-p)}$ is a positive constant
 \begin{gather}
-	P(X\leq x) = F(x)\\
-	P(Y\leq y) = P(\mu + \sigma X \leq y) \\
-	= P(\sigma X \leq y - \mu) \\
-	= P(X \leq \frac{y-\mu}{\sigma})\\
-	= F(\frac{y-\mu}{\sigma})
+	E[X] = \sum_{k=1}^{\infty} P(X=k)*k = \sum_{k=1}^{\infty} \frac{-1*p^k}{log(1-p)*k} * k = \sum_{x=1}^{\infty} \frac{-1*p^k}{log(1-p)} \\ 
+	= \frac{-1}{log(1-p)} \sum_{x=1}^{\infty} p^k \\
+	=> \sum_{x=1}^{\infty} p^k = S => S*p = \sum_{x=2}^{\infty} p^k => S-Sp = p => S= \frac{p}{(1-p)}\\
+	=> E[X] = \frac{-1}{log(1-p)} * \frac{p}{(1-p)}
+	\text{similarly, the }E[X^2] \text{is proved in a similar manner except} \\
+	S-Sp = \sum_{x=1}^{\infty} p^k \\
+	\text{which we already proved so by substituting we get}\\
+	S-Sp =  \frac{p}{(1-p)} => S = \frac{p}{(1-p)^2}\\
+	=> E[X^2] = \frac{-1}{log(1-p)} * \frac{p}{(1-p)^2}\\
+	=>Var(X) = E[X^2]-E[X]^2 = \frac{p(p-log(1-p))}{log(1-p)^2*(1-p)^2}
 \end{gather}	
 \item
 \begin{enumerate}
@@ -315,35 +345,7 @@ Show that X and Y have the same distribution (unconditionally, not just when giv
 	\text{the above is true as we are simply multiplying each factor of the sum by the same value on both sides}\\
 	=> \text{Thus, by the definition of the law of total probablity we have }  P(X) = P(Y) \square
 \end{gather}
-\item
-\begin{enumerate}
-	\item Let X $\sim$ DUnif(C), and B be a nonempty subset of C. Find the conditional distribution of X, given
-	that X is in B.
-	\begin{gather}
-		\text{we have $B\subset C$ and X $\sim$ DUnif(C)} => P(X=x) = \frac{1}{|C|}\\
-		P(X=x|x\in B) = \frac{P(X=x \cap x \in B)}{P(x\in B)} \text{ (Definition of the conditional)}\\
-		\text{we further know the following}\\
-		P(x \in B) = \sum_{j=0}^{\infty} P(X=x_j | x \in B)*P(x_j) \text{ (law of total probability)}\\
-	\text{we know} P(X=x_j) = \frac{1}{|C|} \text{ and } \sum_{j=0}^{\infty} P(X=x_j | x \in B) = |B| \text{ as } B \subset C \text{ and } B \neq \emptyset \\
-	=> P(X=x|x\in B) = \frac{P(X=x \cap x \in B)}{\frac{|B|}{|C|}} 
-	=  \frac{(\frac{1}{|C|})}{\frac{|B|}{|C|}} = \frac{1}{|B|}\\
-	=> P(X=x|x\in B) \sim \text{DUnif(B)}
-	\end{gather}
-	Since we know that $x \in B$, then we do not need to concern ourselves of any values outside of the space of $B \subset C$
-	\\
-	Further, since X follows a uniform distribution within the space of C and $B \subset C$, then similarly, X has equal chances of taking values on within $B$
-	\\
-	Thus, $X|B \sim DUnif(B)$
-	\item  $\text{If X follows HGeom(w, b, n), what is the distribution of } n - X?$
-	\begin{gather}
-		 X ∼ HGeom(w, b, n) => P(X=k) = \frac{\binom{w}{k} * \binom{b}{n-k}}{\binom{n}{k}}\\
-		 P(n-X=k) = P(X=n-k) = \frac{\binom{w}{n-k} * \binom{b}{n-(n-k)}}{\binom{n}{n-k}} = \frac{\binom{w}{n-k} * \binom{b}{k}}{\binom{n}{k}} \\
-		 \text{ *This is due to the symmetric property of n choose k and n choose n - k}\\
-		 =>n-X \sim \text{HGeom(b,w,n)}
-	\end{gather}
 
-
-\end{enumerate}
 \item A copy machine is used to make n pages of copies per day. The machine has two trays in which paper gets
 loaded, and each page is taken randomly and independently from one of the other trays. At the beginning
 of the day, the trays are refilled so that they each have m pages. Using simulations in R, find the smallest
