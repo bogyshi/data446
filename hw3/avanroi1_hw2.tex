@@ -306,44 +306,43 @@ First, note that the value $\frac{-1}{log(1-p)}$ is a positive constant
 \end{gather}	
 \item
 \begin{enumerate}
-	\item  Show that p(n) = $(\frac{1}{2})^{n+1}$, for $n = 0, 1, 2, . . .$ is a valid PMF for a discrete random variable.
-	\begin{enumerate}
-		\item Showing p(n) $>$ 0 $\forall n \ge 0$ by induction 	
-		\begin{gather}
-				\text{base case, n=0:}\\
-				p(0) = (\frac{1}{2}) ^ {0+1} = 0.5 > 0 \\
-				\text{Now assume this is true for all 0 ... n, NTS for n+1}\\
-				p(n+1) = (\frac{1}{2}) ^ {n+1+1} = (\frac{1}{2}) ^ {n+1} * (\frac{1}{2}) ^ {1} = p(n) * p(1) > 0 \text{ by the induction hypothesis} 
-		\end{gather}
-		\item $\sum_{n=0}^{\infty} p(n) = 1$\\
-		This is trivial, as a well known geometric series that sums to one. Thus this property is also satisfied and the problem is done $\square$	
-	\end{enumerate}
-	\item Find the CDF of a random variable with PMF from (a)
+	\item  Use LOTUS to show that for X $\sim$ Pois($\lambda$) and any function g(.), $E[Xg(X)] = \lambda E[g(X+1)]$
 	\begin{gather}
-		F(x) = p(X\leq x) = p(X=0) + p(X=1) + p(X=2) ... + P(X=x) \\
-		\text{This is due to the discrete nature of $p(n)$} \\
-		p(X=x) = (\frac{1}{2})^{n+1}\\
-		=> F(x) = 
-		\begin{cases}
-			0 & x<0 \\
-			(\frac{1}{2})^{x+1} + F(x-1) & x \geq 0
-		\end{cases}
-		\\
-		\text{Further, this sum will look eerily like the geometric series shown above} 		
+		E[Xg(X)] = \sum_{x=0}^{\infty} x*g(x) \frac{e^{-\lambda} * \lambda ^ x}{x!} = \sum_{x=1}^{\infty} g(x)*\lambda \frac{e^{-\lambda} * \lambda ^{x-1}}{(x-1)!} \\
+		\text{now let there be a substitution such that j = x-1}\\
+		= \sum_{j=0}^{\infty} g(j+1)*\lambda \frac{e^{-\lambda} * \lambda ^{j}}{j!} =  \lambda * \sum_{j=0}^{\infty} g(j+1) \frac{e^{-\lambda} * \lambda ^{j}}{j!} \\
+		\text{considering g(x) is any valid function, we conclude}\\
+		E[Xg(X)] = \lambda * E[g(X+1)] \\
+		\text{We bring this back to this form using LOTUS and our lack of knowledge on g(x)}
+	\end{gather}
+	\item Find the third moment E($X^3$) for X ∼ Pois($\lambda$)
+	\begin{gather}
+		\text{let }g(x) = x^2
+		=> E(Xg(X))=E[g(X+1)]=\lambda * E[(X+1)^2]\\
+		= \lambda * E[X^2 + 2X+1] = \lambda * (E[X^2] + 2E[X] + 1) \\
+		\text{using the known properties of the variance and mean of the uniform dist we get}\\
+		= \lambda * (\lambda^2 + \lambda + 2\lambda + 1) = \lambda^3 + 3\lambda^2 + \lambda
 	\end{gather}
 \end{enumerate}
-\item Let X, Y and Z be discrete random variables such that X and Y have the same conditional distribution given
-Z, i.e., for all a and z we have
-$P(X = a | Z = z) = P(Y = a | Z = z)$
-Show that X and Y have the same distribution (unconditionally, not just when given Z)
-\begin{gather}
-	\text{The law of total probability states} P(X) = \sum_{i=0}^{\infty}P(X|Z=z_i) * P(Z=z_i)\\
-	\text{We NTS P(X) = P(Y)}\\
-	P(X=x|Z=z) = P(Y=x|Z=z) \forall x,z \in S \\
-	=> \sum_{i=0}^{\infty} P(X=x|Z=z_i) = \sum_{i=0}^{\infty} P(Y=x|Z=z_i) \\
-	=>\sum_{i=0}^{\infty} P(X=x|Z=z_i)*P(Z=z_i) = \sum_{i=0}^{\infty} P(Y=x|Z=z_i)*P(Z=z_i) \\
-	\text{the above is true as we are simply multiplying each factor of the sum by the same value on both sides}\\
-	=> \text{Thus, by the definition of the law of total probablity we have }  P(X) = P(Y) \square
+\item Show that for any events $A_1..A_n$,
+$P(A_1\cap...\cap A_n) \geq \sum_{j=1}^{n} P(A_j) - n +1$\\
+lets first begin by studying this same situation for indicator random variables for these events.\\
+One more thing to keep in mind is that we know\\
+$0\leq P(X=x)\leq1 \forall x$ and similarly $I(A)=1$ or $I(A)=0$
+first we show 	$I(A_1\cap...\cap A_n) \geq \sum_{j=1}^{n} I(A_j) - n +1$
+\begin{gather} 
+	\text{Case 1:} I(A_1\cap...\cap A_n) = 0\\
+	=> \sum_{j=1}^{n} I(A_j) \leq (n-1)\\ 
+	\text{this is self explanatory as at most n-1 indicator terms are 1}\\
+	=> \sum_{j=1}^{n} I(A_j) - n + 1 \leq I(A_1\cap...\cap A_n)\\
+	\text{Case 2:} I(A_1\cap...\cap A_n) = 1\\
+	=> \sum_{j=1}^{n} I(A_j) = n\\ 
+	\text{this is self explanatory as all n indicator variables must be 1}\\
+	=> \sum_{j=1}^{n} I(A_j) - n + 1 = n-n+1 = 1 \leq I(A_1\cap...\cap A_n) = 1\\
+	\text{Now we look at the broader case of } P(A_1\cap...\cap A_n) \geq \sum_{j=1}^{n} P(A_j) - n +1\\
+	\text{we know that the total law of probaility follows that }\\
+	\text{can we say sum of all A probs must be less or equal to 1?}\\
+	\text{or can we say that the expected value of inidcator = P implies its true?}
 \end{gather}
 
 \item A copy machine is used to make n pages of copies per day. The machine has two trays in which paper gets

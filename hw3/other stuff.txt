@@ -1,0 +1,5 @@
+	\text{Looking at this, we realize that g(x+1) is simply any function, such as }\\
+		g(x)=x^2 => g(x+1) = (x+1) ^ 2\\
+		\text{Thus, we can seperate its expected value from the remainder of the series}\\
+		=> \sum_{j=0}^{\infty} g(j+1)*\lambda \frac{e^{-\lambda} * \lambda ^{j}}{j!} = \sum_{j=0}^{\infty} \lambda \frac{e^{-\lambda} * \lambda ^{j}}{j!}*\sum_{j=0}^{\infty} g(j+1)*\lambda \frac{e^{-\lambda} * \lambda ^{j}}{j!} \\
+		= \lambda e^{-\lambda} e^{\lambda}*\sum_{j=0}^{\infty} g(j+1)*\lambda \frac{e^{-\lambda} * \lambda ^{j}}{j!} = \lambda * \sum_{j=0}^{\infty}
