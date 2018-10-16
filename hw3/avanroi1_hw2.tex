@@ -326,67 +326,38 @@ First, note that the value $\frac{-1}{log(1-p)}$ is a positive constant
 \end{enumerate}
 \item Show that for any events $A_1..A_n$,
 $P(A_1\cap...\cap A_n) \geq \sum_{j=1}^{n} P(A_j) - n +1$\\
-lets first begin by studying this same situation for indicator random variables for these events.\\
-One more thing to keep in mind is that we know\\
-$0\leq P(X=x)\leq1 \forall x$ and similarly $I(A)=1$ or $I(A)=0$
-first we show 	$I(A_1\cap...\cap A_n) \geq \sum_{j=1}^{n} I(A_j) - n +1$
+lets prove this through induction
 \begin{gather} 
-	\text{Case 1:} I(A_1\cap...\cap A_n) = 0\\
-	=> \sum_{j=1}^{n} I(A_j) \leq (n-1)\\ 
-	\text{this is self explanatory as at most n-1 indicator terms are 1}\\
-	=> \sum_{j=1}^{n} I(A_j) - n + 1 \leq I(A_1\cap...\cap A_n)\\
-	\text{Case 2:} I(A_1\cap...\cap A_n) = 1\\
-	=> \sum_{j=1}^{n} I(A_j) = n\\ 
-	\text{this is self explanatory as all n indicator variables must be 1}\\
-	=> \sum_{j=1}^{n} I(A_j) - n + 1 = n-n+1 = 1 \leq I(A_1\cap...\cap A_n) = 1\\
-	\text{Now we look at the broader case of } P(A_1\cap...\cap A_n) \geq \sum_{j=1}^{n} P(A_j) - n +1\\
-	\text{we know that the total law of probaility follows that }\\
-	\text{can we say sum of all A probs must be less or equal to 1?}\\
-	\text{or can we say that the expected value of inidcator = P implies its true?}
+	\text{Base case, n=1:} P(A) \geq P(A) - 1 + 1 => P(A) \geq P(A)\\
+	\text{Now we assume this is true for 1 ... n, NTS for n+1}\\
+	\text{n+1 case:} \text{we have} \sum_{j=1}^{n+1} P(A_j) -(n+1) +1 = \sum_{j=1}^{n} P(A_j) + P(A_{n+1}) - (n+1) + 1\\
+	\text{Now notice we can rewrite} P(A_1 \cap .. \cap A_{n+1}) = P(B\cap A_{n+1}) \text{where} B=A_1\cap ... \cap A_n\\
+	=> P(B \cap A+{n+1}) = P(B) + P(A_{n+1}) - P(A_{n+1} \cup B) \text{by definition}\\
+	\text{By the induction hypothesis, we know} P(B) \geq \sum_{j=1}^{n} P(A_j) - n + 1\\
+	\text{That means all that is left to show is} P(A_{n+1}) - P(A_{n+1} \cup B) \geq  P(A_{n+1}) - 1\\
+	=>P(A_{n+1}) - P(A_{n+1} \cup B) \geq  P(A_{n+1}) - 1 => -P(A_{n+1} \cup B) \geq - 1 => P(A_{n+1} \cup B) \leq 1 \\
+	\text{We know this inequality is true as } 0 \leq P(X) \leq 1\\
+	\text{Thus, we have proved the induction step}. \square
 \end{gather}
 
-\item A copy machine is used to make n pages of copies per day. The machine has two trays in which paper gets
-loaded, and each page is taken randomly and independently from one of the other trays. At the beginning
-of the day, the trays are refilled so that they each have m pages. Using simulations in R, find the smallest
-value of m for which there is at least a 95 percent chance that both trays have enough paper on a particular day,
-for n = 10, n = 100, n = 1000, and n = 10000.
-\begin{verbatim}
-
-	n=c(10,100,1000,10000)
-
-	findMinM2 = function(n,p){
-		m=(n/2) 
-		numTries=10000
-		while (TRUE) {
-			numCorrect=0
-			results = rbinom(numTries,n,0.5)
-			l = ((m-results)>=0)
-			r = ((m - (n-results))>=0)
-			numCorrectvec=l&r
-			numCorrect=length(numCorrectvec[numCorrectvec=="TRUE"])
-			#print(numCorrect)
-			sum = numCorrect/numTries
-			if(sum>=0.95)
-			{
-				return(m)
-			}
-			else
-			{
-				m= m+1
-			}
-	}
-	
-	for (ns in n)
-	{
-		print(findMinM2(ns,0.5))
-	}
-	> [1] 8
-	> [1] 60
-	> [1] 531
-	> [1] 5097
-\end{verbatim}
-
-\text{it is worth noting that this is easily checked using pbinom. This code can be found on my github!}
+\item For X $\sim$ Pois($\lambda$), find $E[2^X]$ , if it is finite.
+\begin{gather} 
+	E[2^X] =\sum_{n=0}^{\infty} \frac{2^n e^{-\lambda} \lambda ^n}{n!} = \sum_{n=0}^{\infty} \frac{e^{-\lambda} (2*\lambda) ^n}{n!} = e^{-\lambda}  \sum_{n=0}^{\infty} \frac{(2*\lambda) ^n}{n!}\\
+	\text{now let } \lambda' = 2*\lambda => e^{-\lambda}  \sum_{n=0}^{\infty} \frac{(\lambda') ^n}{n!}\\
+	\text{we recognize this is the taylor expansion of the exponential function}\\
+	\text{we get} \sum_{n=0}^{\infty} \frac{(\lambda') ^n}{n!} = e^{\lambda'} = e^{2\lambda}  => E[2^X] = e^{-\lambda} e^{2\lambda}  = e^{\lambda} \square
+\end{gather}
+\item For X $\sim$ Geom(p), find $E[2^X]$ and $E[2^{-X}]$ (if it is finite).
+\begin{gather} 
+E[2^X] =\sum_{n=1}^{\infty} 2^n (1-p)^{n-1}*p \text{let} S = \sum_{n=1}^{\infty} 2^n (1-p)^{n-1} = 2 + 4(1-p) +... \\
+=>S*2(1-p) = 4(1-p) + 8(1-p)^2 + .. => S-S*2(1-p) = 2\\
+S-2S+2Sp = -S+2Sp = S(-1 + 2p) = 2 => S = \frac{2}{2p-1} =>E[2^X]=p*S = \frac{2p}{2p-1} \\
+\text{Similarly  }
+E[2^{-X}] = \sum_{n=1}^{\infty} 2^{-n} (1-p)^{n-1}*p \text{we let} S =\sum_{n=1}^{\infty} 2^{-n} (1-p)^{n-1} = \sum_{n=1}^{\infty} \frac{(1-p)^{n-1}}{2^n}\\
+= \frac{(1-p)^{0}}{2^1} + \frac{(1-p)^{1}}{2^2} + ... => S*\frac{1-p}{2} = \frac{(1-p)^{1}}{2^2} + \frac{(1-p)^{2}}{2^3} \\
+=> S-S*\frac{1-p}{2} = S(1-\frac{1-p}{2}) = \frac{1+p}{2} = \frac{1}{2} => S = \frac{1}{1+p}\\
+=> E[2^{-X}] = \frac{p}{1+p} \square
+\end{gather}
 \end{enumerate}
 
 \end{document}
