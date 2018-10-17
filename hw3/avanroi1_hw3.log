@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.18)  16 OCT 2018 23:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.18)  16 OCT 2018 23:07
 entering extended mode
-**./avanroi1_hw2.tex
-(avanroi1_hw2.tex
+**./avanroi1_hw3.tex
+(avanroi1_hw3.tex
 LaTeX2e <2016/02/01>
 Babel <3.9n> and hyphenation patterns for 69 languages loaded.
 ("C:\Users\BDVR\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\article.cls"
@@ -182,8 +182,8 @@ Package caption3 Info: TeX engine: e-TeX on input line 57.
 )
 \c@ContinuedFloat=\count101
 Package caption Info: float package is loaded.
-) (avanroi1_hw2.aux)
-\openout1 = `avanroi1_hw2.aux'.
+) (avanroi1_hw3.aux)
+\openout1 = `avanroi1_hw3.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 254.
 LaTeX Font Info:    ... okay on input line 254.
@@ -229,7 +229,7 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no ˆ in font cmr10!
 Missing character: There is no ¼ in font cmr10!
 
-[3] [4] [5] (avanroi1_hw2.aux) ) 
+[3] [4] [5] (avanroi1_hw3.aux) ) 
 Here is how much of TeX's memory you used:
  3487 strings out of 493622
  48503 string characters out of 3135547
@@ -253,7 +253,7 @@ ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/BDV
 R/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C
 :/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symb
 ols/msam10.pfb>
-Output written on avanroi1_hw2.pdf (5 pages, 138655 bytes).
+Output written on avanroi1_hw3.pdf (5 pages, 138655 bytes).
 PDF statistics:
  66 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
