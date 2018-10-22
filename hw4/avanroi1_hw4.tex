@@ -254,7 +254,7 @@
 \begin{document}
 
 \begin{title}
-	{\Large\bf Homework 3, DATA 556: Due Tuesday, 10/16/2018}
+	{\Large\bf Homework 4, DATA 556: Due Tuesday, 10/23/2018}
 \end{title}
 
 \author{\bf Alexander Van Roijen}
@@ -265,84 +265,179 @@
 Please complete the following:
 \begin{enumerate}
 \item Problem 1
+Let X be a continuous random variable with CDF F and PDF f.
 \begin{enumerate}
-	\item Find the mean and the variance of a Discrete Uniform random variable on 1, 2, ...,n.\\
-	Note that $\sum_{j=1}^{n} j = \frac{n(n+1)}{2}$ and  $\sum_{j=1}^{n} j^2 = \frac{n(n+1)(2n+1)}{6}$ are well known summations that can be proved via mathematical induction. \\ Refer to
-	http://mathforum.org/library/drmath/view/56920.html
-	for an example.\\
-	 Let $X \sim $ DUnif
+	\item Find the conditional CDF of X given $X > a$ (where a is a constant with $P(X>a) \ne 0$). That is, find $P(X\le x|X>a)$ for all a, in terms of F.
 	\begin{gather}
-	P(X = x) = \frac{1}{n} \text{ by the def of uniform distrib}\\
-	E[X] = \sum_{j=1}^{n} P(X=j)*j = \sum_{j=1}^{n} \frac{1}{n}*j = \frac{1}{n} *\sum_{j=1}^{n} j = \frac{1}{n} * \frac{n(n+1)}{2} = \frac{n+1}{2}\\
-	\text{It is a similar proof with a different subsitution for the expected value of X squared} \\
-	E[X^2] = \sum_{j=1}^{n} P(X=j)*(j^2) \text{ LOTUS} \\
-	= \sum_{j=1}^{n} \frac{1}{n}*(j^2) = \frac{1}{n} *\sum_{j=1}^{n} (j^2) = \frac{1}{n} * \frac{n(n+1)(2n+1)}{6} = \frac{(n+1)(2n+1)}{6}\\
-	E[X^2]-(E[X])^2 = \frac{(n+1)(2n+1)}{6} - (\frac{n+1}{2})^2\\
-	\frac{4*(n+1)(2n+1)}{24} - (\frac{6*(n+1)^2}{24}) = \frac{n^2-1}{12}
+	P(X \le x | X > a) = \int_{a}^{x} f(x) dx + \int_{\infty}^{a} f(x) dx = F(x) - F(a) + F(a) = F(x)
 	\end{gather}
-	\item Let X be a discrete random variable that satisfies the properties listed in the homework. Find E[X]
+	\item Find the conditional PDF of X given $X > a$.
 	\begin{gather}
-		\text{We have a symmetry such that } P(X=x)=P(X=-x)\\
-		E[X]= \sum_{x=-n}^{n} P(X=x)*x\\
-		= P(X=-n)*-n + P(X=-(n-1))*(-(n-1)) + ... + P(X=n)*n \\
-		= -1*(P(X=-n)*n - P(X=n)*n) + ... P(X=0)*0 \\
-		=  -1*(P(X=n)*n - P(X=n)*n) + ... P(X=0)*0 = 0+0+...+0 \\
-		\text{due to the symmetry of the probs}\\
-		=> E[X] = 0
+		\text{Take the result form above and take the derivative }\\
+		f(x) = F'(x) = \frac{dF(x)}{dx} = F'(x)-F'(a) = f(x) \text{as} \frac{dF(a)}{dx} = 0 \\
+		=> \text{the distributions pdf is no different}
 	\end{gather}
+	\item Check that the conditional PDF from (b) is a valid PDF, by showing directly that it is non negative and integrates to 1.
 \end{enumerate}
-\item We have X with PMF $P(X = k) = \frac{-1*p^k}{log(1-p)*k}$
-for k = 1, 2, . . .. Here p is a parameter with 0 < p < 1. Find the mean and the variance of X
+\item Problem 2: A circle with a random radius $R \sim Unif(0,1)$ is generated. Let A be its area.
 \\
-First, note that the value $\frac{-1}{log(1-p)}$ is a positive constant
-\begin{gather}
-	E[X] = \sum_{k=1}^{\infty} P(X=k)*k = \sum_{k=1}^{\infty} \frac{-1*p^k}{log(1-p)*k} * k = \sum_{x=1}^{\infty} \frac{-1*p^k}{log(1-p)} \\ 
-	= \frac{-1}{log(1-p)} \sum_{x=1}^{\infty} p^k \\
-	=> \sum_{x=1}^{\infty} p^k = S => S*p = \sum_{x=2}^{\infty} p^k => S-Sp = p => S= \frac{p}{(1-p)}\\
-	=> E[X] = \frac{-1}{log(1-p)} * \frac{p}{(1-p)}
-	\text{similarly, the }E[X^2] \text{is proved in a similar manner except} \\
-	S-Sp = \sum_{x=1}^{\infty} p^k \\
-	\text{which we already proved so by substituting we get}\\
-	S-Sp =  \frac{p}{(1-p)} => S = \frac{p}{(1-p)^2}\\
-	=> E[X^2] = \frac{-1}{log(1-p)} * \frac{p}{(1-p)^2}\\
-	=>Var(X) = E[X^2]-E[X]^2 = \frac{p(p-log(1-p))}{log(1-p)^2*(1-p)^2}
-\end{gather}	
-\item
 \begin{enumerate}
-	\item  Use LOTUS to show that for X $\sim$ Pois($\lambda$) and any function g(.), $E[Xg(X)] = \lambda E[g(X+1)]$
+	\item Use R to simulate mean and variance of A
+	\\
+	\begin{verbatim}
+		> set.seed(123)
+		> #this is 2a
+		> n=1000000
+		> results = runif(n,0,1)
+		> counter = 1
+		> areas=numeric(0)
+		> while(counter<n)
+		+ {
+		+   areas[counter] = results[counter] * results[counter] * pi
+		+   counter= counter + 1
+		+ }
+		> print(mean(areas))
+		[1] 1.045967
+		> print(var(areas))
+		[1] 0.8775327
+	\end{verbatim}
+	\item Find the theoretical mean and the variance of A, without first finding the CDF or PDF of A. Compare
+	with your numerical results from (a).
 	\begin{gather}
-		E[Xg(X)] = \sum_{x=0}^{\infty} x*g(x) \frac{e^{-\lambda} * \lambda ^ x}{x!} = \sum_{x=1}^{\infty} g(x)*\lambda \frac{e^{-\lambda} * \lambda ^{x-1}}{(x-1)!} \\
-		\text{now let there be a substitution such that j = x-1}\\
-		= \sum_{j=0}^{\infty} g(j+1)*\lambda \frac{e^{-\lambda} * \lambda ^{j}}{j!} =  \lambda * \sum_{j=0}^{\infty} g(j+1) \frac{e^{-\lambda} * \lambda ^{j}}{j!} \\
-		\text{We see how we can convert this back to a form we understand using LOTUS}\\
-		E[Xg(X)] = \lambda * E[g(X+1)] \\
+		E[A] = \pi E[r^2]\\
+		\text{we know r folows Unif(0,1)} => E[r^2] = Var(r) + E[r]^2 = \frac{1}{12} + \frac{1}{2}^2 = \frac{1}{3}\\
+		 => E[A] = \frac{\pi}{3} = 1.047198
 	\end{gather}
-	\item Find the third moment E($X^3$) for X ∼ Pois($\lambda$)
+	\item Find the CDF and PDF of A.
 	\begin{gather}
-		\text{let }g(x) = x^2
-		=> E(Xg(X))=\lambda E[g(X+1)]=\lambda * E[(X+1)^2]\\
-		= \lambda * E[X^2 + 2X+1] = \lambda * (E[X^2] + 2E[X] + 1) \\
-		\text{using the known properties of the variance and mean of the uniform dist we get}\\
-		= \lambda * (\lambda^2 + \lambda + 2\lambda + 1) = \lambda^3 + 3\lambda^2 + \lambda
+		F(x) = P(A \le x) = P(\pi R^2 \le x) = P(R \le \frac{\sqrt{x}}{\sqrt{\pi}})= F(x) = \frac{\sqrt{x}}{\sqrt{\pi}}\\
+		f(x) = F'(x) = \frac{1}{\pi} * \frac{d\sqrt{x}}{\sqrt{dx}} = \frac{1}{2\sqrt{x \pi}}
+		\\
+		\text{with } 0 \le x \le \pi
 	\end{gather}
 \end{enumerate}
-\item Show that for any events $A_1..A_n$,
-$P(A_1\cap...\cap A_n) \geq \sum_{j=1}^{n} P(A_j) - n +1$\\
-lets prove this through induction
-\begin{gather} 
-	\text{Base case, n=1:} P(A) \geq P(A) - 1 + 1 => P(A) \geq P(A)\\
-	\text{Now we assume this is true for 1 ... n, NTS for n+1}\\
-	\text{n+1 case:} \text{we have} \sum_{j=1}^{n+1} P(A_j) -(n+1) +1 = \sum_{j=1}^{n} P(A_j) + P(A_{n+1}) - (n+1) + 1\\
-	\text{Now notice we can rewrite} P(A_1 \cap .. \cap A_{n+1}) = P(B\cap A_{n+1}) \text{where} B=A_1\cap ... \cap A_n\\
-	=> P(B \cap A_{n+1}) = P(B) + P(A_{n+1}) - P(A_{n+1} \cup B) \text{by definition}\\
-	\text{By the induction hypothesis, we know} P(B) \geq \sum_{j=1}^{n} P(A_j) - n + 1\\
-	\text{That means all that is left to show is} P(A_{n+1}) - P(A_{n+1} \cup B) \geq  P(A_{n+1}) - 1\\
-	=>P(A_{n+1}) - P(A_{n+1} \cup B) \geq  P(A_{n+1}) - 1 => -P(A_{n+1} \cup B) \geq - 1 => P(A_{n+1} \cup B) \leq 1 \\
-	\text{We know this inequality is true as } 0 \leq P(X) \leq 1\\
-	\text{Thus, we have proved the induction step}. \square
-\end{gather}
-
-\item For X $\sim$ Pois($\lambda$), find $E[2^X]$ , if it is finite.
+\item A stick of length 1 is broken at a uniformly random point, yielding two pieces. Let X and Y be the lengths
+of the shorter and longer pieces, respectively, and let $R = \frac{X}{Y}$ be the ratio of the lengths of X and Y.
+\begin{enumerate}
+	\item  Use simulations in R (the statistical programming language) to gain some understanding about the distribution of the random variable R. Numerically estimate the expected value of R and $1/R$.
+	\begin{verbatim}
+		> set.seed(123)
+		> n= 1000
+		> results = runif(n,0,1)
+		> counter = 1
+		> xs = numeric(0)
+		> ys = numeric(0)
+		> while(counter <= n)
+		+ {
+		+   if(results[counter]>=0.5)
+		+   {
+		+     ys[counter]=results[counter]
+		+     xs[counter] = 1-ys[counter]
+		+   }
+		+   else
+		+   {
+		+     xs[counter] = results[counter]
+		+     ys[counter] = 1 -xs[counter]
+		+   }
+		+   counter = counter + 1
+		+ }
+		> rs = xs/ys
+		> print(mean(rs))
+		[1] 0.3877773
+		> print(mean(1/rs))
+		[1] 15.82287
+	\end{verbatim}
+	\item Find the CDF and PDF of R.\\
+	We note that since x is exclusively smaller than y of a unit length stick, then \\
+	$0\le X \le 0.5$ and $0.5 \le Y \le 1$ and $X = 1-Y $ and $Y= 1-X$
+	\begin{gather}
+		P(R \le r) = P(X/Y \le r) = P(X \le r*Y) \sim \text{DUnif}(0,\frac{0.5}{})
+	\end{gather}
+	\item Find the expected value of R (if it exists).
+	\begin{gather}
+		E[R] = E[\frac{X}{Y}] = E[\frac{X}{1-X}] = 
+	\end{gather}
+\end{enumerate}
+\item Let $U_1,...,U_n$ be i.i.d. $Unif(0,1)$, and $X = max(U_1,...,U_n)$.
+\begin{enumerate}
+	\item What is the PDF of X?
+	\begin{gather}
+		\text{CDF} = P(X \le x) = P(U_1 \le x , ... , U_n \le x) = P(U_1 \le x) *  ... * P(U_n \le x) \text{ since i.i.d}\\
+		=> \text{CDF} = x*x*x...*x = x^n => \text{ PDF } = \frac{dF}{dx} = n*x^{n-1} \text{ with } 0 \le x \le 1
+	\end{gather}
+	\item what is the $E[X]$
+	\begin{gather}
+		\int_{-\infty}^{\infty}x*f(x) = \int_{0}^{1}x*f(x) = \int_{0}^{1}x*n*x^{n-1} = \int_{0}^{1}n*x^{n} =\frac{n}{n+1}*(1^n) - 0 = \frac{n}{n+1}
+	\end{gather}
+	\item R simulation results / approx
+	\begin{verbatim}
+		> #4c
+		> set.seed(123)
+		> n=10
+		> runplenty=10000
+		> og = runif(n,0,1)
+		> counter=1
+		> result= numeric(0)
+		> while(counter<=runplenty)
+		+ {
+		+   og = runif(n,0,1)
+		+   result[counter]=max(og)
+		+   counter= counter+1
+		+ }
+		> print(mean(result))
+		[1] 0.9091953
+		> print(n/(n+1))
+		[1] 0.9090909
+	\end{verbatim}
+\end{enumerate}
+\item 
+\begin{enumerate}
+	\item Find $P(X < Y)$ for X $\sim N(a, b), Y \sim N(c, d)$ with X and Y independent
+	\begin{gather}
+		P(X<Y) = P(X-Y < 0) \sim N(a-b,c^2 + d^2) \text{ determined via hint}\\
+		= \int_{-\infty}^{0} \frac{1}{\sqrt{2\pi} \sigma} e ^ {\frac{{x-\mu}^2}{2\sigma ^2}} \text{ Where } \sigma = c^2 + d^2 \text{ and } \mu = a-b
+	\end{gather}
+	\item R simulation
+	\begin{verbatim}
+		#5b
+		> set.seed(123)
+		> n= 1000000
+		> resultsx = rnorm(n,0,1)
+		> resultsy = rnorm(n,1,5)
+		> trueResults = rnorm(n,-1,sqrt(26))
+		> counter = 1
+		> numCorr=0
+		> numCorr2=0
+		> results=numeric(0) 
+		> while(counter<=n)
+		+ {
+		+   if(resultsx[counter]<resultsy[counter])
+		+   {
+		+     numCorr = numCorr + 1
+		+   }
+		+   if(trueResults[counter]<0)
+		+   {
+		+     numCorr2 = numCorr2 + 1
+		+   }
+		+   counter= counter+1
+		+ }
+		> print(numCorr/n)
+		[1] 0.576969
+		> print(numCorr2/n)
+		[1] 0.577764
+	\end{verbatim}
+\end{enumerate}
+\item The heights of men in the United States are normally distributed with mean 69.1 inches and standard deviation
+2.9 inches. The heights of women are normally distributed with mean 63.7 inches and standard deviation 2.7 inches. Let x be the average height of 100 randomly sampled men, and y be the average height
+of 100 randomly sampled women.
+\begin{enumerate}
+	\item What is the distribution of x - y?
+	\begin{gather}
+		\text{Similar to 5a, just with a different valued distribution}\\
+		x-y \sim N(69.1-63.7,\sqrt{2.9^2+2.7^2}) = N(5.4,\sqrt{15.7})
+	\end{gather}
+	\item R monte carlo simulations 
+\end{enumerate}
 \begin{gather} 
 	E[2^X] =\sum_{n=0}^{\infty} \frac{2^n e^{-\lambda} \lambda ^n}{n!} = \sum_{n=0}^{\infty} \frac{e^{-\lambda} (2*\lambda) ^n}{n!} = e^{-\lambda}  \sum_{n=0}^{\infty} \frac{(2*\lambda) ^n}{n!}\\
 	\text{now let } \lambda' = 2*\lambda => e^{-\lambda}  \sum_{n=0}^{\infty} \frac{(\lambda') ^n}{n!}\\
