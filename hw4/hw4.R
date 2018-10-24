@@ -82,14 +82,28 @@ while(counter<=n)
 }
 print(numCorr/n)
 print(numCorr2/n)
-print(n/(n+1))
 
 #6b
+set.seed(123)
 n=100
-resultsx = rnorm(n,69.1,2.9)
-resultsy = rnorm(n,63.7,2.7)
+numTrials=10000
+counter=1
+diffRes = numeric(0)
+while(counter<numTrials)
+{
+  resultsx = rnorm(n,69.1,2.9)
+  resultsy = rnorm(n,63.7,2.7)
+  diffRes[counter] = mean(resultsx)-mean(resultsy)
+  counter = counter + 1
+}
+resultCalc = rnorm(n,5.4,sqrt(15.7/n))
+print(mean(diffRes))
+print(mean(resultCalc))
+print(var(diffRes))
+print(var(resultCalc))
 
 #7b,c
+set.seed(123)
 calcwithy = function(y,pindex)
 {
   set.seed(123)
@@ -127,3 +141,10 @@ for (yval in (0:5))
   plot(x=c(1:11),y=results,xlab=xlabel,ylab="probabilites",pch=16,main = title)
   dev.off()
 }
+#8b
+set.seed(123)
+n=10000
+unifVals = runif(n,0,1)
+invert = log(unifVals/(1-unifVals))
+res = (invert<3 & invert>2)
+print(sum(res == TRUE))

@@ -433,28 +433,108 @@ of 100 randomly sampled women.
 \begin{enumerate}
 	\item What is the distribution of x - y?
 	\begin{gather}
-		\text{Similar to 5a, just with a different valued distribution}\\
-		x-y \sim N(69.1-63.7,\sqrt{2.9^2+2.7^2}) = N(5.4,\sqrt{15.7})
+		\text{Similar to 5, except now we need to calculate the expected value and variance over the 100 samples}\\
+		E[x-y] = E[\frac{1}{n}\sum_{n=1}^{100} x_n-y_n] =\frac{1}{n}\sum_{n=1}^{100} E[X_n] - E[y_n] =\frac{1}{n}\sum_{n=1}^{100} (69.1-63.7) = \frac{1}{n} n*(69.1-63.7) \\
+		\text{we got this from the distributions of the random variables given}\\
+		=> E[x-y] = 5.4\\
+		\Var[x-y] = \Var[\frac{1}{n}\sum_{n=1}^{100} x_n-y_n] =\frac{1}{n^2}\Var[\sum_{n=1}^{100} x_n-y_n] \text{ from independence we get}\\
+		= \frac{1}{n^2}\sum_{n=1}^{100} (\Var[x_n]+\Var[y_n]) = \frac{1}{n^2}\sum_{n=1}^{100} (2.9^2+2.7^2) = \frac{1}{n^2}n (15.7) = \frac{1}{100}(15.7) \\
+		=> \Var[x-y] = \sqrt{\frac{15.7}{100}}^2\\
+		=>
+		x-y \sim N(5.4,\sqrt{\frac{15.7}{100}})
 	\end{gather}
 	\item R monte carlo simulations 
+	\begin{verbatim}
+		> set.seed(123)
+		> n=100
+		> numTrials=100000
+		> counter=1
+		> diffRes = numeric(0)
+		> while(counter<numTrials)
+		+ {
+		+   resultsx = rnorm(n,69.1,2.9)
+		+   resultsy = rnorm(n,63.7,2.7)
+		+   diffRes[counter] = mean(resultsx)-mean(resultsy)
+		+   counter = counter + 1
+		+ }
+		> resultCalc = rnorm(n,5.4,sqrt(15.7/n))
+		> print(mean(diffRes))
+		[1] 5.400457
+		> print(mean(resultCalc))
+		[1] 5.381992
+		> print(var(diffRes))
+		[1] 0.1570096
+		> print(var(resultCalc))
+		[1] 0.1590042
+	\end{verbatim}
+	Clearly, we can see that these make sense intuitively.\\
+	\item What is the probability that a man is taller than a randomly sampled woman?\\
+	let X be the RV for a man sampled and Y be a RV for a woman sampled
+	\begin{gather}
+		\text{Note, that the } P(X-Y<0) = P(X<Y) => P(X>Y) = 1 - P(X<Y) = 1 -P(X-Y<0) \\
+		\text{we can assume this as the } P(X=Y) = 0\\
+		\text{We know } X-Y \sim N(5.4,\sqrt{15.7})\\
+		=> 1-P(X-Y<0) = 
+	\end{gather}
 \end{enumerate}
-\begin{gather} 
-	E[2^X] =\sum_{n=0}^{\infty} \frac{2^n e^{-\lambda} \lambda ^n}{n!} = \sum_{n=0}^{\infty} \frac{e^{-\lambda} (2*\lambda) ^n}{n!} = e^{-\lambda}  \sum_{n=0}^{\infty} \frac{(2*\lambda) ^n}{n!}\\
-	\text{now let } \lambda' = 2*\lambda => e^{-\lambda}  \sum_{n=0}^{\infty} \frac{(\lambda') ^n}{n!}\\
-	\text{we recognize this is the taylor expansion of the exponential function}\\
-	\text{we get} \sum_{n=0}^{\infty} \frac{(\lambda') ^n}{n!} = e^{\lambda'} = e^{2\lambda}  => E[2^X] = e^{-\lambda} e^{2\lambda}  = e^{\lambda} \square
+\item Suppose we have a RV Y such that $Y \sim \text{Binom}(n=5,p = \theta)$
+\begin{enumerate}
+	\item Using Bayes Rule to determine $P(\theta | y)$ in terms of $\theta_i$
+	\begin{gather}
+		 P(\theta | y) = \frac{P(Y | \theta_i) * P(\theta_i)}{P(Y)} = \frac{\binom{5}{y} \theta_i^y(1-\theta_i)^{5-y} * \frac{1}{11}}{P(Y)}
+		 \\
+		 \text{Now with the law of total probability, we get}\\
+		 = \frac{\binom{5}{y} \theta_i^y(1-\theta_i)^{5-y} * \frac{1}{11}}{\sum_{i=0}^{11}\binom{5}{y} \theta_i^y(1-\theta_i)^{5-y} * \frac{1}{11}} = \frac{\frac{1}{11}\binom{5}{y} \theta_i^y(1-\theta_i)^{5-y}}{\binom{5}{y} \frac{1}{11}\sum_{i=0}^{11} \theta_i^y(1-\theta_i)^{5-y}} = \frac{ \theta_i^y(1-\theta_i)^{5-y}}{\sum_{i=0}^{11} \theta_i^y(1-\theta_i)^{5-y}}
+	\end{gather}
+	\item \& (c)
+	\begin{figure}[H]
+		\centering
+		\caption{Notice the 1 probability for $\theta$ = 0.0}
+		\includegraphics[scale=.6]{y=0graph.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{Here, we see a severe left skew due to the low success rate}
+		\includegraphics[scale=.6]{y=1graph.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{The skew becomes less severe as we have more successes}
+		\includegraphics[scale=.6]{y=2graph.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{The skew has shifted to the right side as we approach y = 5}
+		\includegraphics[scale=.6]{y=3graph.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{The skew is now extremely towards higher $\theta$ as the success rate increases}
+		\includegraphics[scale=.6]{y=4graph.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{Now since the success is all 5 cases, $\theta=1$ has 100 percent success}
+		\includegraphics[scale=.6]{y=5graph.pdf}
+	\end{figure}
+	The previous graphics make complete sense. In particular, notice that the end points are the edge cases of p = 0 and p = 1. In either case, you either need there to be all failures, or all successes, and is thus 0 probability or 1 depending on the y.
+\end{enumerate}
+\item a) Starting from independent uniform random variables (U $\sim$ Unif(0, 1)), devise an algorithm to generate independent samples from a Logistic distribution, having density
+\begin{gather}
+	f(x) = \frac{e^{-x}}{(1+e^{-x})^2} => F(x) = (1+e^{-x})^{-1}\\
+	=> \text{let } F(x) = u \text{ we want to solve for x in terms of you to find  } F^{-1} \\
+	\frac{1}{1+e^{-x}} = u => \frac{1}{u} = 1+e^{-x} => \frac{1-u}{u} = e^{-x} => \log(\frac{1-u}{u}) = -x => F^{-1}(X) = \log(\frac{u}{1-u})
 \end{gather}
-\item For X $\sim$ Geom(p), find $E[2^X]$ and $E[2^{-X}]$ (if it is finite).
-\begin{gather} 
-E[2^X] =\sum_{n=1}^{\infty} 2^n (1-p)^{n-1}*p \text{ let} S = \sum_{n=1}^{\infty} 2^n (1-p)^{n-1} = 2 + 4(1-p) +... \\
-=>S*2(1-p) = 4(1-p) + 8(1-p)^2 + .. => S-S*2(1-p) = 2\\
-S-2S+2Sp = -S+2Sp = S(-1 + 2p) = 2 => S = \frac{2}{2p-1} =>E[2^X]=p*S = \frac{2p}{2p-1} \\
-\text{Similarly  }
-E[2^{-X}] = \sum_{n=1}^{\infty} 2^{-n} (1-p)^{n-1}*p \text{ we let} S =\sum_{n=1}^{\infty} 2^{-n} (1-p)^{n-1} = \sum_{n=1}^{\infty} \frac{(1-p)^{n-1}}{2^n}\\
-= \frac{(1-p)^{0}}{2^1} + \frac{(1-p)^{1}}{2^2} + ... => S*\frac{1-p}{2} = \frac{(1-p)^{1}}{2^2} + \frac{(1-p)^{2}}{2^3} \\
-=> S-S*\frac{1-p}{2} = S(1-\frac{1-p}{2}) = S * \frac{1+p}{2} = \frac{1}{2} => S = \frac{1}{1+p}\\
-=> E[2^{-X}] = \frac{p}{1+p} \square
-\end{gather}
+b) R simulations
+\begin{verbatim}
+	> set.seed(123)
+	> n=10000
+	> unifVals = runif(n,0,1)
+	> invert = log(unifVals/(1-unifVals))
+	> res = (invert<3 & invert>2)
+	> print(sum(res == TRUE))
+	[1] 682
+\end{verbatim}
 \end{enumerate}
 
 \end{document}

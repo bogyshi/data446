@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.18)  21 OCT 2018 00:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.18)  23 OCT 2018 23:38
 entering extended mode
 **./avanroi1_hw4.tex
 (avanroi1_hw4.tex
@@ -234,35 +234,83 @@ Underfull \hbox (badness 10000) in paragraph at lines 285--287
 
  []
 
-[2] [3] [4] [5] [6] [7] (avanroi1_hw4.aux) ) 
+[2] [3] [4] [5] [6]
+Overfull \hbox (22.45381pt too wide) in paragraph at lines 445--445
+[] 
+ []
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 470--471
+
+ []
+
+
+Overfull \hbox (11.08057pt too wide) in paragraph at lines 478--478
+[] 
+ []
+
+<y=0graph.pdf, id=37, 505.89pt x 505.89pt>
+File: y=0graph.pdf Graphic file (type pdf)
+ <use y=0graph.pdf>
+Package pdftex.def Info: y=0graph.pdf used on input line 493.
+(pdftex.def)             Requested size: 303.53633pt x 303.53633pt.
+
+<y=1graph.pdf, id=38, 505.89pt x 505.89pt>
+File: y=1graph.pdf Graphic file (type pdf)
+ <use y=1graph.pdf>
+Package pdftex.def Info: y=1graph.pdf used on input line 498.
+(pdftex.def)             Requested size: 303.53633pt x 303.53633pt.
+ [8]
+<y=2graph.pdf, id=42, 505.89pt x 505.89pt>
+File: y=2graph.pdf Graphic file (type pdf)
+ <use y=2graph.pdf>
+Package pdftex.def Info: y=2graph.pdf used on input line 503.
+(pdftex.def)             Requested size: 303.53633pt x 303.53633pt.
+ [9 <./y=0graph.pdf>] <y=3graph.pdf, id=53, 505.89pt x 505.89pt>
+File: y=3graph.pdf Graphic file (type pdf)
+ <use y=3graph.pdf>
+Package pdftex.def Info: y=3graph.pdf used on input line 508.
+(pdftex.def)             Requested size: 303.53633pt x 303.53633pt.
+ [10 <./y=1graph.pdf>] <y=4graph.pdf, id=64, 505.89pt x 505.89pt>
+File: y=4graph.pdf Graphic file (type pdf)
+ <use y=4graph.pdf>
+Package pdftex.def Info: y=4graph.pdf used on input line 513.
+(pdftex.def)             Requested size: 303.53633pt x 303.53633pt.
+ [11 <./y=2graph.pdf>] <y=5graph.pdf, id=75, 505.89pt x 505.89pt>
+File: y=5graph.pdf Graphic file (type pdf)
+ <use y=5graph.pdf>
+Package pdftex.def Info: y=5graph.pdf used on input line 518.
+(pdftex.def)             Requested size: 303.53633pt x 303.53633pt.
+
+[12 <./y=3graph.pdf>] [13 <./y=4graph.pdf>] [14 <./y=5graph.pdf>] [15]
+(avanroi1_hw4.aux) ) 
 Here is how much of TeX's memory you used:
- 3489 strings out of 493622
- 48527 string characters out of 3135547
- 118491 words of memory out of 3000000
- 6861 multiletter control sequences out of 15000+200000
+ 3526 strings out of 493622
+ 49087 string characters out of 3135547
+ 116491 words of memory out of 3000000
+ 6892 multiletter control sequences out of 15000+200000
  14595 words of font info for 54 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 36i,10n,38p,256b,396s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/BDVR/AppData/Local/Progra
-ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/BDVR/AppData/
-Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/B
-DVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb
-><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmmi6.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
-/amsfonts/cm/cmmi8.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/BDVR/AppData/Local/Progr
-ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/BDVR/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/BDVR
-/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C
-:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-msy6.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmsy8.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type
-1/public/amsfonts/cm/cmtt10.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.
-9/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on avanroi1_hw4.pdf (7 pages, 167051 bytes).
+ 36i,10n,39p,382b,425s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmbx12.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/BDVR/AppData/Local/Progra
+ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/BDVR/AppData/
+Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/BD
+VR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><
+C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmr10.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/a
+msfonts/cm/cmr12.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmr6.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/BDVR/AppData/Local/Programs/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/BDVR/AppData/Loc
+al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/BDVR/
+AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/
+Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmt
+t10.pfb>
+Output written on avanroi1_hw4.pdf (15 pages, 194770 bytes).
 PDF statistics:
- 82 PDF objects out of 1000 (max. 8388607)
+ 151 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
