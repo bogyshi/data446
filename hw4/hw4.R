@@ -14,7 +14,7 @@ print(var(areas))
 
 #this is 3a
 set.seed(123)
-n= 100000
+n= 10000000
 results = runif(n,0,1)
 counter = 1
 xs = numeric(0)
@@ -101,7 +101,7 @@ print(mean(diffRes))
 print(mean(resultCalc))
 print(var(diffRes))
 print(var(resultCalc))
-
+print(1-pnorm(0,5.4,sqrt(15.7/n)))
 #7b,c
 set.seed(123)
 calcwithy = function(y,pindex)

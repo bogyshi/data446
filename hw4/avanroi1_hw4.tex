@@ -269,15 +269,31 @@ Let X be a continuous random variable with CDF F and PDF f.
 \begin{enumerate}
 	\item Find the conditional CDF of X given $X > a$ (where a is a constant with $P(X>a) \ne 0$). That is, find $P(X\le x|X>a)$ for all a, in terms of F.
 	\begin{gather}
-	P(X \le x | X > a) = \int_{a}^{x} f(x) dx + \int_{\infty}^{a} f(x) dx = F(x) - F(a) + F(a) = F(x)
+	P(X \le x | X > a) = \frac{P(X \le x , X > a)}{P(X>a)} = \frac{P(X \le x , X > a)}{1-P(X<a)} = \frac{P(X \le x , X > a)}{1-F(a)} \\
+	P(X \le x , X > a) = P(X<x) - P(X<a) = F(x) - F(a)\\
+	=>P(X \le x | X > a) = \frac{F(x)-F(a)}{1-F(a)}
 	\end{gather}
 	\item Find the conditional PDF of X given $X > a$.
 	\begin{gather}
-		\text{Take the result form above and take the derivative }\\
-		f(x) = F'(x) = \frac{dF(x)}{dx} = F'(x)-F'(a) = f(x) \text{as} \frac{dF(a)}{dx} = 0 \\
-		=> \text{the distributions pdf is no different}
+	\text{Take the result form above and take the derivative }\\
+	f(X|X>a) = F'(X|X>a) = \frac{dF(X|X>a)}{dx} = \frac{F'(x)-F'(a)}{1-F(a)} \text{ with} \frac{dF(a)}{dx} = 0 \\
+	=> f(X|X>a) =\frac{f(x)}{1-F(a)}
 	\end{gather}
 	\item Check that the conditional PDF from (b) is a valid PDF, by showing directly that it is non negative and integrates to 1.
+	\begin{gather}
+	f(X|X>a) \ge 0 \forall x \text{ as } f(X|X>a) =\frac{f(x)}{1-F(a)} \\
+	\text{and we know that } f(x) \ge 0 \forall x \text{ as well as that } 1-F(a) \text{ is a const}
+	\\
+	\text{Thusly, } f(X|X>a) \ge 0 \forall x \text{ according to these facts}
+	\\
+	\\
+	\text{Now we show } \int_{-\infty}^{\infty} f(X|X>a)dx = 1 \text{ using the fact that } \int_{-\infty}^{\infty} f(x)dx =  = 1 \\
+	\int_{-\infty}^{\infty} f(X|X>a)dx = \int_{-\infty}^{a} f(X|X>a)dx + \int_{a}^{\infty} f(X|X>a)dx = \int_{a}^{\infty} f(X|X>a)dx\\
+	\text{the above is true as we know $f(X|X>a)$ has no density for x below a}
+	\\
+	=\int_{a}^{\infty} \frac{f(x)}{1-F(a)}dx = \frac{1}{1-F(a)}\int_{a}^{\infty} f(x)dx \text{ and since we know F is a valid cdf we get }\\
+	= \frac{1}{1-F(a)}[F(\infty) -F(a)] = \frac{1}{1-F(a)}[1 -F(a)] = 1 \square 
+	\end{gather}
 \end{enumerate}
 \item Problem 2: A circle with a random radius $R \sim Unif(0,1)$ is generated. Let A be its area.
 \\
@@ -285,35 +301,38 @@ Let X be a continuous random variable with CDF F and PDF f.
 	\item Use R to simulate mean and variance of A
 	\\
 	\begin{verbatim}
-		> set.seed(123)
-		> #this is 2a
-		> n=1000000
-		> results = runif(n,0,1)
-		> counter = 1
-		> areas=numeric(0)
-		> while(counter<n)
-		+ {
-		+   areas[counter] = results[counter] * results[counter] * pi
-		+   counter= counter + 1
-		+ }
-		> print(mean(areas))
-		[1] 1.045967
-		> print(var(areas))
-		[1] 0.8775327
+	> set.seed(123)
+	> #this is 2a
+	> n=1000000
+	> results = runif(n,0,1)
+	> counter = 1
+	> areas=numeric(0)
+	> while(counter<n)
+	+ {
+	+   areas[counter] = results[counter] * results[counter] * pi
+	+   counter= counter + 1
+	+ }
+	> print(mean(areas))
+	[1] 1.045967
+	> print(var(areas))
+	[1] 0.8775327
 	\end{verbatim}
 	\item Find the theoretical mean and the variance of A, without first finding the CDF or PDF of A. Compare
 	with your numerical results from (a).
 	\begin{gather}
-		E[A] = \pi E[r^2]\\
-		\text{we know r folows Unif(0,1)} => E[r^2] = Var(r) + E[r]^2 = \frac{1}{12} + \frac{1}{2}^2 = \frac{1}{3}\\
-		 => E[A] = \frac{\pi}{3} = 1.047198
+	E[A] = \pi E[r^2]\\
+	\text{we know r folows Unif(0,1)} => E[r^2] = Var(r) + E[r]^2 = \frac{1}{12} + \frac{1}{2}^2 = \frac{1}{3}\\
+	=> E[A] = \frac{\pi}{3} = 1.047198\\
+	\var[A] = \var[\pi * r^2] = \pi^2\var[r^2] = \pi^2 * (E[r^4]-E[r^2]^2) = 
+	\pi^2 (\int_{0}^{1}r^4 dr -(\frac{1}{3})^2) \\
+	= \pi^2 (\frac{1}{5} -\frac{1}{9}) = 0.87729816898 
 	\end{gather}
 	\item Find the CDF and PDF of A.
 	\begin{gather}
-		F(x) = P(A \le x) = P(\pi R^2 \le x) = P(R \le \frac{\sqrt{x}}{\sqrt{\pi}})= F(x) = \frac{\sqrt{x}}{\sqrt{\pi}}\\
-		f(x) = F'(x) = \frac{1}{\pi} * \frac{d\sqrt{x}}{\sqrt{dx}} = \frac{1}{2\sqrt{x \pi}}
-		\\
-		\text{with } 0 \le x \le \pi
+	F(x) = P(A \le x) = P(\pi R^2 \le x) = P(R \le \frac{\sqrt{x}}{\sqrt{\pi}})= F(x) = \frac{\sqrt{x}}{\sqrt{\pi}}\\
+	f(x) = F'(x) = \frac{1}{\pi} * \frac{d\sqrt{x}}{\sqrt{dx}} = \frac{1}{2\sqrt{x \pi}}
+	\\
+	\text{with } 0 \le x \le \pi
 	\end{gather}
 \end{enumerate}
 \item A stick of length 1 is broken at a uniformly random point, yielding two pieces. Let X and Y be the lengths
@@ -321,41 +340,57 @@ of the shorter and longer pieces, respectively, and let $R = \frac{X}{Y}$ be the
 \begin{enumerate}
 	\item  Use simulations in R (the statistical programming language) to gain some understanding about the distribution of the random variable R. Numerically estimate the expected value of R and $1/R$.
 	\begin{verbatim}
-		> set.seed(123)
-		> n= 1000
-		> results = runif(n,0,1)
-		> counter = 1
-		> xs = numeric(0)
-		> ys = numeric(0)
-		> while(counter <= n)
-		+ {
-		+   if(results[counter]>=0.5)
-		+   {
-		+     ys[counter]=results[counter]
-		+     xs[counter] = 1-ys[counter]
-		+   }
-		+   else
-		+   {
-		+     xs[counter] = results[counter]
-		+     ys[counter] = 1 -xs[counter]
-		+   }
-		+   counter = counter + 1
-		+ }
-		> rs = xs/ys
-		> print(mean(rs))
-		[1] 0.3877773
-		> print(mean(1/rs))
-		[1] 15.82287
+	> set.seed(123)
+	> n= 1000
+	> results = runif(n,0,1)
+	> counter = 1
+	> xs = numeric(0)
+	> ys = numeric(0)
+	> while(counter <= n)
+	+ {
+	+   if(results[counter]>=0.5)
+	+   {
+	+     ys[counter]=results[counter]
+	+     xs[counter] = 1-ys[counter]
+	+   }
+	+   else
+	+   {
+	+     xs[counter] = results[counter]
+	+     ys[counter] = 1 -xs[counter]
+	+   }
+	+   counter = counter + 1
+	+ }
+	> rs = xs/ys
+	> print(mean(rs))
+	[1] 0.3877773
+	> print(mean(1/rs))
+	[1] 15.82287
 	\end{verbatim}
 	\item Find the CDF and PDF of R.\\
 	We note that since x is exclusively smaller than y of a unit length stick, then \\
-	$0\le X \le 0.5$ and $0.5 \le Y \le 1$ and $X = 1-Y $ and $Y= 1-X$
+	$0\le X \le 0.5$ and $0.5 \le Y \le 1$ and $X = 1-Y $ and $Y= 1-X$\\
+	and that X = min(U,1-U) and Y = max(U,1-U)
 	\begin{gather}
-		P(R \le r) = P(X/Y \le r) = P(X \le r*Y) \sim \text{DUnif}(0,\frac{0.5}{})
+	P(R \le r) = P(\frac{X}{Y} \le r) =  P(\frac{X}{(1-X)} \le r) = P(X \le r*(1-X)) = P(X + rX \le r) \\
+	= P(X(1+r) \le r) = P(X \le \frac{r}{1+r}) = P(\text{min}(U \text{ or }1-U) \le \frac{r}{1+r}) \\
+	= P(U\le \frac{r}{1+r}) + P((1-U) \le \frac{r}{1+r}) + P(U\cap(1-U)\le \frac{r}{1+r}) \text{ by def of OR/union} \\
+	= P(U\le \frac{r}{1+r}) + P((1-U) \le \frac{r}{1+r}) + 0 \\
+	\text{ the above is true as in the intersect case, both U values cant be realized simultaneously}\\
+	\text{(except for when U = .5, but this is a single point in a continuous distribution)}\\
+	= P(U\le \frac{r}{1+r}) + P(U \ge 1 - \frac{r}{1+r} ) =  P(U\le \frac{r}{1+r}) + 1 - P(U \le 1 - \frac{r}{1+r} ) \\
+	= \frac{r}{1+r} + 1 - (1-\frac{r}{1+r}) = \frac{r}{1+r} + 1 - \frac{1}{1+r} \\
+	=> F(r) = \frac{2r}{1+r} \\
+	=> f(r) = (1+r)^{-1} \frac{d}{dr}(2r)+ 2r\frac{d}{dr}(1+r)^{-1}=(1+r)^{-1}(2)+ 2r(-1)(1+r)^{2} \\
+	= \frac{2+2r - 2r}{(1+r)^{2}} = f(r) = \frac{2}{(1+r)^{2}}
 	\end{gather}
 	\item Find the expected value of R (if it exists).
 	\begin{gather}
-		E[R] = E[\frac{X}{Y}] = E[\frac{X}{1-X}] = 
+	E[R] = \int_{-\infty}^{\infty}r*f(r)dr = \int_{-\infty}^{\infty}\frac{2r}{(1+r)^{2}}dr = \int_{0}^{1}\frac{2r}{(1+r)^{2}}dr = 2(\frac{1}{1+r} + \log(1+r))\Big|_0^1\\ 
+	= 2((\frac{1}{2} + \log(2)) - (\frac{1}{1} + \log(1))) = 2((\frac{1}{2} + \log(2)) - 1) = 2\log(2) - 1 = 0.3862944
+	\end{gather}
+	\item Find the expected value of 1/R if it exits.
+	\begin{gather}
+		\text{this does not exist as the log of zero is undefined}
 	\end{gather}
 \end{enumerate}
 \item Let $U_1,...,U_n$ be i.i.d. $Unif(0,1)$, and $X = max(U_1,...,U_n)$.
@@ -474,7 +509,7 @@ of 100 randomly sampled women.
 		\text{Note, that the } P(X-Y<0) = P(X<Y) => P(X>Y) = 1 - P(X<Y) = 1 -P(X-Y<0) \\
 		\text{we can assume this as the } P(X=Y) = 0\\
 		\text{We know } X-Y \sim N(5.4,\sqrt{15.7})\\
-		=> 1-P(X-Y<0) = 
+		=> 1-P(X-Y<0) = 1 - 0.08646693 = .9135331
 	\end{gather}
 \end{enumerate}
 \item Suppose we have a RV Y such that $Y \sim \text{Binom}(n=5,p = \theta)$
