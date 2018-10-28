@@ -265,15 +265,33 @@
 Please complete the following:
 \begin{enumerate}
 \item Problem 1
-Let X be a continuous random variable with CDF F and PDF f.
+Let $U \sim $Unif(a, b).
 \begin{enumerate}
-	\item Find the conditional CDF of X given $X > a$ (where a is a constant with $P(X>a) \ne 0$). That is, find $P(X\le x|X>a)$ for all a, in terms of F.
-	\begin{gather}
-	P(X \le x | X > a) = \frac{P(X \le x , X > a)}{P(X>a)} = \frac{P(X \le x , X > a)}{1-P(X<a)} = \frac{P(X \le x , X > a)}{1-F(a)} \\
-	P(X \le x , X > a) = P(X<x) - P(X<a) = F(x) - F(a)\\
-	=>P(X \le x | X > a) = \frac{F(x)-F(a)}{1-F(a)}
-	\end{gather}
-	\item Find the conditional PDF of X given $X > a$.
+	\item Use simulations in R (the statistical programming language) to numerically estimate the median and
+	the mode of U for a = 0 and b = 2.
+	\begin{verbatim}
+	set.seed(123)
+	n=100000
+	binUnif(n,0,2)
+		binUnif= function(n,a,b)
+		{
+		resultsog = runif(n,a,b)
+		results = floor(resultsog*10)
+		data = data.frame(results)
+		vals = seq(a,b,.1)
+		p<-ggplot(data=data, aes(x=factor(data[,1]))) +geom_bar(stat="count") + scale_x_discrete(labels=vals)
+		p
+		#barplot(results,main="whatev",width=0.5)
+		print(median(resultsog))
+		}
+	[1] 0.9987686
+	\end{verbatim}
+	\begin{figure}[H]
+		\centering
+		\caption{Mode roughly equivalent across all values of x}
+		\includegraphics[scale=.6]{Rplot.png}
+	\end{figure}
+	\item Find the Median and Mode of $U \sim $ Unif(a,b)
 	\begin{gather}
 	\text{Take the result form above and take the derivative }\\
 	f(X|X>a) = F'(X|X>a) = \frac{dF(X|X>a)}{dx} = \frac{F'(x)-F'(a)}{1-F(a)} \text{ with} \frac{dF(a)}{dx} = 0 \\
@@ -526,36 +544,6 @@ of 100 randomly sampled women.
 		 = \frac{\binom{5}{y} \theta_i^y(1-\theta_i)^{5-y} * \frac{1}{11}}{\sum_{i=0}^{11}\binom{5}{y} \theta_i^y(1-\theta_i)^{5-y} * \frac{1}{11}} = \frac{\frac{1}{11}\binom{5}{y} \theta_i^y(1-\theta_i)^{5-y}}{\binom{5}{y} \frac{1}{11}\sum_{i=0}^{11} \theta_i^y(1-\theta_i)^{5-y}} = \frac{ \theta_i^y(1-\theta_i)^{5-y}}{\sum_{i=0}^{11} \theta_i^y(1-\theta_i)^{5-y}}
 	\end{gather}
 	\item \& (c)
-	\begin{figure}[H]
-		\centering
-		\caption{Notice the high probability for $\theta$ = 0.0}
-		\includegraphics[scale=.6]{y=0graph.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{Here, we see a severe left skew due to the low success rate}
-		\includegraphics[scale=.6]{y=1graph.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{The skew becomes less severe as we have more successes}
-		\includegraphics[scale=.6]{y=2graph.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{The skew has shifted to the right side as we approach y = 5}
-		\includegraphics[scale=.6]{y=3graph.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{The skew is now extremely towards higher $\theta$ as the success rate increases}
-		\includegraphics[scale=.6]{y=4graph.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{Now since the success is all 5 cases, $\theta=1$ has the highest likelihood}
-		\includegraphics[scale=.6]{y=5graph.pdf}
-	\end{figure}
 	The previous graphics make complete sense. In particular, notice that the end points are the edge cases of p = 0 and p = 1. In either case, you either need there to be all failures, or all successes, and is thus 0 probability or 1 depending on the y.
 	Further, its interesting to note the symmetric nature of this distribution due to the binomial nature and  $\theta$ and $1-\theta$ relationship
 \end{enumerate}

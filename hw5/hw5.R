@@ -7,22 +7,24 @@ library("data.table", lib.loc="~/R/win-library/3.5")
 library("MLmetrics", lib.loc="~/R/win-library/3.5")
 library(reshape2)
 
-getMedianandMode= function(n,type)
+binUnif= function(n,a,b)
 {
-  results = runif(n,0,2)
+  resultsog = runif(n,a,b)
+  results = floor(resultsog*10)
   data = data.frame(results)
-  p<-ggplot(data=data, aes(y=results[,1])) +geom_bar(stat="identity")
+  vals = seq(a,b,.1)
+  p<-ggplot(data=data, aes(x=factor(data[,1]))) +geom_bar(stat="count") + scale_x_discrete(labels=vals)
   p
   #barplot(results,main="whatev",width=0.5)
-  print(median(results))
+  print(median(resultsog))
   #print(forMode[c(1:10),])
 }
 
 
 #this is 1a
 set.seed(123)
-n=1000
-getMedianandMode(n,"uniform")
+n=100000
+binUnif(n,0,2)
 
 results = runif(n,0,1)
 counter = 1
