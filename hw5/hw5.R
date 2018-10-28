@@ -1,6 +1,29 @@
+library(ggplot2)
+library("faraway")
+require(faraway)
+library("leaps")
+require(MASS)
+library("data.table", lib.loc="~/R/win-library/3.5")
+library("MLmetrics", lib.loc="~/R/win-library/3.5")
+library(reshape2)
+
+getMedianandMode= function(n,type)
+{
+  results = runif(n,0,2)
+  data = data.frame(results)
+  p<-ggplot(data=data, aes(y=results[,1])) +geom_bar(stat="identity")
+  p
+  #barplot(results,main="whatev",width=0.5)
+  print(median(results))
+  #print(forMode[c(1:10),])
+}
+
+
+#this is 1a
 set.seed(123)
-#this is 2a
-n=1000000
+n=1000
+getMedianandMode(n,"uniform")
+
 results = runif(n,0,1)
 counter = 1
 areas=numeric(0)
