@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.18)  28 OCT 2018 13:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.18)  28 OCT 2018 23:08
 entering extended mode
 **./avanroi1_hw5.tex
 (avanroi1_hw5.tex
@@ -225,75 +225,150 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {C:/Users/BDVR/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Overfull \hbox (176.78134pt too wide) in paragraph at lines 288--288
- []\OT1/cmtt/m/n/10.95 p<-ggplot(data=data, aes(x=factor(data[,1]))) +geom_bar(
-stat="count") + scale_x_discrete(labels=vals)[] 
+Overfull \hbox (199.7761pt too wide) in paragraph at lines 294--294
+ []\OT1/cmtt/m/n/10.95 +   p<-ggplot(data=data, aes(x=factor(data[,1]))) +geom_
+bar(stat="count") + scale_x_discrete(labels=vals)[] 
  []
 
 <Rplot.png, id=8, 639.13782pt x 599.23875pt>
 File: Rplot.png Graphic file (type png)
  <use Rplot.png>
-Package pdftex.def Info: Rplot.png used on input line 292.
+Package pdftex.def Info: Rplot.png used on input line 298.
 (pdftex.def)             Requested size: 383.48566pt x 359.54602pt.
- [2] [3 <./Rplot.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 316--319
+ [2]
+Underfull \hbox (badness 10000) in paragraph at lines 307--310
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 319--321
+Underfull \hbox (badness 10000) in paragraph at lines 310--312
 
  []
 
-[4] [5] [6]
-Overfull \hbox (15.56775pt too wide) in paragraph at lines 413--413
+[3 <./Rplot.png>]
+Overfull \hbox (199.7761pt too wide) in paragraph at lines 334--334
+ []\OT1/cmtt/m/n/10.95 +   p<-ggplot(data=data, aes(x=factor(data[,1]))) +geom_
+bar(stat="count") + scale_x_discrete(labels=vals)[] 
+ []
+
+<barplotexpo.png, id=20, 639.13782pt x 599.23875pt>
+File: barplotexpo.png Graphic file (type png)
+ <use barplotexpo.png>
+Package pdftex.def Info: barplotexpo.png used on input line 338.
+(pdftex.def)             Requested size: 383.48566pt x 359.54602pt.
+
+[4] [5 <./barplotexpo.png>] [6] <1graph.pdf, id=31, 505.89pt x 505.89pt>
+File: 1graph.pdf Graphic file (type pdf)
+
+<use 1graph.pdf>
+Package pdftex.def Info: 1graph.pdf used on input line 401.
+(pdftex.def)             Requested size: 202.3524pt x 202.3524pt.
+ <2graph.pdf, id=32, 505.89pt x 505.89pt>
+File: 2graph.pdf Graphic file (type pdf)
+ <use 2graph.pdf>
+Package pdftex.def Info: 2graph.pdf used on input line 406.
+(pdftex.def)             Requested size: 202.3524pt x 202.3524pt.
+
+<3graph.pdf, id=33, 505.89pt x 505.89pt>
+File: 3graph.pdf Graphic file (type pdf)
+ <use 3graph.pdf>
+Package pdftex.def Info: 3graph.pdf used on input line 411.
+(pdftex.def)             Requested size: 202.3524pt x 202.3524pt.
+ [7 <./1graph.pdf>]
+<4graph.pdf, id=43, 505.89pt x 505.89pt>
+File: 4graph.pdf Graphic file (type pdf)
+ <use 4graph.pdf>
+Package pdftex.def Info: 4graph.pdf used on input line 416.
+(pdftex.def)             Requested size: 202.3524pt x 202.3524pt.
+
+<5graph.pdf, id=44, 505.89pt x 505.89pt>
+File: 5graph.pdf Graphic file (type pdf)
+ <use 5graph.pdf>
+Package pdftex.def Info: 5graph.pdf used on input line 421.
+(pdftex.def)             Requested size: 202.3524pt x 202.3524pt.
+ [8 <./2graph.pdf> <./3graph.pdf>] <6graph.pdf, id=58, 505.89pt x 505.89pt>
+File: 6graph.pdf Graphic file (type pdf)
+ <use 6graph.pdf>
+Package pdftex.def Info: 6graph.pdf used on input line 426.
+(pdftex.def)             Requested size: 202.3524pt x 202.3524pt.
+
+<7graph.pdf, id=59, 505.89pt x 505.89pt>
+File: 7graph.pdf Graphic file (type pdf)
+ <use 7graph.pdf>
+Package pdftex.def Info: 7graph.pdf used on input line 431.
+(pdftex.def)             Requested size: 202.3524pt x 202.3524pt.
+ [9 <./4graph.pdf> <./5graph.pdf>] <8graph.pdf, id=73, 505.89pt x 505.89pt>
+File: 8graph.pdf Graphic file (type pdf)
+ <use 8graph.pdf>
+Package pdftex.def Info: 8graph.pdf used on input line 436.
+(pdftex.def)             Requested size: 202.3524pt x 202.3524pt.
+
+<9graph.pdf, id=74, 505.89pt x 505.89pt>
+File: 9graph.pdf Graphic file (type pdf)
+ <use 9graph.pdf>
+Package pdftex.def Info: 9graph.pdf used on input line 441.
+(pdftex.def)             Requested size: 202.3524pt x 202.3524pt.
+ [10 <./6graph.pdf> <./7graph.pdf>] <10graph.pdf, id=88, 505.89pt x 505.89pt>
+File: 10graph.pdf Graphic file (type pdf)
+ <use 10graph.pdf>
+Package pdftex.def Info: 10graph.pdf used on input line 446.
+(pdftex.def)             Requested size: 202.3524pt x 202.3524pt.
+
+[11 <./8graph.pdf> <./9graph.pdf>] [12 <./10graph.pdf>]
+<discreteOdd.pdf, id=110, 614.295pt x 794.97pt>
+File: discreteOdd.pdf Graphic file (type pdf)
+ <use discreteOdd.pdf>
+Package pdftex.def Info: discreteOdd.pdf used on input line 479.
+(pdftex.def)             Requested size: 245.71364pt x 317.98236pt.
+
+<evenDisc.pdf, id=111, 614.295pt x 794.97pt>
+File: evenDisc.pdf Graphic file (type pdf)
+ <use evenDisc.pdf>
+Package pdftex.def Info: evenDisc.pdf used on input line 484.
+(pdftex.def)             Requested size: 245.71364pt x 317.98236pt.
+ [13] [14 <./discreteOdd.pdf>] [15 <./evenDisc.pdf>] [16]
+Overfull \hbox (22.45381pt too wide) in paragraph at lines 573--573
 [] 
  []
 
-[7] [8] [9]
-Overfull \hbox (22.45381pt too wide) in paragraph at lines 501--501
+[17] [18]
+Underfull \hbox (badness 10000) in paragraph at lines 598--599
+
+ []
+
+
+Overfull \hbox (11.08057pt too wide) in paragraph at lines 606--606
 [] 
  []
 
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 526--527
-
- []
-
-
-Overfull \hbox (11.08057pt too wide) in paragraph at lines 534--534
-[] 
- []
-
-[11] [12] [13] (avanroi1_hw5.aux) ) 
+[19] [20] (avanroi1_hw5.aux) ) 
 Here is how much of TeX's memory you used:
- 3513 strings out of 493622
- 48786 string characters out of 3135547
- 120491 words of memory out of 3000000
- 6878 multiletter control sequences out of 15000+200000
- 16156 words of font info for 60 fonts, out of 3000000 for 9000
+ 3567 strings out of 493622
+ 49643 string characters out of 3135547
+ 117491 words of memory out of 3000000
+ 6924 multiletter control sequences out of 15000+200000
+ 14595 words of font info for 54 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 36i,13n,39p,382b,413s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/BDVR/AppData/Local/Programs/MiKTeX
- 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/BDVR/AppData/Local/Pro
-grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/BDVR/AppDa
-ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/User
-s/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.p
-fb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmmi8.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmr10.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/BDVR/AppData/Local/Prog
-rams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/BDVR/AppData/
-Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/B
-DVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb>
-<C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmsy8.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmtt10.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/t
-ype1/public/amsfonts/symbols/msam10.pfb>
-Output written on avanroi1_hw5.pdf (13 pages, 187250 bytes).
+ 36i,16n,39p,382b,421s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/BDVR/AppData/Local/Programs
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/BDVR/AppData/Lo
+cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/BDV
+R/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C
+:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mmi8.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmr10.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmr12.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/BDVR/AppData/Local/Programs/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/BDVR/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/BDVR/A
+ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/U
+sers/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy
+8.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmtt10.pfb>
+Output written on avanroi1_hw5.pdf (20 pages, 235988 bytes).
 PDF statistics:
- 103 PDF objects out of 1000 (max. 8388607)
+ 195 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 

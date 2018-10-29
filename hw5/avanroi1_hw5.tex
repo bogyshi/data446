@@ -270,21 +270,27 @@ Let $U \sim $Unif(a, b).
 	\item Use simulations in R (the statistical programming language) to numerically estimate the median and
 	the mode of U for a = 0 and b = 2.
 	\begin{verbatim}
-	set.seed(123)
-	n=100000
-	binUnif(n,0,2)
-		binUnif= function(n,a,b)
-		{
-		resultsog = runif(n,a,b)
-		results = floor(resultsog*10)
-		data = data.frame(results)
-		vals = seq(a,b,.1)
-		p<-ggplot(data=data, aes(x=factor(data[,1]))) +geom_bar(stat="count") + scale_x_discrete(labels=vals)
-		p
-		#barplot(results,main="whatev",width=0.5)
-		print(median(resultsog))
-		}
-	[1] 0.9987686
+	> binUnif= function(n,a,b)
+	+ {
+	+   resultsog = runif(n,a,b)
+	+   results = floor(resultsog*10)
+	+   data = data.frame(results)
+	+   vals = seq(a,b,.1)
+	+   p<-ggplot(data=data, aes(x=factor(data[,1]))) +geom_bar(stat="count") + scale_x_discrete(labels=vals)
+	+   p
+	+   #barplot(results,main="whatev",width=0.5)
+	+   print(median(resultsog))
+	+   getmode = table(resultsog)
+	+   print(which.max(getmode))
+	+   #print(forMode[c(1:10),])
+	+ }
+	> #this is 1a
+	> set.seed(123)
+	> n=1000000
+	> binUnif(n,0,2)
+	[1] 0.9983065
+	0.0349205480888486 
+	17519 
 	\end{verbatim}
 	\begin{figure}[H]
 		\centering
@@ -297,120 +303,186 @@ Let $U \sim $Unif(a, b).
 	f(X|X>a) = F'(X|X>a) = \frac{dF(X|X>a)}{dx} = \frac{F'(x)-F'(a)}{1-F(a)} \text{ with} \frac{dF(a)}{dx} = 0 \\
 	=> f(X|X>a) =\frac{f(x)}{1-F(a)}
 	\end{gather}
-	\item Check that the conditional PDF from (b) is a valid PDF, by showing directly that it is non negative and integrates to 1.
-	\begin{gather}
-	f(X|X>a) \ge 0 \forall x \text{ as } f(X|X>a) =\frac{f(x)}{1-F(a)} \\
-	\text{and we know that } f(x) \ge 0 \forall x \text{ as well as that } 1-F(a) \text{ is a const}
-	\\
-	\text{Thusly, } f(X|X>a) \ge 0 \forall x \text{ according to these facts}
-	\\
-	\\
-	\text{Now we show } \int_{-\infty}^{\infty} f(X|X>a)dx = 1 \text{ using the fact that } \int_{-\infty}^{\infty} f(x)dx =  = 1 \\
-	\int_{-\infty}^{\infty} f(X|X>a)dx = \int_{-\infty}^{a} f(X|X>a)dx + \int_{a}^{\infty} f(X|X>a)dx = \int_{a}^{\infty} f(X|X>a)dx\\
-	\text{the above is true as we know $f(X|X>a)$ has no density for x below a}
-	\\
-	=\int_{a}^{\infty} \frac{f(x)}{1-F(a)}dx = \frac{1}{1-F(a)}\int_{a}^{\infty} f(x)dx \text{ and since we know F is a valid cdf we get }\\
-	= \frac{1}{1-F(a)}[1 -F(a)] = 1 \square 
-	\end{gather}
 \end{enumerate}
-\item Problem 2: A circle with a random radius $R \sim Unif(0,1)$ is generated. Let A be its area.
+\item Let $ X \sim  $ Expo($ \lambda $)
 \\
 \begin{enumerate}
-	\item Use R to simulate mean and variance of A
+	\item Use R to simulate median and mode of Expo(2)
 	\\
 	\begin{verbatim}
-	> set.seed(123)
-	> #this is 2a
-	> n=1000000
-	> results = runif(n,0,1)
-	> counter = 1
-	> areas=numeric(0)
-	> while(counter<n)
+	expoMedMode = function(n,rate)
 	+ {
-	+   areas[counter] = results[counter] * results[counter] * pi
-	+   counter= counter + 1
+	+   resultsog = rexp(n,rate=rate)
+	+   results = floor(resultsog*10)
+	+   data = data.frame(results)
+	+   data = data.frame(data[data[,1]<25,])
+	+   vals = seq(0,2.5,.1)
+	+   p<-ggplot(data=data, aes(x=factor(data[,1]))) +geom_bar(stat="count") + scale_x_discrete(labels=vals)
+	+   print(p)
+	+   #barplot(results,main="whatev",width=0.5)
+	+   print(median(resultsog))
+	+   getmode = table(resultsog)
+	+   print(which.max(getmode))
 	+ }
-	> print(mean(areas))
-	[1] 1.045967
-	> print(var(areas))
-	[1] 0.8775327
-	\end{verbatim}
-	\item Find the theoretical mean and the variance of A, without first finding the CDF or PDF of A. Compare
-	with your numerical results from (a).
-	\begin{gather}
-	E[A] = \pi E[r^2]\\
-	\text{we know r folows Unif(0,1)} => E[r^2] = Var(r) + E[r]^2 = \frac{1}{12} + \frac{1}{2}^2 = \frac{1}{3}\\
-	=> E[A] = \frac{\pi}{3} = 1.047198\\
-	\var[A] = \var[\pi * r^2] = \pi^2\var[r^2] = \pi^2 * (E[r^4]-E[r^2]^2) = 
-	\pi^2 (\int_{0}^{1}r^4 dr -(\frac{1}{3})^2) \\
-	= \pi^2 (\frac{1}{5} -\frac{1}{9}) = 0.87729816898 
-	\end{gather}
-	\item Find the CDF and PDF of A.
-	\begin{gather}
-	F(x) = P(A \le x) = P(\pi R^2 \le x) = P(R \le \frac{\sqrt{x}}{\sqrt{\pi}})= F(x) = \frac{\sqrt{x}}{\sqrt{\pi}}\\
-	f(x) = F'(x) = \frac{1}{\pi} * \frac{d\sqrt{x}}{\sqrt{dx}} = \frac{1}{2\sqrt{x \pi}}
-	\\
-	\text{with } 0 \le x \le \pi
-	\end{gather}
-\end{enumerate}
-\item A stick of length 1 is broken at a uniformly random point, yielding two pieces. Let X and Y be the lengths
-of the shorter and longer pieces, respectively, and let $R = \frac{X}{Y}$ be the ratio of the lengths of X and Y.
-\begin{enumerate}
-	\item  Use simulations in R (the statistical programming language) to gain some understanding about the distribution of the random variable R. Numerically estimate the expected value of R and $1/R$.
-	\begin{verbatim}
+	> #this is 2a
 	> set.seed(123)
-	> n= 1000
-	> results = runif(n,0,1)
+	> n=1000000
+	> expoMedMode(n,2)
+	[1] 0.3467215
+	0.00334986066445708 
+	6662 
+	\end{verbatim}
+	\begin{figure}[H]
+		\centering
+		\caption{Mode of an exponential with rate of 2 around 0 and median around .3467}
+		\includegraphics[scale=.6]{barplotexpo.png}
+	\end{figure}
+	This overall makes sense, as we will show below, 0 is the mode of the exponential distribution. This is confirmed as well by the barplot shown above.
+	\item Find the Median and Mode of $X \sim $ Expo($\lambda $)
+\end{enumerate}
+\item Let X be Discrete Uniform on 1,2,3,4,5...n .
+\begin{enumerate}
+	\item  Use simulations in R to numerically estimate all medians and all modes of X for n = 1,2,3...10.
+	\begin{verbatim}
+	> #this is 3a
+	> set.seed(433)
 	> counter = 1
-	> xs = numeric(0)
-	> ys = numeric(0)
+	> n=10
+	> size = 1000
 	> while(counter <= n)
 	+ {
-	+   if(results[counter]>=0.5)
-	+   {
-	+     ys[counter]=results[counter]
-	+     xs[counter] = 1-ys[counter]
-	+   }
-	+   else
-	+   {
-	+     xs[counter] = results[counter]
-	+     ys[counter] = 1 -xs[counter]
-	+   }
+	+   binUnif(size,1,counter,1,1)
 	+   counter = counter + 1
 	+ }
-	> rs = xs/ys
-	> print(mean(rs))
-	[1] 0.3877773
-	> print(mean(1/rs))
-	[1] 15.82287
+	[1] "From 1 to 1"
+	[1] 1
+	1 
+	1 
+	[1] "From 1 to 2"
+	[1] 1.505739
+	1.0011387350969 
+	1 
+	[1] "From 1 to 3"
+	[1] 2.025223
+	1.00209179287776 
+	1 
+	[1] "From 1 to 4"
+	[1] 2.502714
+	1.00117637915537 
+	1 
+	[1] "From 1 to 5"
+	[1] 2.957827
+	1.00255306344479 
+	1 
+	[1] "From 1 to 6"
+	[1] 3.368198
+	1.00341863720678 
+	1 
+	[1] "From 1 to 7"
+	[1] 4.004081
+	1.0143808578141 
+	1 
+	[1] "From 1 to 8"
+	[1] 4.470458
+	1.00075664301403 
+	1 
+	[1] "From 1 to 9"
+	[1] 5.058819
+	1.0038467105478 
+	1 
+	[1] "From 1 to 10"
+	[1] 5.422321
+	1.01815693522803 
+	1 
 	\end{verbatim}
-	\item Find the CDF and PDF of R.\\
-	We note that since x is exclusively smaller than y of a unit length stick, then \\
-	$0\le X \le 0.5$ and $0.5 \le Y \le 1$ and $X = 1-Y $ and $Y= 1-X$\\
-	and that X = min(U,1-U) and Y = max(U,1-U)
+	\begin{figure}[H]
+		\centering
+		\caption{Mode across demonstrated from Unif(1,1)}
+		\includegraphics[scale=.4]{1graph.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{Mode across demonstrated from Unif(1,1)}
+		\includegraphics[scale=.4]{2graph.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{Mode across demonstrated from Unif(1,1)}
+		\includegraphics[scale=.4]{3graph.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{Mode across demonstrated from Unif(1,1)}
+		\includegraphics[scale=.4]{4graph.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{Mode across demonstrated from Unif(1,1)}
+		\includegraphics[scale=.4]{5graph.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{Mode across demonstrated from Unif(1,1)}
+		\includegraphics[scale=.4]{6graph.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{Mode across demonstrated from Unif(1,1)}
+		\includegraphics[scale=.4]{7graph.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{Mode across demonstrated from Unif(1,1)}
+		\includegraphics[scale=.4]{8graph.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{Mode across demonstrated from Unif(1,1)}
+		\includegraphics[scale=.4]{9graph.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{Mode across demonstrated from Unif(1,1)}
+		\includegraphics[scale=.4]{10graph.pdf}
+	\end{figure}
+	
+	\item Find All medians and modes of X\\
+	Note the mode is trivial, as it is a similar case to 1.
 	\begin{gather}
-	P(R \le r) = P(\frac{X}{Y} \le r) =  P(\frac{X}{(1-X)} \le r) = P(X \le r*(1-X)) = P(X + rX \le r) \\
-	= P(X(1+r) \le r) = P(X \le \frac{r}{1+r}) = P(\text{min}(U \text{ or }1-U) \le \frac{r}{1+r}) \\
-	= P(U\le \frac{r}{1+r}) + P((1-U) \le \frac{r}{1+r}) + P(U\cap(1-U)\le \frac{r}{1+r}) \text{ by def of OR/union} \\
-	= P(U\le \frac{r}{1+r}) + P((1-U) \le \frac{r}{1+r}) + 0 \\
-	\text{ the above is true as in the intersect case, both U values cant be realized simultaneously}\\
-	\text{(except for when U = .5, but this is a single point in a continuous distribution)}\\
-	= P(U\le \frac{r}{1+r}) + P(U \ge 1 - \frac{r}{1+r} ) =  P(U\le \frac{r}{1+r}) + 1 - P(U \le 1 - \frac{r}{1+r} ) \\
-	= \frac{r}{1+r} + 1 - (1-\frac{r}{1+r}) = \frac{r}{1+r} + 1 - \frac{1}{1+r} \\
-	=> F(r) = \frac{2r}{1+r} \\
-	=> f(r) = (1+r)^{-1} \frac{d}{dr}(2r)+ 2r\frac{d}{dr}(1+r)^{-1}=(1+r)^{-1}(2)+ 2r(-1)(1+r)^{2} \\
-	= \frac{2+2r - 2r}{(1+r)^{2}} = f(r) = \frac{2}{(1+r)^{2}}
+	\text{Want } P(X=c)\ge P(X=x)\forall x \in 1,2,...n\\
+	=> \frac{1}{n-1+1} \ge \frac{1}{n-1+1}  \text{ by def of discrete Uniform}\\
+	=> c=x \forall x \in 1,2,3,...n \text{ which is almost the same as 1}\\
+	\text{Notable difference is that in the discrete case, c can only take discrete values}\\
+	\text{Now the median}\\
+	\text{Want } P(X\le x) \ge \frac{1}{2} \& P(X\ge x) \ge \frac{1}{2}\\
+	P(X\le x) = \sum_{i=1}^{x}\frac{1}{n} = \frac{x}{n} \ge \frac{1}{2} => x \ge \frac{n}{2}\\
+	\text{However, we can observe the patterns noted in the graphs below}\\
+	\text{If n is odd, the previous conclusion is the only solution as }\\
+	\text{if you go above or below } \frac{n}{2} \text{ you lose the probability @ } x = \frac{n}{2}\\
+	\text{This is true as we have a jump exactly at }\frac{n}{2}\\
+	\text{In the case n is even, you have some wiggle room}\\
+	\text{There is no jump at }\frac{n}{2}\\
+	\text{In fact, the next jump is at }\frac{n}{2}+1\\
+	\text{This means we have medians from }[\frac{n}{2},\frac{n}{2}+1]\\
+	\text{One last important factor to note, is that this result relies heavily on}\\
+	\text{how we define the median and our environment}\\
+	\text{In general we have}\\
+	 Median(X) = 
+	 \begin{cases}
+	 \frac{n}{2} & n=\text{odd} \\
+	 [\frac{n}{2},\frac{n}{2}+1] & n=\text{even}
+	 \end{cases}
 	\end{gather}
-	\item Find the expected value of R (if it exists).
-	\begin{gather}
-	E[R] = \int_{-\infty}^{\infty}r*f(r)dr = \int_{-\infty}^{\infty}\frac{2r}{(1+r)^{2}}dr = \int_{0}^{1}\frac{2r}{(1+r)^{2}}dr = 2(\frac{1}{1+r} + \log(1+r))\Big|_0^1\\ 
-	= 2((\frac{1}{2} + \log(2)) - (\frac{1}{1} + \log(1))) = 2((\frac{1}{2} + \log(2)) - 1) = 2\log(2) - 1 = 0.3862944
-	\end{gather}
-	\item Find the expected value of 1/R if it exits.
-	\begin{gather}
-	E[\frac{1}{R}] = \int_{-\infty}^{\infty}\frac{1}{r}*f(r)dr = \int_{-\infty}^{\infty}\frac{2}{r(1+r)^{2}}dr = \int_{0}^{1}\frac{2}{r(1+r)^{2}}dr = 2*(\frac{1}{r+1} + \log(r) - log(1+r)\Big|_0^1)\\ 
-	\text{However, this can not be evaluated as the log of zero is undefined}
-	\end{gather}
+	\begin{figure}[H]
+		\centering
+		\caption{(n=5)Note the jumps taking place on the discrete values}
+		\includegraphics[scale=.4]{discreteOdd.pdf}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\caption{(n=6)These jump patterns hold for all discrete n}
+		\includegraphics[scale=.4]{evenDisc.pdf}
+	\end{figure}
 \end{enumerate}
 \item Let $U_1,...,U_n$ be i.i.d. $Unif(0,1)$, and $X = max(U_1,...,U_n)$.
 \begin{enumerate}
