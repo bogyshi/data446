@@ -484,159 +484,52 @@ Let $U \sim $Unif(a, b).
 		\includegraphics[scale=.4]{evenDisc.pdf}
 	\end{figure}
 \end{enumerate}
-\item Let $U_1,...,U_n$ be i.i.d. $Unif(0,1)$, and $X = max(U_1,...,U_n)$.
-\begin{enumerate}
-	\item What is the PDF of X?
-	\begin{gather}
-		\text{CDF} = P(X \le x) = P(U_1 \le x , ... , U_n \le x) = P(U_1 \le x) *  ... * P(U_n \le x) \text{ since i.i.d}\\
-		=> \text{CDF} = x*x*x...*x = x^n => \text{ PDF } = \frac{dF}{dx} = n*x^{n-1} \text{ with } 0 \le x \le 1
-	\end{gather}
-	\item what is the $E[X]$
-	\begin{gather}
-		\int_{-\infty}^{\infty}x*f(x) = \int_{0}^{1}x*f(x) = \int_{0}^{1}x*n*x^{n-1} = \int_{0}^{1}n*x^{n} =\frac{n}{n+1}*(1^n) - 0 = \frac{n}{n+1}
-	\end{gather}
-	\item R simulation results / approx
-	\begin{verbatim}
-		> #4c
-		> set.seed(123)
-		> n=10
-		> runplenty=10000
-		> og = runif(n,0,1)
-		> counter=1
-		> result= numeric(0)
-		> while(counter<=runplenty)
-		+ {
-		+   og = runif(n,0,1)
-		+   result[counter]=max(og)
-		+   counter= counter+1
-		+ }
-		> print(mean(result))
-		[1] 0.9091953
-		> print(n/(n+1))
-		[1] 0.9090909
-	\end{verbatim}
-\end{enumerate}
-\item 
-\begin{enumerate}
-	\item Find $P(X < Y)$ for X $\sim N(a, b), Y \sim N(c, d)$ with X and Y independent
-	\begin{gather}
+\item A distribution is called symmetric unimodal if it is symmetric (about some point) and has a unique mode.
+For example, any Normal distribution is symmetric unimodal. Let X have a continuous symmetric unimodal
+distribution for which the mean exists. Show that the mean, median, and mode of X are all equal.
+\begin{gather}
+	\text{First note that from our notes, we know the following}\\
+	\text{1: The mean and median are on in the same by definition}\\
+	\text{2: }f(x)=f(2\mu - x)\forall x \& P(X \ge X+\mu) = P(X\le X-\mu)\\
+	\text{Where $\mu$ is the mean of our distribution, or central point}\\
+	\text{All that is left to show is that the mode is equivalent to either our median or mean}\\
+	\int_{-\infty}^{\mu - x} f(x)dx = \int_{\mu + x}^{\infty} f(x)dx = \int_{-\infty}^{\mu - x} f(2\mu - x)dx = \int_{\mu + x}^{\infty} f(2\mu - x)dx\\
+	\int_{-\infty}^{\mu} f(x)dx = \frac{1}{2}= \int_{\mu}^{\infty} f(x)dx\\
+	\text{By the defintion of the mode, we have some c } s.t. \, f(c) \ge f(x) \forall x\\
+	\text{Lets proove via contradiction. If } c \ne \mu => c > \mu \text{ or } c<\mu\\
+	=> f(c) = f(2\mu - c) \text{ with } c \ne 2\mu-c \text{ by our previous statement}\\
+	=> \exists c_1 \, s.t. f(c_1)\ge f(x) \forall x \& c_2 \, s.t. f(c_2)\ge f(x) \forall x \text{ with } c_1 \ne c_2\\
+	\text{This is a contradiction! as now we have two unique modes}\\
+	\text{ which violates the property of a unimodal distribution} \square
+\end{gather}
+\item Let $W = X^2 + Y^2$, with X, Y i.i.d. N(0, 1). You can assume you know that the MGF of $X^2$ is $(1 - 2t)^{\frac{-1}{2}}$ for $t < \frac{1}{2}.$ 
+Find the MGF of W.
+\begin{gather}
 	\Var(X-Y) = \Var(X) + Var(Y) = b^2 + d^2\\
 	E[X-Y] = E[X] - E[Y] = a - c\\
 	=>	P(X<Y) = P(X-Y < 0) \sim N(a-b,c^2 + d^2) \text{ determined via hint}\\
 		= \int_{-\infty}^{0} \frac{1}{\sqrt{2\pi} \sigma} e ^ {\frac{(x-\mu)^2}{2\sigma ^2}} \text{ Where } \sigma = \sqrt{c^2 + d^2} \text{ and } \mu = a-b
-	\end{gather}
-	\item R simulation
-	\begin{verbatim}
-		#5b
-		> set.seed(123)
-		> n= 1000000
-		> resultsx = rnorm(n,0,1)
-		> resultsy = rnorm(n,1,5)
-		> trueResults = rnorm(n,-1,sqrt(26))
-		> counter = 1
-		> numCorr=0
-		> numCorr2=0
-		> results=numeric(0) 
-		> while(counter<=n)
-		+ {
-		+   if(resultsx[counter]<resultsy[counter])
-		+   {
-		+     numCorr = numCorr + 1
-		+   }
-		+   if(trueResults[counter]<0)
-		+   {
-		+     numCorr2 = numCorr2 + 1
-		+   }
-		+   counter= counter+1
-		+ }
-		> print(numCorr/n)
-		[1] 0.576969
-		> print(numCorr2/n)
-		[1] 0.577764
-	\end{verbatim}
-\end{enumerate}
-\item The heights of men in the United States are normally distributed with mean 69.1 inches and standard deviation
-2.9 inches. The heights of women are normally distributed with mean 63.7 inches and standard deviation 2.7 inches. Let x be the average height of 100 randomly sampled men, and y be the average height
-of 100 randomly sampled women.
-\begin{enumerate}
-	\item What is the distribution of x - y?
-	\begin{gather}
-		\text{Similar to 5, except now we need to calculate the expected value and variance over the 100 samples}\\
-		E[x-y] = E[\frac{1}{n}\sum_{n=1}^{100} x_n-y_n] =\frac{1}{n}\sum_{n=1}^{100} E[X_n] - E[y_n] =\frac{1}{n}\sum_{n=1}^{100} (69.1-63.7) = \frac{1}{n} n*(69.1-63.7) \\
-		\text{we got this from the distributions of the random variables given}\\
-		=> E[x-y] = 5.4\\
-		\Var[x-y] = \Var[\frac{1}{n}\sum_{n=1}^{100} x_n-y_n] =\frac{1}{n^2}\Var[\sum_{n=1}^{100} x_n-y_n] \text{ from independence we get}\\
-		= \frac{1}{n^2}\sum_{n=1}^{100} (\Var[x_n]+\Var[y_n]) = \frac{1}{n^2}\sum_{n=1}^{100} (2.9^2+2.7^2) = \frac{1}{n^2}n (15.7) = \frac{1}{100}(15.7) \\
-		=> \Var[x-y] = \sqrt{\frac{15.7}{100}}^2\\
-		=>
-		x-y \sim N(5.4,\sqrt{\frac{15.7}{100}})
-	\end{gather}
-	\item R monte carlo simulations 
-	\begin{verbatim}
-		> set.seed(123)
-		> n=100
-		> numTrials=100000
-		> counter=1
-		> diffRes = numeric(0)
-		> while(counter<numTrials)
-		+ {
-		+   resultsx = rnorm(n,69.1,2.9)
-		+   resultsy = rnorm(n,63.7,2.7)
-		+   diffRes[counter] = mean(resultsx)-mean(resultsy)
-		+   counter = counter + 1
-		+ }
-		> resultCalc = rnorm(n,5.4,sqrt(15.7/n))
-		> print(mean(diffRes))
-		[1] 5.400457
-		> print(mean(resultCalc))
-		[1] 5.381992
-		> print(var(diffRes))
-		[1] 0.1570096
-		> print(var(resultCalc))
-		[1] 0.1590042
-	\end{verbatim}
-	Clearly, we can see that these make sense intuitively.\\
-	\item What is the probability that a man is taller than a randomly sampled woman?\\
-	let X be the RV for a man sampled and Y be a RV for a woman sampled
-	\begin{gather}
-		\text{Note, that the } P(X-Y<0) = P(X<Y) => P(X>Y) = 1 - P(X<Y) = 1 -P(X-Y<0) \\
-		\text{we can assume this as the } P(X=Y) = 0\\
-		\text{We know } X-Y \sim N(5.4,\sqrt{15.7})\\
-		=> 1-P(X-Y<0) = 1 - 0.08646693 = .9135331
-	\end{gather}
-	Note, the value above was derived using dbinom from R
-\end{enumerate}
-\item Suppose we have a RV Y such that $Y \sim \text{Binom}(n=5,p = \theta)$
-\begin{enumerate}
-	\item Using Bayes Rule to determine $P(\theta | y)$ in terms of $\theta_i$
-	\begin{gather}
-		 P(\theta | y) = \frac{P(Y | \theta_i) * P(\theta_i)}{P(Y)} = \frac{\binom{5}{y} \theta_i^y(1-\theta_i)^{5-y} * \frac{1}{11}}{P(Y)}
-		 \\
-		 \text{Now with the law of total probability, we get}\\
-		 = \frac{\binom{5}{y} \theta_i^y(1-\theta_i)^{5-y} * \frac{1}{11}}{\sum_{i=0}^{11}\binom{5}{y} \theta_i^y(1-\theta_i)^{5-y} * \frac{1}{11}} = \frac{\frac{1}{11}\binom{5}{y} \theta_i^y(1-\theta_i)^{5-y}}{\binom{5}{y} \frac{1}{11}\sum_{i=0}^{11} \theta_i^y(1-\theta_i)^{5-y}} = \frac{ \theta_i^y(1-\theta_i)^{5-y}}{\sum_{i=0}^{11} \theta_i^y(1-\theta_i)^{5-y}}
-	\end{gather}
-	\item \& (c)
-	The previous graphics make complete sense. In particular, notice that the end points are the edge cases of p = 0 and p = 1. In either case, you either need there to be all failures, or all successes, and is thus 0 probability or 1 depending on the y.
-	Further, its interesting to note the symmetric nature of this distribution due to the binomial nature and  $\theta$ and $1-\theta$ relationship
-\end{enumerate}
-\item a) Starting from independent uniform random variables (U $\sim$ Unif(0, 1)), devise an algorithm to generate independent samples from a Logistic distribution, having density
-\begin{gather}
-	f(x) = \frac{e^{-x}}{(1+e^{-x})^2} => F(x) = (1+e^{-x})^{-1}\\
-	=> \text{let } F(x) = u \text{ we want to solve for x in terms of you to find  } F^{-1} \\
-	\frac{1}{1+e^{-x}} = u => \frac{1}{u} = 1+e^{-x} => \frac{1-u}{u} = e^{-x} => \log(\frac{1-u}{u}) = -x => F^{-1}(X) = \log(\frac{u}{1-u})
 \end{gather}
-b) R simulations
-\begin{verbatim}
-> set.seed(123)
-> n=100000
-> unifVals = runif(n,0,1)
-> invert = log(unifVals/(1-unifVals))
-> res = (invert<3 & invert>2)
-> print(sum(res == TRUE))
-[1] 7077
-> print(sum(res==TRUE)/n)
-[1] 0.07077
-\end{verbatim}
+\item Let $X \sim Expo(\lambda)$. You can assume you know that $\lambda X \sim$ Expo(1), and that the nth moment of an Expo(1) random variable is n!. Find the skewness of X.
+\begin{gather}
+	\text{Similar to 5, except now we need to calculate the expected value and variance over the 100 samples}\\
+	E[x-y] = E[\frac{1}{n}\sum_{n=1}^{100} x_n-y_n] =\frac{1}{n}\sum_{n=1}^{100} E[X_n] - E[y_n] =\frac{1}{n}\sum_{n=1}^{100} (69.1-63.7) = \frac{1}{n} n*(69.1-63.7) \\
+	\text{we got this from the distributions of the random variables given}\\
+	=> E[x-y] = 5.4\\
+	\Var[x-y] = \Var[\frac{1}{n}\sum_{n=1}^{100} x_n-y_n] =\frac{1}{n^2}\Var[\sum_{n=1}^{100} x_n-y_n] \text{ from independence we get}\\
+	= \frac{1}{n^2}\sum_{n=1}^{100} (\Var[x_n]+\Var[y_n]) = \frac{1}{n^2}\sum_{n=1}^{100} (2.9^2+2.7^2) = \frac{1}{n^2}n (15.7) = \frac{1}{100}(15.7) \\
+	=> \Var[x-y] = \sqrt{\frac{15.7}{100}}^2\\
+	=>
+	x-y \sim N(5.4,\sqrt{\frac{15.7}{100}})
+\end{gather}
+\item Let $X_1,...X_n$ be i.i.d. with mean $\mu$, variance $\sigma^2$, and MGF M. Let \\
+ $\bar{X_n}=\frac{1}{n}\sum_{i=1}^{n} X_i$ 
+ and
+ $Z_n = \sqrt{n}\frac{\bar{X_n}-\mu}{\sigma}$
+\begin{enumerate}
+	\item Show that $Z_n$ has mean 0 and variance 1
+	\item Find the MGF of $Z_n$ in terms of M, the MGF of each $X_i$
+\end{enumerate}
 \end{enumerate}
 
 \end{document}

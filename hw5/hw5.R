@@ -68,6 +68,9 @@ while(counter <= n)
 oddNum = data.frame(c(.2,.4,.6,.8,1.0),c(1,2,3,4,5))
 p<-ggplot(data=oddNum, aes(x=oddNum[,2],y=oddNum[,1])) + geom_bar(stat="identity")
 p
+evenNum = data.frame(c(1/6,2/6,3/6,4/6,5/6,6/6),c(1,2,3,4,5,6))
+p<-ggplot(data=evenNum, aes(x=evenNum[,2],y=evenNum[,1])) + geom_bar(stat="identity")
+p
 punif(1.5,1,2)
 results = runif(n,0,1)
 counter = 1
