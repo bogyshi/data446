@@ -397,55 +397,55 @@ Let $U \sim $Unif(a, b).
 	\end{verbatim}
 	\begin{figure}[H]
 		\centering
-		\caption{Mode across demonstrated from Unif(1,1)}
+		\caption{Mode across X demonstrated from Unif(1,1)}
 		\includegraphics[scale=.4]{1graph.pdf}
 	\end{figure}
 	\begin{figure}[H]
 		\centering
-		\caption{Mode across demonstrated from Unif(1,1)}
+		\caption{Mode across X demonstrated from Unif(1,2)}
 		\includegraphics[scale=.4]{2graph.pdf}
 	\end{figure}
 	\begin{figure}[H]
 		\centering
-		\caption{Mode across demonstrated from Unif(1,1)}
+		\caption{Mode across X demonstrated from Unif(1,3)}
 		\includegraphics[scale=.4]{3graph.pdf}
 	\end{figure}
 	\begin{figure}[H]
 		\centering
-		\caption{Mode across demonstrated from Unif(1,1)}
+		\caption{Mode across X demonstrated from Unif(1,4)}
 		\includegraphics[scale=.4]{4graph.pdf}
 	\end{figure}
 	\begin{figure}[H]
 		\centering
-		\caption{Mode across demonstrated from Unif(1,1)}
+		\caption{Mode across X demonstrated from Unif(1,5)}
 		\includegraphics[scale=.4]{5graph.pdf}
 	\end{figure}
 	\begin{figure}[H]
 		\centering
-		\caption{Mode across demonstrated from Unif(1,1)}
+		\caption{Mode across X demonstrated from Unif(1,6)}
 		\includegraphics[scale=.4]{6graph.pdf}
 	\end{figure}
 	\begin{figure}[H]
 		\centering
-		\caption{Mode across demonstrated from Unif(1,1)}
+		\caption{Mode across X demonstrated from Unif(1,7)}
 		\includegraphics[scale=.4]{7graph.pdf}
 	\end{figure}
 	\begin{figure}[H]
 		\centering
-		\caption{Mode across demonstrated from Unif(1,1)}
+		\caption{Mode across X demonstrated from Unif(1,8)}
 		\includegraphics[scale=.4]{8graph.pdf}
 	\end{figure}
 	\begin{figure}[H]
 		\centering
-		\caption{Mode across demonstrated from Unif(1,1)}
+		\caption{Mode across X demonstrated from Unif(1,9)}
 		\includegraphics[scale=.4]{9graph.pdf}
 	\end{figure}
 	\begin{figure}[H]
 		\centering
-		\caption{Mode across demonstrated from Unif(1,1)}
+		\caption{Mode across X demonstrated from Unif(1,10)}
 		\includegraphics[scale=.4]{10graph.pdf}
 	\end{figure}
-	
+	Again, we expect some variability here, but with large enough N we can understand that the mode of a discrete uniform distribution is over all discrete support of the RV
 	\item Find All medians and modes of X\\
 	Note the mode is trivial, as it is a similar case to 1.
 	\begin{gather}
@@ -505,22 +505,17 @@ distribution for which the mean exists. Show that the mean, median, and mode of 
 \item Let $W = X^2 + Y^2$, with X, Y i.i.d. N(0, 1). You can assume you know that the MGF of $X^2$ is $(1 - 2t)^{\frac{-1}{2}}$ for $t < \frac{1}{2}.$ 
 Find the MGF of W.
 \begin{gather}
-	\Var(X-Y) = \Var(X) + Var(Y) = b^2 + d^2\\
-	E[X-Y] = E[X] - E[Y] = a - c\\
-	=>	P(X<Y) = P(X-Y < 0) \sim N(a-b,c^2 + d^2) \text{ determined via hint}\\
-		= \int_{-\infty}^{0} \frac{1}{\sqrt{2\pi} \sigma} e ^ {\frac{(x-\mu)^2}{2\sigma ^2}} \text{ Where } \sigma = \sqrt{c^2 + d^2} \text{ and } \mu = a-b
+	\text{We know for independent X, Y random variables that } M_{X+Y}(t)=M_X(t)*M_Y(t) \\
+	\text{We know that }M_{X^2}(t)=M_{Y^2}(t) \text{ and lets rewrite }X'=X^2 and Y' = Y^2\\
+	\text{since } X' \& Y' \text{ independet } => M_{X'+Y'}=M_{X'}*M_{Y'}=M_{X^2}*M_{Y^2}=((1 - 2t)^{\frac{-1}{2}})^2 =\frac{1}{1-2t}
 \end{gather}
 \item Let $X \sim Expo(\lambda)$. You can assume you know that $\lambda X \sim$ Expo(1), and that the nth moment of an Expo(1) random variable is n!. Find the skewness of X.
 \begin{gather}
-	\text{Similar to 5, except now we need to calculate the expected value and variance over the 100 samples}\\
-	E[x-y] = E[\frac{1}{n}\sum_{n=1}^{100} x_n-y_n] =\frac{1}{n}\sum_{n=1}^{100} E[X_n] - E[y_n] =\frac{1}{n}\sum_{n=1}^{100} (69.1-63.7) = \frac{1}{n} n*(69.1-63.7) \\
-	\text{we got this from the distributions of the random variables given}\\
-	=> E[x-y] = 5.4\\
-	\Var[x-y] = \Var[\frac{1}{n}\sum_{n=1}^{100} x_n-y_n] =\frac{1}{n^2}\Var[\sum_{n=1}^{100} x_n-y_n] \text{ from independence we get}\\
-	= \frac{1}{n^2}\sum_{n=1}^{100} (\Var[x_n]+\Var[y_n]) = \frac{1}{n^2}\sum_{n=1}^{100} (2.9^2+2.7^2) = \frac{1}{n^2}n (15.7) = \frac{1}{100}(15.7) \\
-	=> \Var[x-y] = \sqrt{\frac{15.7}{100}}^2\\
-	=>
-	x-y \sim N(5.4,\sqrt{\frac{15.7}{100}})
+	\text{Def of Skewness(X): } E[(\frac{X-\mu}{\sigma})^3]\\
+	= E[(\frac{X-E[X]}{\sqrt{\Var(X)}})^3]=E[(\frac{X-\frac{1}{\lambda}}{\sqrt{\frac{1}{\lambda^2}}})^3] = E[(\lambda(X-\frac{1}{\lambda}))^3]= E[(\lambda X-1)^3] \\
+	= E[(\lambda X)^3-3(\lambda X)^2 + 3(\lambda X) - 1] = E[(\lambda X)^3] - 3E[(\lambda X)^2] + 3E[(\lambda X)] - 1\\
+	\text{With }E[(\lambda X)^3] = 3!, E[(\lambda X)^2] = 2!, E[(\lambda X)]=1! \text{ from problem statement}\\
+	=> E[(\frac{X-E[X]}{\sqrt{\Var(X)}})^3] = 3! - 3*2 + 3*1 - 1 = 2
 \end{gather}
 \item Let $X_1,...X_n$ be i.i.d. with mean $\mu$, variance $\sigma^2$, and MGF M. Let \\
  $\bar{X_n}=\frac{1}{n}\sum_{i=1}^{n} X_i$ 
@@ -528,7 +523,19 @@ Find the MGF of W.
  $Z_n = \sqrt{n}\frac{\bar{X_n}-\mu}{\sigma}$
 \begin{enumerate}
 	\item Show that $Z_n$ has mean 0 and variance 1
+	\begin{gather}
+		E[\bar{X_n}]=E[\frac{1}{n}\sum_{i=1}^{n} X_i] = \frac{1}{n}\sum_{i=1}^{n} E[X_i] =  \frac{1}{n} * n\mu =\mu\\
+		=> E[Z_n] = E[\sqrt{n}\frac{\bar{X_n}-\mu}{\sigma}] = \sqrt{n}\frac{E[\bar{X_n}]-\mu}{\sigma} = 0\\
+		\Var(\bar{X_n}) = \Var(\frac{1}{n}\sum_{i=1}^{n} X_i) = \frac{1}{n^2}\sum_{i=1}^{n} \Var(X_i) = \frac{1}{n^2} n\sigma^2=\frac{\sigma^2}{n}\\
+		=> \Var[Z_n]=\Var(\sqrt{n}\frac{\bar{X_n}-\mu}{\sigma}) = \frac{n}{\sigma^2}\Var(\bar{X_n}-\mu) = \frac{n}{\sigma^2}\Var(\bar{X_n})= \frac{n}{\sigma^2}\frac{\sigma^2}{n}=1
+	\end{gather}
 	\item Find the MGF of $Z_n$ in terms of M, the MGF of each $X_i$
+	\begin{gather}
+		MGF_{Z_n}(t)=e^{Z_nt} = e^{\sqrt{n}\frac{\bar{X_n}-\mu}{\sigma}t} =  e^{t\sqrt{n}\frac{\bar{X_n}}{\sigma} -t\sqrt{n}\frac{\mu}{\sigma}} = e^{\frac{t\sqrt{n}}{n\sigma}\sum_{i=1}^{n} X_i}e^{-t\sqrt{n}\frac{\mu}{\sigma}}\\
+		\text{Note MGF}(X_i) = M = e^tX \text{ where t is any real}\\
+		\text{Now let }\frac{t\sqrt{n}}{n\sigma} = t' \\
+		=> MGF_{Z_n} = e^{t'\sum_{i=1}^{n} X_i}e^{-t\sqrt{n}\frac{\mu}{\sigma}} =  e^{t'X_1+t'X_2...t'X_n}e^{-t\sqrt{n}\frac{\mu}{\sigma}}= \prod_{i=1}^{n}Me^{-t\sqrt{n}\frac{\mu}{\sigma}} = M^ne^{-t\sqrt{n}\frac{\mu}{\sigma}}
+	\end{gather}
 \end{enumerate}
 \end{enumerate}
 

@@ -17,7 +17,7 @@ binUnif= function(n,a,b,intv,mfactor)
   results = floor(resultsog*mfactor)
   data = data.frame(results)
   vals = seq(a,b,intv)
-  pdf(paste(b,"graph.pdf",sep="")) 
+  pdf(paste(b-1,"graph.pdf",sep="")) 
   p<-ggplot(data=data, aes(x=factor(data[,1]))) +geom_bar(stat="count") + scale_x_discrete(labels=vals)
   print(p)
   dev.off()
@@ -56,10 +56,10 @@ expoMedMode(n,2)
 set.seed(433)
 counter = 1
 n=10
-size = 1000
+size = 10000
 while(counter <= n)
 {
-  binUnif(size,1,counter,1,1)
+  binUnif(size,1,counter+1,1,1)
   counter = counter + 1
 }
 
