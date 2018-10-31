@@ -299,9 +299,15 @@ Let $U \sim $Unif(a, b).
 	\end{figure}
 	\item Find the Median and Mode of $U \sim $ Unif(a,b)
 	\begin{gather}
-	\text{Take the result form above and take the derivative }\\
-	f(X|X>a) = F'(X|X>a) = \frac{dF(X|X>a)}{dx} = \frac{F'(x)-F'(a)}{1-F(a)} \text{ with} \frac{dF(a)}{dx} = 0 \\
-	=> f(X|X>a) =\frac{f(x)}{1-F(a)}
+	\text{Median: }P(X\le c) \ge \frac{1}{2} \&  P(X\ge c) \ge \frac{1}{2} \\
+	=> P(X\le x) = \int_{a}^{c}f(x)dx = \int_{a}^{c}\frac{1}{b-a}dx =\frac{c}{b-a} - \frac{a}{b-a} = \frac{c-a}{b-a}\\
+	=> \frac{c-a}{b-a} \ge \frac{1}{2} => c \ge \frac{b-a}{2} + \frac{2a}{2} => c\ge \frac{b+a}{2}\\
+	\text{coming from the other inequality, we similarly get }c \le \frac{b+a}{2}\\
+	\text{Note that this unique mode will not apply in the discrete case of the uniform distribution}\\
+	\text{Mode: }\\
+	\text{Want: } f(c) \ge f(x) \forall x\\
+	f(c)=f(x)=\frac{1}{b-a} \forall x \text{ by def of DUnif}\\
+	=>\text{Mode of X is entire support of X} =[a...b]
 	\end{gather}
 \end{enumerate}
 \item Let $ X \sim  $ Expo($ \lambda $)
@@ -339,6 +345,18 @@ Let $U \sim $Unif(a, b).
 	\end{figure}
 	This overall makes sense, as we will show below, 0 is the mode of the exponential distribution. This is confirmed as well by the barplot shown above.
 	\item Find the Median and Mode of $X \sim $ Expo($\lambda $)
+	\begin{gather}
+		\text{Median: }P(X\le c) \ge \frac{1}{2} \&  P(X\ge c) \ge \frac{1}{2} \\
+		P(X\le c) = \int_{0}^{c}f(x)dx = \int_{0}^{c}\lambda e^{-\lambda x}dx = 1 - e^{-\lambda c} \ge \frac{1}{2} => c\ge \frac{\ln(2)}{\lambda} \\
+		\text{ Coming from the other side we get }\\
+		P(X\ge c) = \int_{c}^{\infty}f(x)dx = \int_{c}^{\infty}\lambda e^{-\lambda x}dx = e^{-\lambda c} \ge \frac{1}{2} => c \le \frac{\ln(2)}{\lambda} \\
+		\text{ So again, we have our unique median. This time as a function of lambda which makes sense}\\
+		\text{Mode: }\\
+		\text{Want: } f(c) \ge f(x) \forall x\\
+		\text{Note that: } f(x) = \lambda e^{-\lambda x} => f'(x) = -(\lambda^2) e^{-\lambda x}\\
+		\text{This along with }f(0) = \lambda \text{ explains the whole story}\\
+		\text{a dereasing value of f(x) that starts at } x = 0 \text{ indicates our mode lies at } x=0 /w f(x)=\lambda
+	\end{gather}
 \end{enumerate}
 \item Let X be Discrete Uniform on 1,2,3,4,5...n .
 \begin{enumerate}
@@ -534,7 +552,7 @@ Find the MGF of W.
 		MGF_{Z_n}(t)=e^{Z_nt} = e^{\sqrt{n}\frac{\bar{X_n}-\mu}{\sigma}t} =  e^{t\sqrt{n}\frac{\bar{X_n}}{\sigma} -t\sqrt{n}\frac{\mu}{\sigma}} = e^{\frac{t\sqrt{n}}{n\sigma}\sum_{i=1}^{n} X_i}e^{-t\sqrt{n}\frac{\mu}{\sigma}}\\
 		\text{Note MGF}(X_i) = M = e^tX \text{ where t is any real}\\
 		\text{Now let }\frac{t\sqrt{n}}{n\sigma} = t' \\
-		=> MGF_{Z_n} = e^{t'\sum_{i=1}^{n} X_i}e^{-t\sqrt{n}\frac{\mu}{\sigma}} =  e^{t'X_1+t'X_2...t'X_n}e^{-t\sqrt{n}\frac{\mu}{\sigma}}= \prod_{i=1}^{n}Me^{-t\sqrt{n}\frac{\mu}{\sigma}} = M^ne^{-t\sqrt{n}\frac{\mu}{\sigma}}
+		=> MGF_{Z_n} = e^{t'\sum_{i=1}^{n} X_i}e^{-t\sqrt{n}\frac{\mu}{\sigma}} =  e^{t'X_1+t'X_2...t'X_n}e^{-t\sqrt{n}\frac{\mu}{\sigma}}= \prod_{i=1}^{n}(M)e^{-t\sqrt{n}\frac{\mu}{\sigma}} = M^ne^{-t\sqrt{n}\frac{\mu}{\sigma}}
 	\end{gather}
 \end{enumerate}
 \end{enumerate}
