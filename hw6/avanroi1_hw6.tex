@@ -265,297 +265,350 @@
 Please complete the following:
 \begin{enumerate}
 \item Problem 1
-Let $U \sim $Unif(a, b).
+Let X and Y be i.i.d. Geom(p), and N = X + Y.
 \begin{enumerate}
-	\item Use simulations in R (the statistical programming language) to numerically estimate the median and
-	the mode of U for a = 0 and b = 2.
-	\begin{verbatim}
-	> binUnif= function(n,a,b)
-	+ {
-	+   resultsog = runif(n,a,b)
-	+   results = floor(resultsog*10)
-	+   data = data.frame(results)
-	+   vals = seq(a,b,.1)
-	+   p<-ggplot(data=data, aes(x=factor(data[,1]))) +geom_bar(stat="count") + scale_x_discrete(labels=vals)
-	+   p
-	+   #barplot(results,main="whatev",width=0.5)
-	+   print(median(resultsog))
-	+   getmode = table(resultsog)
-	+   print(which.max(getmode))
-	+   #print(forMode[c(1:10),])
-	+ }
-	> #this is 1a
-	> set.seed(123)
-	> n=1000000
-	> binUnif(n,0,2)
-	[1] 0.9983065
-	0.0349205480888486 
-	17519 
-	\end{verbatim}
-	\begin{figure}[H]
-		\centering
-		\caption{Mode roughly equivalent across all values of x}
-		\includegraphics[scale=.6]{Rplot.png}
-	\end{figure}
-	\item Find the Median and Mode of $U \sim $ Unif(a,b)
+	\item Find the joint PMF of X, Y and N.
 	\begin{gather}
-	\text{Median: }P(X\le c) \ge \frac{1}{2} \&  P(X\ge c) \ge \frac{1}{2} \\
-	=> P(X\le x) = \int_{a}^{c}f(x)dx = \int_{a}^{c}\frac{1}{b-a}dx =\frac{c}{b-a} - \frac{a}{b-a} = \frac{c-a}{b-a}\\
-	=> \frac{c-a}{b-a} \ge \frac{1}{2} => c \ge \frac{b-a}{2} + \frac{2a}{2} => c\ge \frac{b+a}{2}\\
-	\text{coming from the other inequality, we similarly get }c \le \frac{b+a}{2}\\
-	\text{Note that this unique mode will not apply in the discrete case of the uniform distribution}\\
-	\text{Mode: }\\
-	\text{Want: } f(c) \ge f(x) \forall x\\
-	f(c)=f(x)=\frac{1}{b-a} \forall x \text{ by def of DUnif}\\
-	=>\text{Mode of X is entire support of X} =[a...b]
+		P(X=x,Y=y,N=n) = P(X=x,Y=y.X+Y=n) \\
+		 \text{ we note that N acts as a qualifying condition. We get } \\
+		P(X=X,Y=y,N=n) = \begin{cases}
+		P(X=x,Y=y)=p*(1-p)^x*p(1-p)^y & x+y=n\\
+		0 & x+y \ne n
+		\end{cases}
+	\end{gather}
+	\item Find the joint PMF of X and N.
+	\begin{gather}
+		P(X=x,N=n) = P(X=x,X+Y=n)=P(X=x,Y=n-x)\\
+		= \begin{cases}
+			P(X=x)*P(Y=n-x) =p(1-p)^xp(1-p)^{n-x}=p^2(1-p)^n &x\le n\\
+			0 & x>n
+		  \end{cases}
+	\end{gather}
+	\item Find the conditional PMF of X given N = n.
+	\begin{gather}
+		P(X=x|N=n)=\frac{P(X=x,N=n)}{P(N=n)}\\
+		P(N=n) = \text{ Negative binomial with 2 successes } = \binom{n+2-1}{2-1}p^2(1-p)^n \\
+		P(X=x|N=n) = \begin{cases}
+		\frac{p^2(1-p)^n}{\binom{n+1}{1}p^2(1-p)^n}  = \frac{1}{n+1}& n\ge x \\
+		0 & n < x
+		\end{cases}
 	\end{gather}
 \end{enumerate}
-\item Let $ X \sim  $ Expo($ \lambda $)
-\\
+\item Let X Y and Z be random variables such that X $\sim$ N(0, 1) and conditional on X = x, Y and Z are i.i.d. N(x, 1).
 \begin{enumerate}
-	\item Use R to simulate median and mode of Expo(2)
-	\\
-	\begin{verbatim}
-	expoMedMode = function(n,rate)
-	+ {
-	+   resultsog = rexp(n,rate=rate)
-	+   results = floor(resultsog*10)
-	+   data = data.frame(results)
-	+   data = data.frame(data[data[,1]<25,])
-	+   vals = seq(0,2.5,.1)
-	+   p<-ggplot(data=data, aes(x=factor(data[,1]))) +geom_bar(stat="count") + scale_x_discrete(labels=vals)
-	+   print(p)
-	+   #barplot(results,main="whatev",width=0.5)
-	+   print(median(resultsog))
-	+   getmode = table(resultsog)
-	+   print(which.max(getmode))
-	+ }
-	> #this is 2a
-	> set.seed(123)
-	> n=1000000
-	> expoMedMode(n,2)
-	[1] 0.3467215
-	0.00334986066445708 
-	6662 
-	\end{verbatim}
-	\begin{figure}[H]
-		\centering
-		\caption{Mode of an exponential with rate of 2 around 0 and median around .3467}
-		\includegraphics[scale=.6]{barplotexpo.png}
-	\end{figure}
-	This overall makes sense, as we will show below, 0 is the mode of the exponential distribution. This is confirmed as well by the barplot shown above.
-	\item Find the Median and Mode of $X \sim $ Expo($\lambda $)
+	\item Find the joint PDF of X, Y and Z.
 	\begin{gather}
-		\text{Median: }P(X\le c) \ge \frac{1}{2} \&  P(X\ge c) \ge \frac{1}{2} \\
-		P(X\le c) = \int_{0}^{c}f(x)dx = \int_{0}^{c}\lambda e^{-\lambda x}dx = 1 - e^{-\lambda c} \ge \frac{1}{2} => c\ge \frac{\ln(2)}{\lambda} \\
-		\text{ Coming from the other side we get }\\
-		P(X\ge c) = \int_{c}^{\infty}f(x)dx = \int_{c}^{\infty}\lambda e^{-\lambda x}dx = e^{-\lambda c} \ge \frac{1}{2} => c \le \frac{\ln(2)}{\lambda} \\
-		\text{ So again, we have our unique median. This time as a function of lambda which makes sense}\\
-		\text{Mode: }\\
-		\text{Want: } f(c) \ge f(x) \forall x\\
-		\text{Note that: } f(x) = \lambda e^{-\lambda x} => f'(x) = -(\lambda^2) e^{-\lambda x}\\
-		\text{This along with }f(0) = \lambda \text{ explains the whole story}\\
-		\text{a dereasing value of f(x) that starts at } x = 0 \text{ indicates our mode lies at } x=0 /w f(x)=\lambda
+		f(x,y,z) = f(y,z|x)*f(x) \text{ and because of independece of Y and Z on x we get} \\
+		f(x,y,z) = f(y|x)*f(z|x)*f(x) \text{ now we shift $Y|x$ and $Z|x$ to a N(0,1)}\\
+		\text{Note further that shit shift wont alter the value under the curve, just where the density takes place}\\
+			f(x,y,z) = \frac{1}{\sqrt{2\pi}} e ^ {\frac{(y-x)^2}{2}} \frac{1}{\sqrt{2\pi}} e ^ {\frac{(z-x)^2}{2}} \frac{1}{\sqrt{2\pi}} e ^ {\frac{(x)^2}{2}} \\
+			\text{does this need to be simplified?}
+	\end{gather}
+	\item Find the joint PDF of Y and Z.
+	\begin{gather}
+		f(y,z) = \int_{-\infty}^{\infty} f(x,y,z) dx
 	\end{gather}
 \end{enumerate}
-\item Let X be Discrete Uniform on 1,2,3,4,5...n .
+\item Let X and Y be continuous random variables with joint CDF F(x, y). Show that the probability that (X, Y) falls in the rectangle (a1, a2) (b1, b2) is
+\begin{gather}
+	F(a2, b2) - F(a1, b2) + F(a1, b1) - F(a2, b1).\\
+	f(x,y) = \frac{d}{dx}\frac{d}{dy}F(x,y) \text{ want} \\
+	\int_{a1}^{a2}\int_{b1}^{b2}\frac{d}{dx}\frac{d}{dy}F(x,y)dydx\\
+	=\int_{a1}^{a2}\frac{d}{dx}(F(x,b2)-F(x,b1)) dx = \int_{a1}^{a2}\frac{d}{dx}F(x,b2) dx - \int_{a1}^{a2}\frac{d}{dx}F(x,b1) dx\\
+	= F(a2,b2)-F(a1,b2)-F(a2,b1)+F(a1,b1) \square
+\end{gather}
+\item Let X and Y have joint PDF
+\begin{gather}
+	f(x,y) = x+y \text{ for } 0<x<1 \& 0<y<1
+\end{gather}
 \begin{enumerate}
-	\item  Use simulations in R to numerically estimate all medians and all modes of X for n = 1,2,3...10.
+	\item Check if this is a valid pdf\\
+	NTS
+	\begin{gather}
+		f(x,y)>0 \forall x,y \in X,Y \\
+		\text{ This is trivial as } 0<x<1 \& 0<y<1 =>  0<x+y<2 \\
+		=> f(x,y) = x+y >0 \forall x,y \in X,Y \\
+		\text{And NTS } \int_{0}^{1}\int_{0}^{1}f(x,y)dydx = 1
+		\int_{0}^{1}\int_{0}^{1}f(x,y)dydx = 	\int_{0}^{1}\int_{0}^{1} (x+ y)dydx \\
+		= \int_{0}^{1}(x+\frac{1}{2})dx = \int_{0}^{1}(x+\frac{1}{2})dx = \frac{1}{2} + \frac{1}{2} = 1 \square
+	\end{gather}
+	\item Find the marginal PDFs of X and Y.
+	\begin{gather}
+		f(x) = \int_{0}^{1}f(x,y)dy = \int_{0}^{1}(x+ y)dy  = yx + \frac{1}{2}y^2 \big|_0^1 = x+\frac{1}{2}\\
+		f(y) = \int_{0}^{1}f(x,y)dx = \int_{0}^{1}(x+ y)dx  = yx + \frac{1}{2}x^2 \big|_0^1 = y+\frac{1}{2}
+	\end{gather}
+	\item Are X and Y independent?
+	\begin{gather}
+		\text{No, as we would need }f(x,y) = f(x)*f(y) \text{ and}\\
+		f(x)*f(y) = (y+\frac{1}{2}) *  (x+\frac{1}{2}) \ne x+y
+	\end{gather}
+	\item  Find the conditional PDF of Y given X = x.
+	\begin{gather}
+		f(y|X=x) = \frac{f(x,y)}{f(x)} = \frac{x+y}{x+\frac{1}{2}}
+	\end{gather}
+\end{enumerate}
+\item Let X and Y have joint PDF
+\begin{gather}
+	f(x,y) = cxy \text{ for } 0<x<y<1
+\end{gather}
+\begin{enumerate}
+	\item find c to make this a valid pdf
+	\begin{gather}
+			f(x,y)>0 \forall x,y \in X,Y \\
+			\text{ This is trivial as } 0<x<y<1 => x>0 \& y>0 \\
+			=> f(x,y) = cxy >0 \forall x,y \in X,Y \text{ if }c>0\\
+			\text{And NTS } \int_{0}^{1}\int_{0}^{y}f(x,y)dxdy = 1
+			\int_{0}^{1}\int_{0}^{y}f(x,y)dxdy = 	\int_{0}^{1}\int_{0}^{y} (cxy)dydx \\
+			= \int_{0}^{1}(\frac{cx^2y}{2}\big|_0^y)dy =\int_{0}^{1}(\frac{cy^3}{2})dy = \frac{cy^4}{8}\big|_0^1 = 1\\
+			=> c = 8
+	\end{gather}
+	\item Find the marginal PDFs of X and Y
+	\begin{gather}
+	f(x) = \int_{x}^{1}f(x,y)dy = \int_{x}^{1}(8xy)dy  = 4xy^2\big|_x^1 = 4x - 4x^3 \\
+	f(y) = \int_{0}^{y}f(x,y)dy = \int_{0}^{y}(8xy)dy  = 4x^2y\big|_0^y = 4y^3
+	\end{gather}
+	\item are X and Y independent?
+	\begin{gather}
+		\text{ No, as once again we have }\\
+		f(x)*f(y) = ((4x - 4x^3) * 4y^3) \ne 8xy = f(x,y)
+	\end{gather}
+	\item Find the conditional PDF of Y given X = x.
+	\begin{gather}
+		f(y|x) = \frac{f(x,y)}{f(x)} = \frac{8xy}{4x - 4x^3} = \frac{2y}{1 - x^2}
+	\end{gather}
+\end{enumerate}
+\item Let X and Y be i.i.d. Unif(0, 1).
+\begin{enumerate}
+	\item Use simulations in R (the statistical programming language) to numerically estimate the covariance
+	of X + Y and X - Y.
 	\begin{verbatim}
-	> #this is 3a
-	> set.seed(433)
-	> counter = 1
-	> n=10
-	> size = 1000
-	> while(counter <= n)
-	+ {
-	+   binUnif(size,1,counter,1,1)
-	+   counter = counter + 1
-	+ }
-	[1] "From 1 to 1"
+		> prob6a = function(n)
+		+ {
+		+   x = runif(n,0,1)
+		+   y = runif(n,0,1)
+		+   xmy = x-y
+		+   xpy = x+y
+		+   return(cov(xmy,xpy))
+		+ }
+		> #problem 6a
+		> print(prob6a(100000))
+		[1] 0.0005779827
+	\end{verbatim}
+	\item Compute the covariance of X + Y and X - Y
+	\begin{gather}
+		\Cov[X+Y,X-Y] = E[(X+Y)(X-Y)] - E[X+Y]E[X-Y] =\\
+		  E[X^2] - E[Y^2] - (E[X]+E[Y])*(E[X]-E[Y]) \text{ by independence}\\
+		  = \Var(X)+E[X]^2 - \Var(Y)-E[Y]^2 - E[X]^2 + E[Y]^2 = 0\\
+		  \text{the above is true as X and Y have the same distribution and thus cancel}
+	\end{gather}
+	\item Are X + Y and X - Y independent
+	\begin{gather}
+		\text{We know the following}\\
+		M_{X+Y}(t)=M_X(t)M_Y(t)\,\&\,M_{X-Y}(t)=M_X(t)M_{-Y}(t) \text{ Due to independence between X and Y}\\
+		\text{Now we want to show: }M_{X+Y,X-Y}(s,t)=M_{X+Y}(s)M_{X-Y}(t) \\
+		M_{X+Y}(s)M_{X-Y}(t) =M_X(t)M_Y(t)M_X(t)M_{-Y}(t) = M_X(t)M_Y(t)M_X(t)M_{Y}(-t)\\
+		\text{the above is true as you can assign the negative sign}\\
+		\text{ from the definition of the MGF to the 't' or R.V.}\\
+		M_{X+Y,X-Y}(s,t) = E[e^{s(X+Y) + t(X-Y)}]= E[e^{X(s+t)+Y(s-t)}] = M_X(s+t)M_Y(s-t) \text{ by indep}\\
+		= M_X(s)M_X(t)M_Y(s)M_Y(-t)\\
+		\text{Thus, since the MGFs are the same, we have sufficiently shown indpendence between}\\
+		X+Y \text{ and } X-Y
+	\end{gather}
+\end{enumerate}
+\item Let X, Y and Z be i.i.d. N(0, 1). Find the joint MGF of (X + 2Y, 3X + 4Z, 5Y + 6Z).\\
+First Notice that we can rewrite this as a Multivariate normal distribution
+\begin{gather}
+	t_1(X+2Y)+t_2(3X + 4Z)+t_3(5Y + 6Z) = X(t_1+3t_2) + Y(2t_1+5t_3) + Z(4t_2+6t_3)\\
+	\text{We can use some properties to then get the following}\\
+	MGF(X + 2Y, 3X + 4Z, 5Y + 6Z) = E[e^{t_1(X + 2Y) + t_2(3X + 4Z) + t_3(5Y+6Z)}] \\
+	= e^{t_1E(X + 2Y) + t_2E(3X + 4Z) + t_3E(5Y+6Z) + \frac{1}{2} \Var(t_1(X + 2Y) + t_2(3X + 4Z) + t_3(5Y+6Z))} \\
+	\text{ by the definition of joint MGF on the multivariate normal}\\
+	= e^{\frac{1}{2} \Var(t_1(X + 2Y) + t_2(3X + 4Z) + t_3(5Y+6Z))} \text{ since we have N(0,1) for X,Y,Z}\\
+	=e^{\frac{1}{2} \Var(X(t_1+3t_2) + Y(2t_1+5t_3) + Z(4t_2+6t_3))}
+	=e^{\frac{1}{2} (t_1+3t_2)^2\Var(X)+(2t_1+5t_3)^2\Var(Y) + (4t_2+6t_3)^2\Var(Z)}\\
+	=e^{\frac{1}{2} (t_1+3t_2)^2+(2t_1+5t_3)^2 + (4t_2+6t_3)^2}
+\end{gather}
+\item we have the table below
+\begin{verbatim}
+	> y = matrix(c(0.018, 0.035 , 0.031 ,0.008 , 0.018 ,
+	+                      0.002,0.112 ,0.064,0.032,0.069,
+	+                      0.001,0.066 , 0.094 ,0.032, 0.084,
+	+                      0.001 , 0.018, 0.019, 0.010, 0.051,
+	+                      0.001, 0.029 , 0.032,0.043,0.130), nrow=5 , byrow=TRUE)
+	> colnames ( y ) = c ( 'farm' , "operatives",'craftsen','sales','professional' )
+	> rownames ( y ) = colnames ( y )
+	> 
+	> sum( y )
 	[1] 1
-	1 
-	1 
-	[1] "From 1 to 2"
-	[1] 1.505739
-	1.0011387350969 
-	1 
-	[1] "From 1 to 3"
-	[1] 2.025223
-	1.00209179287776 
-	1 
-	[1] "From 1 to 4"
-	[1] 2.502714
-	1.00117637915537 
-	1 
-	[1] "From 1 to 5"
-	[1] 2.957827
-	1.00255306344479 
-	1 
-	[1] "From 1 to 6"
-	[1] 3.368198
-	1.00341863720678 
-	1 
-	[1] "From 1 to 7"
-	[1] 4.004081
-	1.0143808578141 
-	1 
-	[1] "From 1 to 8"
-	[1] 4.470458
-	1.00075664301403 
-	1 
-	[1] "From 1 to 9"
-	[1] 5.058819
-	1.0038467105478 
-	1 
-	[1] "From 1 to 10"
-	[1] 5.422321
-	1.01815693522803 
-	1 
-	\end{verbatim}
-	\begin{figure}[H]
-		\centering
-		\caption{Mode across X demonstrated from Unif(1,1)}
-		\includegraphics[scale=.4]{1graph.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{Mode across X demonstrated from Unif(1,2)}
-		\includegraphics[scale=.4]{2graph.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{Mode across X demonstrated from Unif(1,3)}
-		\includegraphics[scale=.4]{3graph.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{Mode across X demonstrated from Unif(1,4)}
-		\includegraphics[scale=.4]{4graph.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{Mode across X demonstrated from Unif(1,5)}
-		\includegraphics[scale=.4]{5graph.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{Mode across X demonstrated from Unif(1,6)}
-		\includegraphics[scale=.4]{6graph.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{Mode across X demonstrated from Unif(1,7)}
-		\includegraphics[scale=.4]{7graph.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{Mode across X demonstrated from Unif(1,8)}
-		\includegraphics[scale=.4]{8graph.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{Mode across X demonstrated from Unif(1,9)}
-		\includegraphics[scale=.4]{9graph.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{Mode across X demonstrated from Unif(1,10)}
-		\includegraphics[scale=.4]{10graph.pdf}
-	\end{figure}
-	Again, we expect some variability here, but with large enough N we can understand that the mode of a discrete uniform distribution is over all discrete support of the RV
-	\item Find All medians and modes of X\\
-	Note the mode is trivial, as it is a similar case to 1.
-	\begin{gather}
-	\text{Want } P(X=c)\ge P(X=x)\forall x \in 1,2,...n\\
-	=> \frac{1}{n-1+1} \ge \frac{1}{n-1+1}  \text{ by def of discrete Uniform}\\
-	=> c=x \forall x \in 1,2,3,...n \text{ which is almost the same as 1}\\
-	\text{Notable difference is that in the discrete case, c can only take discrete values}\\
-	\text{Now the median}\\
-	\text{Want } P(X\le x) \ge \frac{1}{2} \& P(X\ge x) \ge \frac{1}{2}\\
-	P(X\le x) = \sum_{i=1}^{x}\frac{1}{n} = \frac{x}{n} \ge \frac{1}{2} => x \ge \frac{n}{2}\\
-	\text{However, we can observe the patterns noted in the graphs below}\\
-	\text{If n is odd, the previous conclusion is the only solution as }\\
-	\text{if you go above or below } \frac{n}{2} \text{ you lose the probability @ } x = \frac{n}{2}\\
-	\text{This is true as we have a jump exactly at }\frac{n}{2}\\
-	\text{In the case n is even, you have some wiggle room}\\
-	\text{There is no jump at }\frac{n}{2}\\
-	\text{In fact, the next jump is at }\frac{n}{2}+1\\
-	\text{This means we have medians from }[\frac{n}{2},\frac{n}{2}+1]\\
-	\text{One last important factor to note, is that this result relies heavily on}\\
-	\text{how we define the median and our environment}\\
-	\text{In general we have}\\
-	 Median(X) = 
-	 \begin{cases}
-	 \frac{n}{2} & n=\text{odd} \\
-	 [\frac{n}{2},\frac{n}{2}+1] & n=\text{even}
-	 \end{cases}
-	\end{gather}
-	\begin{figure}[H]
-		\centering
-		\caption{(n=5)Note the jumps taking place on the discrete values}
-		\includegraphics[scale=.4]{discreteOdd.pdf}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\caption{(n=6)These jump patterns hold for all discrete n}
-		\includegraphics[scale=.4]{evenDisc.pdf}
-	\end{figure}
-\end{enumerate}
-\item A distribution is called symmetric unimodal if it is symmetric (about some point) and has a unique mode.
-For example, any Normal distribution is symmetric unimodal. Let X have a continuous symmetric unimodal
-distribution for which the mean exists. Show that the mean, median, and mode of X are all equal.
-\begin{gather}
-	\text{First note that from our notes, we know the following}\\
-	\text{1: The mean and median are on in the same by definition}\\
-	\text{2: }f(x)=f(2\mu - x)\forall x \& P(X \ge X+\mu) = P(X\le X-\mu)\\
-	\text{Where $\mu$ is the mean of our distribution, or central point}\\
-	\text{All that is left to show is that the mode is equivalent to either our median or mean}\\
-	\int_{-\infty}^{\mu - x} f(x)dx = \int_{\mu + x}^{\infty} f(x)dx = \int_{-\infty}^{\mu - x} f(2\mu - x)dx = \int_{\mu + x}^{\infty} f(2\mu - x)dx\\
-	\int_{-\infty}^{\mu} f(x)dx = \frac{1}{2}= \int_{\mu}^{\infty} f(x)dx\\
-	\text{By the defintion of the mode, we have some c } s.t. \, f(c) \ge f(x) \forall x\\
-	\text{Lets proove via contradiction. If } c \ne \mu => c > \mu \text{ or } c<\mu\\
-	=> f(c) = f(2\mu - c) \text{ with } c \ne 2\mu-c \text{ by our previous statement}\\
-	=> \exists c_1 \, s.t. f(c_1)\ge f(x) \forall x \& c_2 \, s.t. f(c_2)\ge f(x) \forall x \text{ with } c_1 \ne c_2\\
-	\text{This is a contradiction! as now we have two unique modes}\\
-	\text{ which violates the property of a unimodal distribution} \square
-\end{gather}
-\item Let $W = X^2 + Y^2$, with X, Y i.i.d. N(0, 1). You can assume you know that the MGF of $X^2$ is $(1 - 2t)^{\frac{-1}{2}}$ for $t < \frac{1}{2}.$ 
-Find the MGF of W.
-\begin{gather}
-	\text{We know for independent X, Y random variables that } M_{X+Y}(t)=M_X(t)*M_Y(t) \\
-	\text{We know that }M_{X^2}(t)=M_{Y^2}(t) \text{ and lets rewrite }X'=X^2 and Y' = Y^2\\
-	\text{since } X' \& Y' \text{ independet } => M_{X'+Y'}=M_{X'}*M_{Y'}=M_{X^2}*M_{Y^2}=((1 - 2t)^{\frac{-1}{2}})^2 =\frac{1}{1-2t}
-\end{gather}
-\item Let $X \sim Expo(\lambda)$. You can assume you know that $\lambda X \sim$ Expo(1), and that the nth moment of an Expo(1) random variable is n!. Find the skewness of X.
-\begin{gather}
-	\text{Def of Skewness(X): } E[(\frac{X-\mu}{\sigma})^3]\\
-	= E[(\frac{X-E[X]}{\sqrt{\Var(X)}})^3]=E[(\frac{X-\frac{1}{\lambda}}{\sqrt{\frac{1}{\lambda^2}}})^3] = E[(\lambda(X-\frac{1}{\lambda}))^3]= E[(\lambda X-1)^3] \\
-	= E[(\lambda X)^3-3(\lambda X)^2 + 3(\lambda X) - 1] = E[(\lambda X)^3] - 3E[(\lambda X)^2] + 3E[(\lambda X)] - 1\\
-	\text{With }E[(\lambda X)^3] = 3!, E[(\lambda X)^2] = 2!, E[(\lambda X)]=1! \text{ from problem statement}\\
-	=> E[(\frac{X-E[X]}{\sqrt{\Var(X)}})^3] = 3! - 3*2 + 3*1 - 1 = 2
-\end{gather}
-\item Let $X_1,...X_n$ be i.i.d. with mean $\mu$, variance $\sigma^2$, and MGF M. Let \\
- $\bar{X_n}=\frac{1}{n}\sum_{i=1}^{n} X_i$ 
- and
- $Z_n = \sqrt{n}\frac{\bar{X_n}-\mu}{\sigma}$
+	> print(y)
+	farm operatives craftsen sales professional
+	farm         0.018      0.035    0.031 0.008        0.018
+	operatives   0.002      0.112    0.064 0.032        0.069
+	craftsen     0.001      0.066    0.094 0.032        0.084
+	sales        0.001      0.018    0.019 0.010        0.051
+	professional 0.001      0.029    0.032 0.043        0.130
+\end{verbatim}
 \begin{enumerate}
-	\item Show that $Z_n$ has mean 0 and variance 1
-	\begin{gather}
-		E[\bar{X_n}]=E[\frac{1}{n}\sum_{i=1}^{n} X_i] = \frac{1}{n}\sum_{i=1}^{n} E[X_i] =  \frac{1}{n} * n\mu =\mu\\
-		=> E[Z_n] = E[\sqrt{n}\frac{\bar{X_n}-\mu}{\sigma}] = \sqrt{n}\frac{E[\bar{X_n}]-\mu}{\sigma} = 0\\
-		\Var(\bar{X_n}) = \Var(\frac{1}{n}\sum_{i=1}^{n} X_i) = \frac{1}{n^2}\sum_{i=1}^{n} \Var(X_i) = \frac{1}{n^2} n\sigma^2=\frac{\sigma^2}{n}\\
-		=> \Var[Z_n]=\Var(\sqrt{n}\frac{\bar{X_n}-\mu}{\sigma}) = \frac{n}{\sigma^2}\Var(\bar{X_n}-\mu) = \frac{n}{\sigma^2}\Var(\bar{X_n})= \frac{n}{\sigma^2}\frac{\sigma^2}{n}=1
-	\end{gather}
-	\item Find the MGF of $Z_n$ in terms of M, the MGF of each $X_i$
-	\begin{gather}
-		MGF_{Z_n}(t)=e^{Z_nt} = e^{\sqrt{n}\frac{\bar{X_n}-\mu}{\sigma}t} =  e^{t\sqrt{n}\frac{\bar{X_n}}{\sigma} -t\sqrt{n}\frac{\mu}{\sigma}} = e^{\frac{t\sqrt{n}}{n\sigma}\sum_{i=1}^{n} X_i}e^{-t\sqrt{n}\frac{\mu}{\sigma}}\\
-		\text{Note MGF}(X_i) = M = e^tX \text{ where t is any real}\\
-		\text{Now let }\frac{t\sqrt{n}}{n\sigma} = t' \\
-		=> MGF_{Z_n} = e^{t'\sum_{i=1}^{n} X_i}e^{-t\sqrt{n}\frac{\mu}{\sigma}} =  e^{t'X_1+t'X_2...t'X_n}e^{-t\sqrt{n}\frac{\mu}{\sigma}}= \prod_{i=1}^{n}(M)e^{-t\sqrt{n}\frac{\mu}{\sigma}} = M^ne^{-t\sqrt{n}\frac{\mu}{\sigma}}
-	\end{gather}
-	\text{Happy halloween!}
+	\item the marginal probability distribution of a father’s occupation
+	\begin{verbatim}
+		sum(y[1,])
+		#[1] 0.11
+		sum(y[2,])
+		#[1] 0.279
+		sum(y[3,])
+		#[1] 0.277
+		sum(y[4,])
+		#[1] 0.099
+		sum(y[5,])
+		#[1] 0.235
+	\end{verbatim}
+	\item the marginal probability distribution of a son’s occupation
+	\begin{verbatim}
+		sum(y[,1])
+		#[1] 0.023
+		sum(y[,2])
+		#[1] 0.26
+		sum(y[,3])
+		#[1] 0.24
+		sum(y[,4])
+		#[1] 0.125
+		sum(y[,5])
+		#[1] 0.352
+	\end{verbatim}
+	\item the conditional distribution of a son’s occupation, given that the father is a farmer
+	\begin{verbatim}
+		> result = y[1,]/sum(y[1,])
+		> print(result)
+		farm   operatives     craftsen        sales professional 
+		0.16363636   0.31818182   0.28181818   0.07272727   0.16363636 
+	\end{verbatim}
+	\item the conditional distribution of a father’s occupation, given that the son is a farmer
+	\begin{verbatim}
+		> resultd = y[,1]/sum(y[,1])
+		> print(resultd)
+		farm   operatives     craftsen        sales professional 
+		0.78260870   0.08695652   0.04347826   0.04347826   0.04347826 
+	\end{verbatim}
 \end{enumerate}
+\item You will analyze data from a study of the effects of aspirin on myocardial infarction.
+\begin{enumerate}
+	\item Calculate the row and columns totals of this table. What is the grand total?
+	\begin{verbatim}
+		#placebo = 28+656=684
+		#aspirin = 18+658=676
+		#yes = 28+18 = 46
+		#no = 656+658 = 1314
+		placebo = 684
+		aspirin = 676
+		yes = 46
+		no = 1314
+		#grandtotal = 1360
+		grandtotal = yes+no 
+	\end{verbatim}
+	\item Calculate the expected cell values under the hypothesis of interaction of Aspirin Use and Myocardial Infarction.
+	\begin{verbatim}
+	> table9 = matrix(c(28,656,18,658), nrow=2 , byrow=TRUE)
+	> colnames(table9) = c('yes','no')
+	> rownames(table9) = c('Placebo','aspirin')
+	> table9
+	yes  no
+	Placebo  28 656
+	aspirin  18 658
+	> #under interaction we have
+	> dcell11= table9[1,1]/grandtotal
+	> dcell12= table9[1,2]/grandtotal
+	> dcell21= table9[2,1]/grandtotal
+	> dcell22= table9[2,2]/grandtotal
+	> dptable = matrix(c(dcell11,dcell12,dcell21,dcell22),nrow=2,byrow=TRUE)
+	> dpttable = dptable*grandtotal
+	> colnames(dpttable) = c('yes','no')
+	> rownames(dpttable) = c('Placebo','aspirin')
+	> print(dpttable)
+	yes  no
+	Placebo  28 656
+	aspirin  18 658
+	\end{verbatim}
+	\item Calculate the expected cell values under the hypothesis of independence of Aspirin Use and Myocardial Infarction.
+	\begin{verbatim}
+	
+	> #under no interaction, we have a simple set of multiplications
+	> p1a=sum(table9[1,])/grandtotal
+	> p2a=sum(table9[2,])/grandtotal
+	> pa1=sum(table9[,1])/grandtotal
+	> pa2=sum(table9[,2])/grandtotal
+	> icell11=p1a*pa1
+	> icell12=p1a*pa2
+	> icell21=p2a*pa1
+	> icell22=p2a*pa2
+	> # since each cell is a bernoulli RV, our expected value is simply the probability times the grand total
+	> iptable = matrix(c(icell11,icell12,icell21,icell22),nrow=2,byrow=TRUE)
+	> ipttable = iptable*grandtotal
+	> colnames(ipttable) = c('yes','no')
+	> rownames(ipttable) = c('Placebo','aspirin')
+	> print(ipttable)
+	yes       no
+	Placebo 23.13529 660.8647
+	aspirin 22.86471 653.1353
+	\end{verbatim}
+	\item Perform an asymptotic test of independence vs. interaction of Aspirin Use and Myocardial Infarction based on Pearson’s chi-square statistic
+	\begin{verbatim}
+		> chiqTest = function(truMatrix,expectedMatrix)
+		+ {
+		+   sum =0
+		+   rcounter = 1
+		+   ccounter = 1
+		+   sum = 0
+		+   while(rcounter <= 2)
+		+   {
+		+     ccounter = 1
+		+     while(ccounter<=2)
+		+     {
+		+       sum = sum + (((truMatrix[rcounter,ccounter]-expectedMatrix[rcounter,ccounter])**2)/expectedMatrix[rcounter,ccounter])
+		+       ccounter= ccounter + 1
+		+     }
+		+     rcounter = rcounter +1
+		+   }
+		+   return(sum)
+		+ }
+		> test1 = (chiqTest(table9,ipttable)) #ipptable is interaction table
+		> print(test1)
+		[1] 2.129972
+	\end{verbatim}
+	\item Perform an asymptotic test of independence vs. interaction of Aspirin Use and Myocardial Infarction based on the likelihood ratio statistic $G^2$
+	\begin{verbatim}
+		> gsquareTest = function(truMatrix,expectedMatrix)
+		+ {
+		+   sum =0
+		+   rcounter = 1
+		+   ccounter = 1
+		+   sum = 0
+		+   while(rcounter <= 2)
+		+   {
+		+     ccounter = 1
+		+     while(ccounter<=2)
+		+     {
+		+       sum = sum + (truMatrix[rcounter,ccounter]*log(truMatrix[rcounter,ccounter]/expectedMatrix[rcounter,ccounter]))
+		+       ccounter= ccounter + 1
+		+     }
+		+     rcounter = rcounter +1
+		+   }
+		+   return(2*sum)
+		+ }
+		> test2 = (gsquareTest(table9,ipttable))  #ipptable is interaction table
+		> print(test2)
+		[1] 2.147353
+	\end{verbatim}
+	\item Draw conclusions related to the effect of aspirin on the occurrence of myocardial infarction. Summarize your findings in a concise statement\\
+		Now, in this scenario where we believe there to be interaction, we have 1 degree of freedom as $(rows-1)(cols-1) = (2-1)*(2-1)=1$ Thus we get the following
+		\begin{verbatim}
+			> print(1-pchisq(test1,1))
+			[1] 0.1444434
+			> print(1-pchisq(test2,1))
+			[1] 0.1428159
+		\end{verbatim}
+		The similarity of the two tests are encouraging and the values they display indicate that we can not reject the null hypothesis assuming an alpha level of 0.05. More plainly, there is not enough evidence to indicate that their is not an independence for myocardial infractions between aspirin usage and placebos with high confidence.
+\end{enumerate}
+	\text{Have a nice day!}
 \end{enumerate}
 
 \end{document}
