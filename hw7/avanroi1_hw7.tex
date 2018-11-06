@@ -1,0 +1,614 @@
+\documentclass[11pt]{article}
+\usepackage{amsgen,amsmath,amstext,amsbsy,amsopn,amssymb}
+%\usepackage[dvips]{graphicx,color}
+\usepackage{graphicx,color}
+\usepackage{graphicx,color,bm}
+\usepackage{epsfig}
+\usepackage{enumerate}
+\usepackage{float}
+
+%\setlength{\oddsidemargin}{0.1 in} \setlength{\evensidemargin}{-0.1
+%in} \setlength{\topmargin}{-0.6 in} \setlength{\textwidth}{6.5 in}
+%\setlength{\textheight}{8.5 in} \setlength{\headsep}{0.75 in}
+%\setlength{\parindent}{0 in} \setlength{\parskip}{0.1 in}
+
+\textwidth 6.3in \textheight 8.8in \topmargin -0.5truein
+\oddsidemargin .15truein
+\parskip .1in
+\renewcommand{\baselinestretch}{1.53}  % double spaced
+
+
+\newcommand{\homework}[9]{
+	\pagestyle{myheadings}
+	\thispagestyle{plain}
+	\newpage
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{
+			\vbox{\vspace{2mm}
+				\hbox to 6.28in { {\bf Math531:~Regression - I  \hfill} }
+				\vspace{6mm}
+				\hbox to 6.28in { {\Large \hfill #1 (#2)  \hfill} }
+				\vspace{6mm}
+				\hbox to 6.28in { {\it Instructor: #3 \hfill} }
+				\hbox to 6.28in { {\it Office hours: #4  \hfill #6}}
+				\vspace{2mm}}
+		}
+	\end{center}
+	\markboth{#1}{#1}
+	\vspace*{4mm}
+}
+
+% ----------------------- MATH -------------------------
+\def\av{\boldsymbol a}
+\def\bv{\boldsymbol b}
+\def\cv{\boldsymbol c}
+\def\dv{\boldsymbol d}
+\def\ev{\boldsymbol e}
+\def\fv{\boldsymbol f}
+\def\gv{\boldsymbol g}
+\def\hv{\boldsymbol h}
+\def\iv{\boldsymbol i}
+\def\gv{\boldsymbol j}
+\def\kv{\boldsymbol k}
+\def\lv{\boldsymbol l}
+\def\mv{\boldsymbol m}
+\def\nv{\boldsymbol n}
+\def\ov{\boldsymbol o}
+\def\pv{\boldsymbol p}
+\def\qv{\boldsymbol q}
+\def\rv{\boldsymbol r}
+\def\sv{\boldsymbol s}
+\def\tv{\boldsymbol t}
+\def\uv{\boldsymbol u}
+\def\vv{\boldsymbol v}
+\def\wv{\boldsymbol w}
+\def\xv{\boldsymbol x}
+\def\yv{\boldsymbol y}
+\def\zv{\boldsymbol z}
+\def\Av{\boldsymbol A}
+\def\Bv{\boldsymbol B}
+\def\Cv{\boldsymbol C}
+\def\Dv{\boldsymbol D}
+\def\Ev{\boldsymbol E}
+\def\Fv{\boldsymbol F}
+\def\Gv{\boldsymbol G}
+\def\Hv{\boldsymbol H}
+\def\Iv{\boldsymbol I}
+\def\Gv{\boldsymbol J}
+\def\Kv{\boldsymbol K}
+\def\Lv{\boldsymbol L}
+\def\Mv{\boldsymbol M}
+\def\Nv{\boldsymbol N}
+\def\Ov{\boldsymbol O}
+\def\Pv{\boldsymbol P}
+\def\Qv{\boldsymbol Q}
+\def\Rv{\boldsymbol R}
+\def\Sv{\boldsymbol S}
+\def\Tv{\boldsymbol T}
+\def\Uv{\boldsymbol U}
+\def\Vv{\boldsymbol V}
+\def\Wv{\boldsymbol W}
+\def\Xv{\boldsymbol X}
+\def\Yv{\boldsymbol Y}
+\def\Zv{\boldsymbol Z}
+\def\Abf{\mathbf A}
+\def\Bbf{\mathbf B}
+\def\Cbf{\mathbf C}
+\def\Dbf{\mathbf D}
+\def\Ebf{\mathbf E}
+\def\Fbf{\mathbf F}
+\def\Gbf{\mathbf G}
+\def\Hbf{\mathbf H}
+\def\Ibf{\mathbf I}
+\def\Gbf{\mathbf J}
+\def\Kbf{\mathbf K}
+\def\Lbf{\mathbf L}
+\def\Mbf{\mathbf M}
+\def\Nbf{\mathbf N}
+\def\Obf{\mathbf O}
+\def\Pbf{\mathbf P}
+\def\Qbf{\mathbf Q}
+\def\Rbf{\mathbf R}
+\def\Sbf{\mathbf S}
+\def\Tbf{\mathbf T}
+\def\Ubf{\mathbf U}
+\def\Vbf{\mathbf V}
+\def\Wbf{\mathbf W}
+\def\Xbf{\mathbf X}
+\def\Ybf{\mathbf Y}
+\def\Jbf{\mathbf J}
+\def\Zbf{\mathbf Z}
+\def\Am{\mathrm A}
+\def\Bm{\mathrm B}
+\def\Cm{\mathrm C}
+\def\Dm{\mathrm D}
+\def\Em{\mathrm E}
+\def\Fm{\mathrm F}
+\def\Gm{\mathrm G}
+\def\Hm{\mathrm H}
+\def\Im{\mathrm I}
+\def\Gm{\mathrm J}
+\def\Km{\mathrm K}
+\def\Lm{\mathrm L}
+\def\Mm{\mathrm M}
+\def\Nm{\mathrm N}
+\def\Om{\mathrm O}
+\def\Pm{\mathrm P}
+\def\Qm{\mathrm Q}
+\def\Rm{\mathrm R}
+\def\Sm{\mathrm S}
+\def\Tm{\mathrm T}
+\def\Um{\mathrm U}
+\def\mv{\mathrm V}
+\def\Wm{\mathrm W}
+\def\Xm{\mathrm X}
+\def\Ym{\mathrm Y}
+\def\Zm{\mathrm Z}
+\newcommand{\Ac}{\mathcal{A}}
+\newcommand{\Bc}{\mathcal{B}}
+\newcommand{\Cc}{\mathcal{C}}
+\newcommand{\Dc}{\mathcal{D}}
+\newcommand{\Ec}{\mathcal{E}}
+\newcommand{\Fc}{\mathcal{F}}
+\newcommand{\Gc}{\mathcal{G}}
+\newcommand{\Hc}{\mathcal{H}}
+\newcommand{\Ic}{\mathcal{I}}
+\newcommand{\Jc}{\mathcal{J}}
+\newcommand{\Kc}{\mathcal{K}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Mc}{\mathcal{M}}
+\newcommand{\Nc}{\mathcal{N}}
+\newcommand{\Oc}{\mathcal{O}}
+\newcommand{\Pc}{\mathcal{P}}
+\newcommand{\Qc}{\mathcal{Q}}
+\newcommand{\Rc}{\mathcal{R}}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\Tc}{\mathcal{T}}
+\newcommand{\Uc}{\mathcal{U}}
+\newcommand{\Vc}{\mathcal{V}}
+\newcommand{\Wc}{\mathcal{W}}
+\newcommand{\Xc}{\mathcal{X}}
+\newcommand{\Yc}{\mathcal{Y}}
+\newcommand{\Zc}{\mathcal{Z}}
+\newcommand{\alphav}{\mbox{\boldmath{$\alpha$}}}
+\newcommand{\betav}{\mbox{\boldmath{$\beta$}}}
+\newcommand{\gammav}{\mbox{\boldmath{$\gamma$}}}
+\newcommand{\deltav}{\mbox{\boldmath{$\delta$}}}
+\newcommand{\epsilonv}{\mbox{\boldmath{$\epsilon$}}}
+\newcommand{\zetav}{\mbox{\boldmath$\zeta$}}
+\newcommand{\etav}{\mbox{\boldmath{$\eta$}}}
+\newcommand{\iotav}{\mbox{\boldmath{$\iota$}}}
+\newcommand{\kappav}{\mbox{\boldmath{$\kappa$}}}
+\newcommand{\lambdav}{\mbox{\boldmath{$\lambda$}}}
+\newcommand{\muv}{\mbox{\boldmath{$\mu$}}}
+\newcommand{\nuv}{\mbox{\boldmath{$\nu$}}}
+\newcommand{\xiv}{\mbox{\boldmath{$\xi$}}}
+\newcommand{\omicronv}{\mbox{\boldmath{$\omicron$}}}
+\newcommand{\piv}{\mbox{\boldmath{$\pi$}}}
+\newcommand{\rhov}{\mbox{\boldmath{$\rho$}}}
+\newcommand{\sigmav}{\mbox{\boldmath{$\sigma$}}}
+\newcommand{\tauv}{\mbox{\boldmath{$\tau$}}}
+\newcommand{\upsilonv}{\mbox{\boldmath{$\upsilon$}}}
+\newcommand{\phiv}{\mbox{\boldmath{$\phi$}}}
+\newcommand{\varphiv}{\mbox{\boldmath{$\varphi$}}}
+\newcommand{\chiv}{\mbox{\boldmath{$\chi$}}}
+\newcommand{\psiv}{\mbox{\boldmath{$\psi$}}}
+\newcommand{\omegav}{\mbox{\boldmath{$\omega$}}}
+\newcommand{\Sigmav}{\mbox{\boldmath{$\Sigma$}}}
+\newcommand{\Lambdav}{\mbox{\boldmath{$\Lambda$}}}
+\newcommand{\Deltav}{\mbox{\boldmath{$\Delta$}}}
+\newcommand{\Omegav}{\mbox{\boldmath{$\Omega$}}}
+\newcommand{\varepsilonv}{\mbox{\boldmath{$\varepsilon$}}}
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\epsv}{\mbox{\boldmath{$\varepsilon$}}}
+
+\def\1v{\mathbf 1}
+\def\0v{\mathbf 0}
+\def\Id{\mathbf I} % identity matrix
+\newcommand{\ind}[1]{\mathbbm{1}_{\left[ {#1} \right] }}
+\newcommand{\Ind}[1]{\mathbbm{1}_{\left\{ {#1} \right\} }}
+\newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+\newcommand{\QED}{\begin{flushright} {\bf QED} \end{flushright}}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Real}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\E}{\mathbb E}
+\newcommand{\sgn}{\mathop{\mathrm{sign}}}
+\def\Pr{\mathrm P}
+\def\pr{\mathrm P}
+\newcommand{\Var}{\mathop{\rm Var}}
+\newcommand{\var}{\mathop{\rm Var}}
+\newcommand{\Cov}{\mathop{\rm Cov}}
+\newcommand{\cov}{\mathop{\rm Cov}}
+\newcommand{\Corr}{\mathop{\rm Corr}}
+\newcommand{\ang}{\mathop{\rm Angle}}
+\newcommand{\tr}{\mathop{\rm trace}}
+\newcommand{\proj}{\mathop{\rm Proj}}
+\newcommand{\rank}{\mathop{\rm rank}}
+
+\newcommand{\diag}{\mathop{\rm diag}}
+\newcommand{\Diag}{\mathop{\rm diag}}
+\newcommand{\sk}{\vspace{0.5cm}}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mb}{\mbox}
+\newcommand{\wh}{\widehat}
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+
+\newcommand{\To}{\longrightarrow}
+
+\def\equalLaw{\stackrel{\mathcal{L}}{=}}
+\def\equallaw{\stackrel{\mathcal{L}}{=}}
+
+\def\half{\frac{1}{2}}
+
+\usepackage{caption}
+
+\begin{document}
+
+\begin{title}
+	{\Large\bf Homework 5, DATA 556: Due Tuesday, 10/31/2018}
+\end{title}
+
+\author{\bf Alexander Van Roijen}
+
+\maketitle
+
+\newpage
+Please complete the following:
+\begin{enumerate}
+\item Problem 1
+Let X and Y be i.i.d. Geom(p), and N = X + Y.
+\begin{enumerate}
+	\item Find the joint PMF of X, Y and N.
+	\begin{gather}
+		P(X=x,Y=y,N=n) = P(X=x,Y=y.X+Y=n) \\
+		 \text{ we note that N acts as a qualifying condition. We get } \\
+		P(X=X,Y=y,N=n) = \begin{cases}
+		P(X=x,Y=y)=p*(1-p)^x*p(1-p)^y & x+y=n\\
+		0 & x+y \ne n
+		\end{cases}
+	\end{gather}
+	\item Find the joint PMF of X and N.
+	\begin{gather}
+		P(X=x,N=n) = P(X=x,X+Y=n)=P(X=x,Y=n-x)\\
+		= \begin{cases}
+			P(X=x)*P(Y=n-x) =p(1-p)^xp(1-p)^{n-x}=p^2(1-p)^n &x\le n\\
+			0 & x>n
+		  \end{cases}
+	\end{gather}
+	\item Find the conditional PMF of X given N = n.
+	\begin{gather}
+		P(X=x|N=n)=\frac{P(X=x,N=n)}{P(N=n)}\\
+		P(N=n) = \text{ Negative binomial with 2 successes } = \binom{n+2-1}{2-1}p^2(1-p)^n \\
+		P(X=x|N=n) = \begin{cases}
+		\frac{p^2(1-p)^n}{\binom{n+1}{1}p^2(1-p)^n}  = \frac{1}{n+1}& n\ge x \\
+		0 & n < x
+		\end{cases}
+	\end{gather}
+\end{enumerate}
+\item Let X Y and Z be random variables such that X $\sim$ N(0, 1) and conditional on X = x, Y and Z are i.i.d. N(x, 1).
+\begin{enumerate}
+	\item Find the joint PDF of X, Y and Z.
+	\begin{gather}
+		f(x,y,z) = f(y,z|x)*f(x) \text{ and because of independece of Y and Z on x we get} \\
+		f(x,y,z) = f(y|x)*f(z|x)*f(x) \text{ now we shift $Y|x$ and $Z|x$ to a N(0,1)}\\
+		\text{Note further that shit shift wont alter the value under the curve, just where the density takes place}\\
+			f(x,y,z) = \frac{1}{\sqrt{2\pi}} e ^ {\frac{(y-x)^2}{2}} \frac{1}{\sqrt{2\pi}} e ^ {\frac{(z-x)^2}{2}} \frac{1}{\sqrt{2\pi}} e ^ {\frac{(x)^2}{2}} \\
+			\text{does this need to be simplified?}
+	\end{gather}
+	\item Find the joint PDF of Y and Z.
+	\begin{gather}
+		f(y,z) = \int_{-\infty}^{\infty} f(x,y,z) dx
+	\end{gather}
+\end{enumerate}
+\item Let X and Y be continuous random variables with joint CDF F(x, y). Show that the probability that (X, Y) falls in the rectangle (a1, a2) (b1, b2) is
+\begin{gather}
+	F(a2, b2) - F(a1, b2) + F(a1, b1) - F(a2, b1).\\
+	f(x,y) = \frac{d}{dx}\frac{d}{dy}F(x,y) \text{ want} \\
+	\int_{a1}^{a2}\int_{b1}^{b2}\frac{d}{dx}\frac{d}{dy}F(x,y)dydx\\
+	=\int_{a1}^{a2}\frac{d}{dx}(F(x,b2)-F(x,b1)) dx = \int_{a1}^{a2}\frac{d}{dx}F(x,b2) dx - \int_{a1}^{a2}\frac{d}{dx}F(x,b1) dx\\
+	= F(a2,b2)-F(a1,b2)-F(a2,b1)+F(a1,b1) \square
+\end{gather}
+\item Let X and Y have joint PDF
+\begin{gather}
+	f(x,y) = x+y \text{ for } 0<x<1 \& 0<y<1
+\end{gather}
+\begin{enumerate}
+	\item Check if this is a valid pdf\\
+	NTS
+	\begin{gather}
+		f(x,y)>0 \forall x,y \in X,Y \\
+		\text{ This is trivial as } 0<x<1 \& 0<y<1 =>  0<x+y<2 \\
+		=> f(x,y) = x+y >0 \forall x,y \in X,Y \\
+		\text{And NTS } \int_{0}^{1}\int_{0}^{1}f(x,y)dydx = 1
+		\int_{0}^{1}\int_{0}^{1}f(x,y)dydx = 	\int_{0}^{1}\int_{0}^{1} (x+ y)dydx \\
+		= \int_{0}^{1}(x+\frac{1}{2})dx = \int_{0}^{1}(x+\frac{1}{2})dx = \frac{1}{2} + \frac{1}{2} = 1 \square
+	\end{gather}
+	\item Find the marginal PDFs of X and Y.
+	\begin{gather}
+		f(x) = \int_{0}^{1}f(x,y)dy = \int_{0}^{1}(x+ y)dy  = yx + \frac{1}{2}y^2 \big|_0^1 = x+\frac{1}{2}\\
+		f(y) = \int_{0}^{1}f(x,y)dx = \int_{0}^{1}(x+ y)dx  = yx + \frac{1}{2}x^2 \big|_0^1 = y+\frac{1}{2}
+	\end{gather}
+	\item Are X and Y independent?
+	\begin{gather}
+		\text{No, as we would need }f(x,y) = f(x)*f(y) \text{ and}\\
+		f(x)*f(y) = (y+\frac{1}{2}) *  (x+\frac{1}{2}) \ne x+y
+	\end{gather}
+	\item  Find the conditional PDF of Y given X = x.
+	\begin{gather}
+		f(y|X=x) = \frac{f(x,y)}{f(x)} = \frac{x+y}{x+\frac{1}{2}}
+	\end{gather}
+\end{enumerate}
+\item Let X and Y have joint PDF
+\begin{gather}
+	f(x,y) = cxy \text{ for } 0<x<y<1
+\end{gather}
+\begin{enumerate}
+	\item find c to make this a valid pdf
+	\begin{gather}
+			f(x,y)>0 \forall x,y \in X,Y \\
+			\text{ This is trivial as } 0<x<y<1 => x>0 \& y>0 \\
+			=> f(x,y) = cxy >0 \forall x,y \in X,Y \text{ if }c>0\\
+			\text{And NTS } \int_{0}^{1}\int_{0}^{y}f(x,y)dxdy = 1
+			\int_{0}^{1}\int_{0}^{y}f(x,y)dxdy = 	\int_{0}^{1}\int_{0}^{y} (cxy)dydx \\
+			= \int_{0}^{1}(\frac{cx^2y}{2}\big|_0^y)dy =\int_{0}^{1}(\frac{cy^3}{2})dy = \frac{cy^4}{8}\big|_0^1 = 1\\
+			=> c = 8
+	\end{gather}
+	\item Find the marginal PDFs of X and Y
+	\begin{gather}
+	f(x) = \int_{x}^{1}f(x,y)dy = \int_{x}^{1}(8xy)dy  = 4xy^2\big|_x^1 = 4x - 4x^3 \\
+	f(y) = \int_{0}^{y}f(x,y)dy = \int_{0}^{y}(8xy)dy  = 4x^2y\big|_0^y = 4y^3
+	\end{gather}
+	\item are X and Y independent?
+	\begin{gather}
+		\text{ No, as once again we have }\\
+		f(x)*f(y) = ((4x - 4x^3) * 4y^3) \ne 8xy = f(x,y)
+	\end{gather}
+	\item Find the conditional PDF of Y given X = x.
+	\begin{gather}
+		f(y|x) = \frac{f(x,y)}{f(x)} = \frac{8xy}{4x - 4x^3} = \frac{2y}{1 - x^2}
+	\end{gather}
+\end{enumerate}
+\item Let X and Y be i.i.d. Unif(0, 1).
+\begin{enumerate}
+	\item Use simulations in R (the statistical programming language) to numerically estimate the covariance
+	of X + Y and X - Y.
+	\begin{verbatim}
+		> prob6a = function(n)
+		+ {
+		+   x = runif(n,0,1)
+		+   y = runif(n,0,1)
+		+   xmy = x-y
+		+   xpy = x+y
+		+   return(cov(xmy,xpy))
+		+ }
+		> #problem 6a
+		> print(prob6a(100000))
+		[1] 0.0005779827
+	\end{verbatim}
+	\item Compute the covariance of X + Y and X - Y
+	\begin{gather}
+		\Cov[X+Y,X-Y] = E[(X+Y)(X-Y)] - E[X+Y]E[X-Y] =\\
+		  E[X^2] - E[Y^2] - (E[X]+E[Y])*(E[X]-E[Y]) \text{ by independence}\\
+		  = \Var(X)+E[X]^2 - \Var(Y)-E[Y]^2 - E[X]^2 + E[Y]^2 = 0\\
+		  \text{the above is true as X and Y have the same distribution and thus cancel}
+	\end{gather}
+	\item Are X + Y and X - Y independent
+	\begin{gather}
+		\text{We know the following}\\
+		M_{X+Y}(t)=M_X(t)M_Y(t)\,\&\,M_{X-Y}(t)=M_X(t)M_{-Y}(t) \text{ Due to independence between X and Y}\\
+		\text{Now we want to show: }M_{X+Y,X-Y}(s,t)=M_{X+Y}(s)M_{X-Y}(t) \\
+		M_{X+Y}(s)M_{X-Y}(t) =M_X(t)M_Y(t)M_X(t)M_{-Y}(t) = M_X(t)M_Y(t)M_X(t)M_{Y}(-t)\\
+		\text{the above is true as you can assign the negative sign}\\
+		\text{ from the definition of the MGF to the 't' or R.V.}\\
+		M_{X+Y,X-Y}(s,t) = E[e^{s(X+Y) + t(X-Y)}]= E[e^{X(s+t)+Y(s-t)}] = M_X(s+t)M_Y(s-t) \text{ by indep}\\
+		= M_X(s)M_X(t)M_Y(s)M_Y(-t)\\
+		\text{Thus, since the MGFs are the same, we have sufficiently shown indpendence between}\\
+		X+Y \text{ and } X-Y
+	\end{gather}
+\end{enumerate}
+\item Let X, Y and Z be i.i.d. N(0, 1). Find the joint MGF of (X + 2Y, 3X + 4Z, 5Y + 6Z).\\
+First Notice that we can rewrite this as a Multivariate normal distribution
+\begin{gather}
+	t_1(X+2Y)+t_2(3X + 4Z)+t_3(5Y + 6Z) = X(t_1+3t_2) + Y(2t_1+5t_3) + Z(4t_2+6t_3)\\
+	\text{We can use some properties to then get the following}\\
+	MGF(X + 2Y, 3X + 4Z, 5Y + 6Z) = E[e^{t_1(X + 2Y) + t_2(3X + 4Z) + t_3(5Y+6Z)}] \\
+	= e^{t_1E(X + 2Y) + t_2E(3X + 4Z) + t_3E(5Y+6Z) + \frac{1}{2} \Var(t_1(X + 2Y) + t_2(3X + 4Z) + t_3(5Y+6Z))} \\
+	\text{ by the definition of joint MGF on the multivariate normal}\\
+	= e^{\frac{1}{2} \Var(t_1(X + 2Y) + t_2(3X + 4Z) + t_3(5Y+6Z))} \text{ since we have N(0,1) for X,Y,Z}\\
+	=e^{\frac{1}{2} \Var(X(t_1+3t_2) + Y(2t_1+5t_3) + Z(4t_2+6t_3))}
+	=e^{\frac{1}{2} (t_1+3t_2)^2\Var(X)+(2t_1+5t_3)^2\Var(Y) + (4t_2+6t_3)^2\Var(Z)}\\
+	=e^{\frac{1}{2} (t_1+3t_2)^2+(2t_1+5t_3)^2 + (4t_2+6t_3)^2}
+\end{gather}
+\item we have the table below
+\begin{verbatim}
+	> y = matrix(c(0.018, 0.035 , 0.031 ,0.008 , 0.018 ,
+	+                      0.002,0.112 ,0.064,0.032,0.069,
+	+                      0.001,0.066 , 0.094 ,0.032, 0.084,
+	+                      0.001 , 0.018, 0.019, 0.010, 0.051,
+	+                      0.001, 0.029 , 0.032,0.043,0.130), nrow=5 , byrow=TRUE)
+	> colnames ( y ) = c ( 'farm' , "operatives",'craftsen','sales','professional' )
+	> rownames ( y ) = colnames ( y )
+	> 
+	> sum( y )
+	[1] 1
+	> print(y)
+	farm operatives craftsen sales professional
+	farm         0.018      0.035    0.031 0.008        0.018
+	operatives   0.002      0.112    0.064 0.032        0.069
+	craftsen     0.001      0.066    0.094 0.032        0.084
+	sales        0.001      0.018    0.019 0.010        0.051
+	professional 0.001      0.029    0.032 0.043        0.130
+\end{verbatim}
+\begin{enumerate}
+	\item the marginal probability distribution of a father’s occupation
+	\begin{verbatim}
+		sum(y[1,])
+		#[1] 0.11
+		sum(y[2,])
+		#[1] 0.279
+		sum(y[3,])
+		#[1] 0.277
+		sum(y[4,])
+		#[1] 0.099
+		sum(y[5,])
+		#[1] 0.235
+	\end{verbatim}
+	\item the marginal probability distribution of a son’s occupation
+	\begin{verbatim}
+		sum(y[,1])
+		#[1] 0.023
+		sum(y[,2])
+		#[1] 0.26
+		sum(y[,3])
+		#[1] 0.24
+		sum(y[,4])
+		#[1] 0.125
+		sum(y[,5])
+		#[1] 0.352
+	\end{verbatim}
+	\item the conditional distribution of a son’s occupation, given that the father is a farmer
+	\begin{verbatim}
+		> result = y[1,]/sum(y[1,])
+		> print(result)
+		farm   operatives     craftsen        sales professional 
+		0.16363636   0.31818182   0.28181818   0.07272727   0.16363636 
+	\end{verbatim}
+	\item the conditional distribution of a father’s occupation, given that the son is a farmer
+	\begin{verbatim}
+		> resultd = y[,1]/sum(y[,1])
+		> print(resultd)
+		farm   operatives     craftsen        sales professional 
+		0.78260870   0.08695652   0.04347826   0.04347826   0.04347826 
+	\end{verbatim}
+\end{enumerate}
+\item You will analyze data from a study of the effects of aspirin on myocardial infarction.
+\begin{enumerate}
+	\item Calculate the row and columns totals of this table. What is the grand total?
+	\begin{verbatim}
+		#placebo = 28+656=684
+		#aspirin = 18+658=676
+		#yes = 28+18 = 46
+		#no = 656+658 = 1314
+		placebo = 684
+		aspirin = 676
+		yes = 46
+		no = 1314
+		#grandtotal = 1360
+		grandtotal = yes+no 
+	\end{verbatim}
+	\item Calculate the expected cell values under the hypothesis of interaction of Aspirin Use and Myocardial Infarction.
+	\begin{verbatim}
+	> table9 = matrix(c(28,656,18,658), nrow=2 , byrow=TRUE)
+	> colnames(table9) = c('yes','no')
+	> rownames(table9) = c('Placebo','aspirin')
+	> table9
+	yes  no
+	Placebo  28 656
+	aspirin  18 658
+	> #under interaction we have
+	> dcell11= table9[1,1]/grandtotal
+	> dcell12= table9[1,2]/grandtotal
+	> dcell21= table9[2,1]/grandtotal
+	> dcell22= table9[2,2]/grandtotal
+	> dptable = matrix(c(dcell11,dcell12,dcell21,dcell22),nrow=2,byrow=TRUE)
+	> dpttable = dptable*grandtotal
+	> colnames(dpttable) = c('yes','no')
+	> rownames(dpttable) = c('Placebo','aspirin')
+	> print(dpttable)
+	yes  no
+	Placebo  28 656
+	aspirin  18 658
+	\end{verbatim}
+	\item Calculate the expected cell values under the hypothesis of independence of Aspirin Use and Myocardial Infarction.
+	\begin{verbatim}
+	
+	> #under no interaction, we have a simple set of multiplications
+	> p1a=sum(table9[1,])/grandtotal
+	> p2a=sum(table9[2,])/grandtotal
+	> pa1=sum(table9[,1])/grandtotal
+	> pa2=sum(table9[,2])/grandtotal
+	> icell11=p1a*pa1
+	> icell12=p1a*pa2
+	> icell21=p2a*pa1
+	> icell22=p2a*pa2
+	> # since each cell is a bernoulli RV, our expected value is simply the probability times the grand total
+	> iptable = matrix(c(icell11,icell12,icell21,icell22),nrow=2,byrow=TRUE)
+	> ipttable = iptable*grandtotal
+	> colnames(ipttable) = c('yes','no')
+	> rownames(ipttable) = c('Placebo','aspirin')
+	> print(ipttable)
+	yes       no
+	Placebo 23.13529 660.8647
+	aspirin 22.86471 653.1353
+	\end{verbatim}
+	\item Perform an asymptotic test of independence vs. interaction of Aspirin Use and Myocardial Infarction based on Pearson’s chi-square statistic
+	\begin{verbatim}
+		> chiqTest = function(truMatrix,expectedMatrix)
+		+ {
+		+   sum =0
+		+   rcounter = 1
+		+   ccounter = 1
+		+   sum = 0
+		+   while(rcounter <= 2)
+		+   {
+		+     ccounter = 1
+		+     while(ccounter<=2)
+		+     {
+		+       sum = sum + (((truMatrix[rcounter,ccounter]-expectedMatrix[rcounter,ccounter])**2)/expectedMatrix[rcounter,ccounter])
+		+       ccounter= ccounter + 1
+		+     }
+		+     rcounter = rcounter +1
+		+   }
+		+   return(sum)
+		+ }
+		> test1 = (chiqTest(table9,ipttable)) #ipptable is interaction table
+		> print(test1)
+		[1] 2.129972
+	\end{verbatim}
+	\item Perform an asymptotic test of independence vs. interaction of Aspirin Use and Myocardial Infarction based on the likelihood ratio statistic $G^2$
+	\begin{verbatim}
+		> gsquareTest = function(truMatrix,expectedMatrix)
+		+ {
+		+   sum =0
+		+   rcounter = 1
+		+   ccounter = 1
+		+   sum = 0
+		+   while(rcounter <= 2)
+		+   {
+		+     ccounter = 1
+		+     while(ccounter<=2)
+		+     {
+		+       sum = sum + (truMatrix[rcounter,ccounter]*log(truMatrix[rcounter,ccounter]/expectedMatrix[rcounter,ccounter]))
+		+       ccounter= ccounter + 1
+		+     }
+		+     rcounter = rcounter +1
+		+   }
+		+   return(2*sum)
+		+ }
+		> test2 = (gsquareTest(table9,ipttable))  #ipptable is interaction table
+		> print(test2)
+		[1] 2.147353
+	\end{verbatim}
+	\item Draw conclusions related to the effect of aspirin on the occurrence of myocardial infarction. Summarize your findings in a concise statement\\
+		Now, in this scenario where we believe there to be interaction, we have 1 degree of freedom as $(rows-1)(cols-1) = (2-1)*(2-1)=1$ Thus we get the following
+		\begin{verbatim}
+			> print(1-pchisq(test1,1))
+			[1] 0.1444434
+			> print(1-pchisq(test2,1))
+			[1] 0.1428159
+		\end{verbatim}
+		The similarity of the two tests are encouraging and the values they display indicate that we can not reject the null hypothesis assuming an alpha level of 0.05. More plainly, there is not enough evidence to indicate that their is not an independence for myocardial infractions between aspirin usage and placebos with high confidence.
+\end{enumerate}
+	\text{Have a nice day!}
+\end{enumerate}
+
+\end{document}
