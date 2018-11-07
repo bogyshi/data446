@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.10.12)  6 NOV 2018 11:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.10.12)  6 NOV 2018 21:20
 entering extended mode
 **./avanroi1_hw6.tex
 (avanroi1_hw6.tex
@@ -303,72 +303,72 @@ Overfull \hbox (4.41151pt too wide) detected at line 278
  []
 
 
-Overfull \hbox (73.2802pt too wide) detected at line 306
+Overfull \hbox (73.2802pt too wide) detected at line 305
 []
  []
 
-[2] [3] [4]
-Overfull \hbox (48.12344pt too wide) detected at line 416
+[2] [3] [4] [5]
+Overfull \hbox (116.57832pt too wide) detected at line 426
 []
  []
 
-[5] [6]
-Overfull \hbox (20.4715pt too wide) in paragraph at lines 450--450
+[6] [7]
+Overfull \hbox (20.4715pt too wide) in paragraph at lines 460--460
  []\OT1/cmtt/m/n/10.95 +                      0.001, 0.029 , 0.032,0.043,0.130)
 , nrow=5 , byrow=TRUE)[] 
  []
 
 
-Overfull \hbox (31.96887pt too wide) in paragraph at lines 450--450
+Overfull \hbox (31.96887pt too wide) in paragraph at lines 460--460
  []\OT1/cmtt/m/n/10.95 > colnames ( y ) = c ( 'farm' , "operatives",'craftsen',
 'sales','professional' )[] 
  []
 
-[7] [8]
-Overfull \hbox (10.0694pt too wide) in paragraph at lines 530--530
+[8] [9] [10]
+Overfull \hbox (10.0694pt too wide) in paragraph at lines 540--540
  []\OT1/cmtt/m/n/10.95 > dptable = matrix(c(dcell11,dcell12,dcell21,dcell22),nr
 ow=2,byrow=TRUE)[] 
  []
 
-[9]
-Overfull \hbox (199.7761pt too wide) in paragraph at lines 552--552
+
+Overfull \hbox (199.7761pt too wide) in paragraph at lines 561--561
  []\OT1/cmtt/m/n/10.95 > # since each cell is a bernoulli RV, our expected valu
 e is simply the probability times the grand total[] 
  []
 
 
-Overfull \hbox (10.0694pt too wide) in paragraph at lines 552--552
+Overfull \hbox (10.0694pt too wide) in paragraph at lines 561--561
  []\OT1/cmtt/m/n/10.95 > iptable = matrix(c(icell11,icell12,icell21,icell22),nr
 ow=2,byrow=TRUE)[] 
  []
 
-[10]
-Overfull \hbox (314.74985pt too wide) in paragraph at lines 576--576
+[11]
+Overfull \hbox (314.74985pt too wide) in paragraph at lines 585--585
  []\OT1/cmtt/m/n/10.95 +       sum = sum + (((truMatrix[rcounter,ccounter]-expe
 ctedMatrix[rcounter,ccounter])**2)/expectedMatrix[rcounter,ccounter])[] 
  []
 
-
-Overfull \hbox (274.50903pt too wide) in paragraph at lines 600--600
+[12]
+Overfull \hbox (274.50903pt too wide) in paragraph at lines 609--609
  []\OT1/cmtt/m/n/10.95 +       sum = sum + (truMatrix[rcounter,ccounter]*log(tr
 uMatrix[rcounter,ccounter]/expectedMatrix[rcounter,ccounter]))[] 
  []
 
-[11]
-Overfull \hbox (10.0694pt too wide) in paragraph at lines 600--600
+
+Overfull \hbox (10.0694pt too wide) in paragraph at lines 609--609
  []\OT1/cmtt/m/n/10.95 > test2 = (gsquareTest(table9,ipttable))  #ipptable is i
 nteraction table[] 
  []
 
-[12] (avanroi1_hw6.aux) ) 
+[13] (avanroi1_hw6.aux) ) 
 Here is how much of TeX's memory you used:
  3866 strings out of 492970
  56631 string characters out of 3123041
- 128712 words of memory out of 3000000
+ 130712 words of memory out of 3000000
  7678 multiletter control sequences out of 15000+200000
  16156 words of font info for 60 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,16n,38p,357b,399s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,16n,38p,357b,401s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/AlexVanRoijen/AppData/Local/Programs/MiKTeX 
 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/AlexVanRoijen/AppData/L
 ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Al
@@ -387,9 +387,9 @@ cmsy6.pfb><C:/Users/AlexVanRoijen/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
 /public/amsfonts/cm/cmsy8.pfb><C:/Users/AlexVanRoijen/AppData/Local/Programs/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/AlexVanRoijen/AppD
 ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on avanroi1_hw6.pdf (12 pages, 181377 bytes).
+Output written on avanroi1_hw6.pdf (13 pages, 184155 bytes).
 PDF statistics:
- 97 PDF objects out of 1000 (max. 8388607)
+ 101 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
