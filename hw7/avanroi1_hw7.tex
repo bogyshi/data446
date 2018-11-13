@@ -254,7 +254,7 @@
 \begin{document}
 
 \begin{title}
-	{\Large\bf Homework 5, DATA 556: Due Tuesday, 10/31/2018}
+	{\Large\bf Homework 7, DATA 556: Due Tuesday, 11/13/2018}
 \end{title}
 
 \author{\bf Alexander Van Roijen}
@@ -265,350 +265,110 @@
 Please complete the following:
 \begin{enumerate}
 \item Problem 1
-Let X and Y be i.i.d. Geom(p), and N = X + Y.
-\begin{enumerate}
-	\item Find the joint PMF of X, Y and N.
-	\begin{gather}
-		P(X=x,Y=y,N=n) = P(X=x,Y=y.X+Y=n) \\
-		 \text{ we note that N acts as a qualifying condition. We get } \\
-		P(X=X,Y=y,N=n) = \begin{cases}
-		P(X=x,Y=y)=p*(1-p)^x*p(1-p)^y & x+y=n\\
-		0 & x+y \ne n
-		\end{cases}
-	\end{gather}
-	\item Find the joint PMF of X and N.
-	\begin{gather}
-		P(X=x,N=n) = P(X=x,X+Y=n)=P(X=x,Y=n-x)\\
-		= \begin{cases}
-			P(X=x)*P(Y=n-x) =p(1-p)^xp(1-p)^{n-x}=p^2(1-p)^n &x\le n\\
-			0 & x>n
-		  \end{cases}
-	\end{gather}
-	\item Find the conditional PMF of X given N = n.
-	\begin{gather}
-		P(X=x|N=n)=\frac{P(X=x,N=n)}{P(N=n)}\\
-		P(N=n) = \text{ Negative binomial with 2 successes } = \binom{n+2-1}{2-1}p^2(1-p)^n \\
-		P(X=x|N=n) = \begin{cases}
-		\frac{p^2(1-p)^n}{\binom{n+1}{1}p^2(1-p)^n}  = \frac{1}{n+1}& n\ge x \\
-		0 & n < x
-		\end{cases}
-	\end{gather}
-\end{enumerate}
-\item Let X Y and Z be random variables such that X $\sim$ N(0, 1) and conditional on X = x, Y and Z are i.i.d. N(x, 1).
-\begin{enumerate}
-	\item Find the joint PDF of X, Y and Z.
-	\begin{gather}
-		f(x,y,z) = f(y,z|x)*f(x) \text{ and because of independece of Y and Z on x we get} \\
-		f(x,y,z) = f(y|x)*f(z|x)*f(x) \text{ now we shift $Y|x$ and $Z|x$ to a N(0,1)}\\
-		\text{Note further that shit shift wont alter the value under the curve, just where the density takes place}\\
-			f(x,y,z) = \frac{1}{\sqrt{2\pi}} e ^ {\frac{(y-x)^2}{2}} \frac{1}{\sqrt{2\pi}} e ^ {\frac{(z-x)^2}{2}} \frac{1}{\sqrt{2\pi}} e ^ {\frac{(x)^2}{2}} \\
-			\text{does this need to be simplified?}
-	\end{gather}
-	\item Find the joint PDF of Y and Z.
-	\begin{gather}
-		f(y,z) = \int_{-\infty}^{\infty} f(x,y,z) dx
-	\end{gather}
-\end{enumerate}
-\item Let X and Y be continuous random variables with joint CDF F(x, y). Show that the probability that (X, Y) falls in the rectangle (a1, a2) (b1, b2) is
+Let X and Y be i.i.d. Expo($\lambda$) and T = $\log(X/Y)$. Find CDF and PDF of T
 \begin{gather}
-	F(a2, b2) - F(a1, b2) + F(a1, b1) - F(a2, b1).\\
-	f(x,y) = \frac{d}{dx}\frac{d}{dy}F(x,y) \text{ want} \\
-	\int_{a1}^{a2}\int_{b1}^{b2}\frac{d}{dx}\frac{d}{dy}F(x,y)dydx\\
-	=\int_{a1}^{a2}\frac{d}{dx}(F(x,b2)-F(x,b1)) dx = \int_{a1}^{a2}\frac{d}{dx}F(x,b2) dx - \int_{a1}^{a2}\frac{d}{dx}F(x,b1) dx\\
-	= F(a2,b2)-F(a1,b2)-F(a2,b1)+F(a1,b1) \square
+	F_t(t) = P(T\le t)=P(\frac{X}{Y}\le e^t) = \int_{0}^{\infty} P(\frac{X}{Y}\le e^t | Y=y) P(Y=y)dy \\
+	= \int_{0}^{\infty} P(X \le ye^t | Y=y) f(y)dy =   \int_{0}^{\infty}\int_{0}^{ye^t} f_X(x) f_Y(y)dxdy \\
+	= \int_{0}^{\infty} \int_{0}^{ye^t}  \lambda e^{-\lambda x} e^{-\lambda y} dxdy = \int_{0}^{\infty} (1-e^{-\lambda ye^t}) \lambda e^{-\lambda y} dy \\
+	= \int_{0}^{\infty} \lambda e^{-\lambda y} dy - \int_{0}^{\infty} e^{-\lambda ye^t} \lambda e^{-\lambda y} dy = 1 - \int_{0}^{\infty} \lambda e^{-\lambda y(e^t +1)} dy = 1 - \frac{1}{e^t +1}e^{-\lambda y(e^t +1)}\big|_0^\infty\\
+	= 1 - (0+\frac{1}{e^t +1}) = 1 - \frac{1}{e^t +1}\\
+	=> f_T(t) = \frac{d}{dt} (1 - \frac{1}{e^t +1}) = \frac{e^t}{(e^t +1)^2}
 \end{gather}
-\item Let X and Y have joint PDF
+The above used the LOTP as well as properties of independent exponential distributions, what they integrate to, and similar principles. This result is easily verified to hold all the properties necessary of a PDF or CDF.
+\item Let X and Y be i.i.d. Expo($\lambda$), and transform them to T = X+Y and W=X/Y
+\begin{enumerate}
+	\item Find the joint PDF of T and W. Are they independent?
+	\begin{gather}
+		f_{t,w}=f_{x,y} * \begin{bmatrix}
+		\frac{\partial x}{\partial t} & 
+		\frac{\partial x}{\partial w} \\
+		\frac{\partial y}{\partial t} & 
+		\frac{\partial y}{\partial w} & 
+		\end{bmatrix}
+		= f_x(x) * f_y(y) \begin{bmatrix}
+		\frac{1}{1+t} & 
+		\frac{t}{1+w} - \frac{tw}{(1+w)^2} \\
+		\frac{1}{1+w} & 
+		\frac{-t}{(1+w)^2} & 
+		\end{bmatrix}\\
+		= \lambda^2e^{-\lambda(x+y)} |\frac{-tw}{(1+w)^3} - \frac{t(1+w)}{(1+w)^3} + \frac{tw}{(1+w)^3}| = \lambda^2e^{-\lambda t}\frac{t(1+w)}{(1+w)^3}\\
+		=\lambda^2te^{-\lambda t}\frac{1}{(1+w)^2}
+	\end{gather}
+	Thus they are independent as we are able to separate their joint distribution into two functions of their respective variables in the form of $g(t)*h(w)$
+	\item Find the marginal PDFs of T and W.
+	\begin{gather}
+		f(t) = \int_{-\infty}^{\infty} f(t,w) dw\\
+		f(w) = \int_{-\infty}^{\infty} f(t,w) dt
+	\end{gather}
+\end{enumerate}
+\item Let U $\sim$ Unif(0,1) and X $\sim$ Expo($\lambda$), independently. Find the PDF of U+X \\
+We have $0 \le U \le 1$ for U and $0\le X \le \infty$
 \begin{gather}
-	f(x,y) = x+y \text{ for } 0<x<1 \& 0<y<1
+	T=U+X=>f(t)=\int_{-\infty}^{\infty}f_x(x)f_u(t-x)dx \\
+	\text{We require that } x\ge0 \& \, 0\le t-x\le 1 => t\ge x\ge 1-t \text{ By the properties of our distribs} \\
+	\text{Thus we need to match all properties and get the following}\\
+	\int_{max(0,t-1)}^{t}f_x(x)f_u(t-x)dx => \int_{0}^{t}f_x(x)f_u(t-x)dx = \int_{0}^{t} \lambda e^{-\lambda(x)} dx = 1- e^{-\lambda(t)}\\
+	=>\int_{t-1}^{t}f_x(x)f_u(t-x)dx => \int_{t-1}^{t}f_x(x)f_u(t-x)dx = \int_{t-1}^{t} \lambda e^{-\lambda(x)} dx = e^{-\lambda(t-1)}- e^{-\lambda t} = e^{-\lambda t}(e^\lambda -1)\\
+	f(t)=\begin{cases}
+	e^{-\lambda t}(e^\lambda -1) & t > 1 \\
+	1- e^{-\lambda(t)} & 0\le t \le 1 \\
+	0 &t<0
+	\end{cases}
 \end{gather}
-\begin{enumerate}
-	\item Check if this is a valid pdf\\
-	NTS
-	\begin{gather}
-		f(x,y)>0 \forall x,y \in X,Y \\
-		\text{ This is trivial as } 0<x<1 \& 0<y<1 =>  0<x+y<2 \\
-		=> f(x,y) = x+y >0 \forall x,y \in X,Y \\
-		\text{And NTS } \int_{0}^{1}\int_{0}^{1}f(x,y)dydx = 1
-		\int_{0}^{1}\int_{0}^{1}f(x,y)dydx = 	\int_{0}^{1}\int_{0}^{1} (x+ y)dydx \\
-		= \int_{0}^{1}(x+\frac{1}{2})dx = \int_{0}^{1}(x+\frac{1}{2})dx = \frac{1}{2} + \frac{1}{2} = 1 \square
-	\end{gather}
-	\item Find the marginal PDFs of X and Y.
-	\begin{gather}
-		f(x) = \int_{0}^{1}f(x,y)dy = \int_{0}^{1}(x+ y)dy  = yx + \frac{1}{2}y^2 \big|_0^1 = x+\frac{1}{2}\\
-		f(y) = \int_{0}^{1}f(x,y)dx = \int_{0}^{1}(x+ y)dx  = yx + \frac{1}{2}x^2 \big|_0^1 = y+\frac{1}{2}
-	\end{gather}
-	\item Are X and Y independent?
-	\begin{gather}
-		\text{No, as we would need }f(x,y) = f(x)*f(y) \text{ and}\\
-		f(x)*f(y) = (y+\frac{1}{2}) *  (x+\frac{1}{2}) \ne x+y
-	\end{gather}
-	\item  Find the conditional PDF of Y given X = x.
-	\begin{gather}
-		f(y|X=x) = \frac{f(x,y)}{f(x)} = \frac{x+y}{x+\frac{1}{2}}
-	\end{gather}
-\end{enumerate}
-\item Let X and Y have joint PDF
+\item Let X and Y be i.i.d. Expo($\lambda$). Use a convolution integral to show that the PDF of L = X - Y is
 \begin{gather}
-	f(x,y) = cxy \text{ for } 0<x<y<1
+	f_L(l) = \frac{\lambda}{2}e^{-\lambda|l|}\\
+	\text{Note that } L = X + (-Y)\\
+	\text{ For } l < 0 \text{ we get the following}
+	f_L(l) = \int_{-\infty}^{\infty}f_x(x)f_{-y}(t-x)dx =  \int_{0}^{\infty}f_x(x)f_{y}(x-t)dx \text{ This is easily seen as } P(X=x)=P(-X=-x)\\
+	=\int_{0}^{\infty}\lambda^2 e^{-\lambda(2x-l)}dx = e^{\lambda l}\int_{0}^{\infty}\lambda e^{-\lambda(2x)}dx = e^{\lambda l} * -\frac{\lambda e^{-\lambda 2x}}{2}\big{|}_0^\infty =  e^{\lambda l} * -\frac{\lambda e^{-\lambda 2x}}{2}\big{|}_0^\infty = e^{\lambda l} * (0+\frac{\lambda}{2}) = \frac{\lambda e^{\lambda l}}{2}\\
+	\text{Now for } l\ge 0\\
+	\text{ we  know } -L \sim L \text{ as } X,Y \text{ i.i.d }\\
+	=> f_L(l) = \frac{\lambda e^{-\lambda l}}{2} \text{ for } l \ge0\\
+	\text{we get  }
+	f_L(l)=
+	\begin{cases}
+		\frac{\lambda e^{-\lambda l}}{2} & l \ge 0 \\
+		\frac{\lambda e^{\lambda l}}{2} & l < 0\\
+	\end{cases}
+	\text{which is equivalent to saying } 	
+	f_L(l) = \frac{\lambda}{2}e^{-\lambda|l|} \square
 \end{gather}
-\begin{enumerate}
-	\item find c to make this a valid pdf
-	\begin{gather}
-			f(x,y)>0 \forall x,y \in X,Y \\
-			\text{ This is trivial as } 0<x<y<1 => x>0 \& y>0 \\
-			=> f(x,y) = cxy >0 \forall x,y \in X,Y \text{ if }c>0\\
-			\text{And NTS } \int_{0}^{1}\int_{0}^{y}f(x,y)dxdy = 1
-			\int_{0}^{1}\int_{0}^{y}f(x,y)dxdy = 	\int_{0}^{1}\int_{0}^{y} (cxy)dydx \\
-			= \int_{0}^{1}(\frac{cx^2y}{2}\big|_0^y)dy =\int_{0}^{1}(\frac{cy^3}{2})dy = \frac{cy^4}{8}\big|_0^1 = 1\\
-			=> c = 8
-	\end{gather}
-	\item Find the marginal PDFs of X and Y
-	\begin{gather}
-	f(x) = \int_{x}^{1}f(x,y)dy = \int_{x}^{1}(8xy)dy  = 4xy^2\big|_x^1 = 4x - 4x^3 \\
-	f(y) = \int_{0}^{y}f(x,y)dy = \int_{0}^{y}(8xy)dy  = 4x^2y\big|_0^y = 4y^3
-	\end{gather}
-	\item are X and Y independent?
-	\begin{gather}
-		\text{ No, as once again we have }\\
-		f(x)*f(y) = ((4x - 4x^3) * 4y^3) \ne 8xy = f(x,y)
-	\end{gather}
-	\item Find the conditional PDF of Y given X = x.
-	\begin{gather}
-		f(y|x) = \frac{f(x,y)}{f(x)} = \frac{8xy}{4x - 4x^3} = \frac{2y}{1 - x^2}
-	\end{gather}
-\end{enumerate}
-\item Let X and Y be i.i.d. Unif(0, 1).
-\begin{enumerate}
-	\item Use simulations in R (the statistical programming language) to numerically estimate the covariance
-	of X + Y and X - Y.
-	\begin{verbatim}
-		> prob6a = function(n)
-		+ {
-		+   x = runif(n,0,1)
-		+   y = runif(n,0,1)
-		+   xmy = x-y
-		+   xpy = x+y
-		+   return(cov(xmy,xpy))
-		+ }
-		> #problem 6a
-		> print(prob6a(100000))
-		[1] 0.0005779827
-	\end{verbatim}
-	\item Compute the covariance of X + Y and X - Y
-	\begin{gather}
-		\Cov[X+Y,X-Y] = E[(X+Y)(X-Y)] - E[X+Y]E[X-Y] =\\
-		  E[X^2] - E[Y^2] - (E[X]+E[Y])*(E[X]-E[Y]) \text{ by independence}\\
-		  = \Var(X)+E[X]^2 - \Var(Y)-E[Y]^2 - E[X]^2 + E[Y]^2 = 0\\
-		  \text{the above is true as X and Y have the same distribution and thus cancel}
-	\end{gather}
-	\item Are X + Y and X - Y independent
-	\begin{gather}
-		\text{We know the following}\\
-		M_{X+Y}(t)=M_X(t)M_Y(t)\,\&\,M_{X-Y}(t)=M_X(t)M_{-Y}(t) \text{ Due to independence between X and Y}\\
-		\text{Now we want to show: }M_{X+Y,X-Y}(s,t)=M_{X+Y}(s)M_{X-Y}(t) \\
-		M_{X+Y}(s)M_{X-Y}(t) =M_X(t)M_Y(t)M_X(t)M_{-Y}(t) = M_X(t)M_Y(t)M_X(t)M_{Y}(-t)\\
-		\text{the above is true as you can assign the negative sign}\\
-		\text{ from the definition of the MGF to the 't' or R.V.}\\
-		M_{X+Y,X-Y}(s,t) = E[e^{s(X+Y) + t(X-Y)}]= E[e^{X(s+t)+Y(s-t)}] = M_X(s+t)M_Y(s-t) \text{ by indep}\\
-		= M_X(s)M_X(t)M_Y(s)M_Y(-t)\\
-		\text{Thus, since the MGFs are the same, we have sufficiently shown indpendence between}\\
-		X+Y \text{ and } X-Y
-	\end{gather}
-\end{enumerate}
-\item Let X, Y and Z be i.i.d. N(0, 1). Find the joint MGF of (X + 2Y, 3X + 4Z, 5Y + 6Z).\\
-First Notice that we can rewrite this as a Multivariate normal distribution
+\item Use a convolution integral to show that if X $\sim N(\mu_1,\sigma)$ and Y $\sim N(\mu_2,\sigma)$ are independent, then
 \begin{gather}
-	t_1(X+2Y)+t_2(3X + 4Z)+t_3(5Y + 6Z) = X(t_1+3t_2) + Y(2t_1+5t_3) + Z(4t_2+6t_3)\\
-	\text{We can use some properties to then get the following}\\
-	MGF(X + 2Y, 3X + 4Z, 5Y + 6Z) = E[e^{t_1(X + 2Y) + t_2(3X + 4Z) + t_3(5Y+6Z)}] \\
-	= e^{t_1E(X + 2Y) + t_2E(3X + 4Z) + t_3E(5Y+6Z) + \frac{1}{2} \Var(t_1(X + 2Y) + t_2(3X + 4Z) + t_3(5Y+6Z))} \\
-	\text{ by the definition of joint MGF on the multivariate normal}\\
-	= e^{\frac{1}{2} \Var(t_1(X + 2Y) + t_2(3X + 4Z) + t_3(5Y+6Z))} \text{ since we have N(0,1) for X,Y,Z}\\
-	=e^{\frac{1}{2} \Var(X(t_1+3t_2) + Y(2t_1+5t_3) + Z(4t_2+6t_3))}
-	=e^{\frac{1}{2} (t_1+3t_2)^2\Var(X)+(2t_1+5t_3)^2\Var(Y) + (4t_2+6t_3)^2\Var(Z)}\\
-	=e^{\frac{1}{2} (t_1+3t_2)^2+(2t_1+5t_3)^2 + (4t_2+6t_3)^2}
+	T=X+Y\sim N(\mu_1+\mu_2,2\sigma^2)
 \end{gather}
-\item we have the table below
-\begin{verbatim}
-	> y = matrix(c(0.018, 0.035 , 0.031 ,0.008 , 0.018 ,
-	+                      0.002,0.112 ,0.064,0.032,0.069,
-	+                      0.001,0.066 , 0.094 ,0.032, 0.084,
-	+                      0.001 , 0.018, 0.019, 0.010, 0.051,
-	+                      0.001, 0.029 , 0.032,0.043,0.130), nrow=5 , byrow=TRUE)
-	> colnames ( y ) = c ( 'farm' , "operatives",'craftsen','sales','professional' )
-	> rownames ( y ) = colnames ( y )
-	> 
-	> sum( y )
-	[1] 1
-	> print(y)
-	farm operatives craftsen sales professional
-	farm         0.018      0.035    0.031 0.008        0.018
-	operatives   0.002      0.112    0.064 0.032        0.069
-	craftsen     0.001      0.066    0.094 0.032        0.084
-	sales        0.001      0.018    0.019 0.010        0.051
-	professional 0.001      0.029    0.032 0.043        0.130
-\end{verbatim}
+\begin{gather}
+	f(t)=\int_{-\infty}^{\infty}f_x(x)f_y(t-x)dx 
+\end{gather}
+\item Let $W_1, W_2$ be two R.V. with joint distrib\\
+$P(W_1\le w_1, W_2 \le w_2) = \int_{-\infty}^{w_1}\int_{-\infty}^{w_2} \frac{1}{2\pi}e^{\frac{-1(x^2+y^2)}{2}}dxdy$\\
+consider two other RVs $Z_1 = |W_1|$ and $Z_2=|W_2|$. In words $Z_1$ is the absolute value of $W_1$ and similar for $Z_2$
 \begin{enumerate}
-	\item the marginal probability distribution of a father’s occupation
-	\begin{verbatim}
-		sum(y[1,])
-		#[1] 0.11
-		sum(y[2,])
-		#[1] 0.279
-		sum(y[3,])
-		#[1] 0.277
-		sum(y[4,])
-		#[1] 0.099
-		sum(y[5,])
-		#[1] 0.235
-	\end{verbatim}
-	\item the marginal probability distribution of a son’s occupation
-	\begin{verbatim}
-		sum(y[,1])
-		#[1] 0.023
-		sum(y[,2])
-		#[1] 0.26
-		sum(y[,3])
-		#[1] 0.24
-		sum(y[,4])
-		#[1] 0.125
-		sum(y[,5])
-		#[1] 0.352
-	\end{verbatim}
-	\item the conditional distribution of a son’s occupation, given that the father is a farmer
-	\begin{verbatim}
-		> result = y[1,]/sum(y[1,])
-		> print(result)
-		farm   operatives     craftsen        sales professional 
-		0.16363636   0.31818182   0.28181818   0.07272727   0.16363636 
-	\end{verbatim}
-	\item the conditional distribution of a father’s occupation, given that the son is a farmer
-	\begin{verbatim}
-		> resultd = y[,1]/sum(y[,1])
-		> print(resultd)
-		farm   operatives     craftsen        sales professional 
-		0.78260870   0.08695652   0.04347826   0.04347826   0.04347826 
-	\end{verbatim}
+	\item Show $Z_1$ independent of $Z_2$
+	\\
+	Note that it is very easy to see that $W_1 \, \& \, W_2 \sim N(0,1)$ i.i.d.
+	\begin{gather}
+		\int_{-\infty}^{w_1}\int_{-\infty}^{w_2} \frac{1}{2\pi}e^{\frac{-1(x^2+y^2)}{2}}dxdy = \int_{-\infty}^{w_1}\frac{1}{\sqrt{2\pi}}e^{\frac{-1(y^2)}{2}}dy\int_{-\infty}^{w_2} \frac{1}{\sqrt{2\pi}}e^{\frac{-1(x^2)}{2}}dx =\phi(w_1)\phi(w_2)\\
+	\end{gather}
+	We further know that functions of independent random variables are independent, and thus $Z_1 \, \& \, Z_2$ are independent
+	\item Show that $Z_1$ and $Z_2$ have the same distribution, and find it
+	\begin{gather}
+		P(Z_1\le z_1) = P(|W_1|\le z_1) = P( -z_1 \le W_1 \le z_1) = \varphi(z_1) - \varphi(-z_1) = \varphi(z_1) - (1- \varphi(z_1))\\
+		= \int_{0}^{z_1}\frac{1}{\sqrt{2\pi}}(e^\frac{-1*w_1^2}{2} + e^\frac{-1*w_1^2}{2})dw_1 \, \, \, z_1>0
+	\end{gather}
+	The same is trivially done for $Z_2$. Now lets analyze what kind of distribution this is.\\
+	It is clear that the distributions are the same, as they both are composed of a sum of two normal distributions over the same range of values $0 \rightarrow \infty$.\\
+	These both also are strictly increasing and sum to one.\\
+	\begin{gather}
+		\int_{0}^{\infty}\frac{1}{\sqrt{2\pi}}(e^\frac{-1*w_1^2}{2})dw_1 + \int_{0}^{\infty}\frac{1}{\sqrt{2\pi}}(e^\frac{-1*w_1^2}{2})dw_1 = \frac{1}{2} + \frac{1}{2} = 1
+	\end{gather} Thinking about these random variables, since they are the absolute value of a normal distribution, which is symmetric around mean 0, it appears to reflect the negative area back on to its positive area. Effectively "doubling up" the area under our curve.
+	\begin{gather}
+	\frac{1}{\sqrt{2\pi}}(e^\frac{-1*w_1^2}{2}) + \frac{1}{\sqrt{2\pi}}(e^\frac{-1*w_1^2}{2}) =
+		\frac{2}{\sqrt{2\pi}} e^\frac{-1*w_1^2}{2}
+	\end{gather}
+	Thus we have two RVs that follow the same "double positive" normal distribution with $N(0,1)$
 \end{enumerate}
-\item You will analyze data from a study of the effects of aspirin on myocardial infarction.
-\begin{enumerate}
-	\item Calculate the row and columns totals of this table. What is the grand total?
-	\begin{verbatim}
-		#placebo = 28+656=684
-		#aspirin = 18+658=676
-		#yes = 28+18 = 46
-		#no = 656+658 = 1314
-		placebo = 684
-		aspirin = 676
-		yes = 46
-		no = 1314
-		#grandtotal = 1360
-		grandtotal = yes+no 
-	\end{verbatim}
-	\item Calculate the expected cell values under the hypothesis of interaction of Aspirin Use and Myocardial Infarction.
-	\begin{verbatim}
-	> table9 = matrix(c(28,656,18,658), nrow=2 , byrow=TRUE)
-	> colnames(table9) = c('yes','no')
-	> rownames(table9) = c('Placebo','aspirin')
-	> table9
-	yes  no
-	Placebo  28 656
-	aspirin  18 658
-	> #under interaction we have
-	> dcell11= table9[1,1]/grandtotal
-	> dcell12= table9[1,2]/grandtotal
-	> dcell21= table9[2,1]/grandtotal
-	> dcell22= table9[2,2]/grandtotal
-	> dptable = matrix(c(dcell11,dcell12,dcell21,dcell22),nrow=2,byrow=TRUE)
-	> dpttable = dptable*grandtotal
-	> colnames(dpttable) = c('yes','no')
-	> rownames(dpttable) = c('Placebo','aspirin')
-	> print(dpttable)
-	yes  no
-	Placebo  28 656
-	aspirin  18 658
-	\end{verbatim}
-	\item Calculate the expected cell values under the hypothesis of independence of Aspirin Use and Myocardial Infarction.
-	\begin{verbatim}
-	
-	> #under no interaction, we have a simple set of multiplications
-	> p1a=sum(table9[1,])/grandtotal
-	> p2a=sum(table9[2,])/grandtotal
-	> pa1=sum(table9[,1])/grandtotal
-	> pa2=sum(table9[,2])/grandtotal
-	> icell11=p1a*pa1
-	> icell12=p1a*pa2
-	> icell21=p2a*pa1
-	> icell22=p2a*pa2
-	> # since each cell is a bernoulli RV, our expected value is simply the probability times the grand total
-	> iptable = matrix(c(icell11,icell12,icell21,icell22),nrow=2,byrow=TRUE)
-	> ipttable = iptable*grandtotal
-	> colnames(ipttable) = c('yes','no')
-	> rownames(ipttable) = c('Placebo','aspirin')
-	> print(ipttable)
-	yes       no
-	Placebo 23.13529 660.8647
-	aspirin 22.86471 653.1353
-	\end{verbatim}
-	\item Perform an asymptotic test of independence vs. interaction of Aspirin Use and Myocardial Infarction based on Pearson’s chi-square statistic
-	\begin{verbatim}
-		> chiqTest = function(truMatrix,expectedMatrix)
-		+ {
-		+   sum =0
-		+   rcounter = 1
-		+   ccounter = 1
-		+   sum = 0
-		+   while(rcounter <= 2)
-		+   {
-		+     ccounter = 1
-		+     while(ccounter<=2)
-		+     {
-		+       sum = sum + (((truMatrix[rcounter,ccounter]-expectedMatrix[rcounter,ccounter])**2)/expectedMatrix[rcounter,ccounter])
-		+       ccounter= ccounter + 1
-		+     }
-		+     rcounter = rcounter +1
-		+   }
-		+   return(sum)
-		+ }
-		> test1 = (chiqTest(table9,ipttable)) #ipptable is interaction table
-		> print(test1)
-		[1] 2.129972
-	\end{verbatim}
-	\item Perform an asymptotic test of independence vs. interaction of Aspirin Use and Myocardial Infarction based on the likelihood ratio statistic $G^2$
-	\begin{verbatim}
-		> gsquareTest = function(truMatrix,expectedMatrix)
-		+ {
-		+   sum =0
-		+   rcounter = 1
-		+   ccounter = 1
-		+   sum = 0
-		+   while(rcounter <= 2)
-		+   {
-		+     ccounter = 1
-		+     while(ccounter<=2)
-		+     {
-		+       sum = sum + (truMatrix[rcounter,ccounter]*log(truMatrix[rcounter,ccounter]/expectedMatrix[rcounter,ccounter]))
-		+       ccounter= ccounter + 1
-		+     }
-		+     rcounter = rcounter +1
-		+   }
-		+   return(2*sum)
-		+ }
-		> test2 = (gsquareTest(table9,ipttable))  #ipptable is interaction table
-		> print(test2)
-		[1] 2.147353
-	\end{verbatim}
-	\item Draw conclusions related to the effect of aspirin on the occurrence of myocardial infarction. Summarize your findings in a concise statement\\
-		Now, in this scenario where we believe there to be interaction, we have 1 degree of freedom as $(rows-1)(cols-1) = (2-1)*(2-1)=1$ Thus we get the following
-		\begin{verbatim}
-			> print(1-pchisq(test1,1))
-			[1] 0.1444434
-			> print(1-pchisq(test2,1))
-			[1] 0.1428159
-		\end{verbatim}
-		The similarity of the two tests are encouraging and the values they display indicate that we can not reject the null hypothesis assuming an alpha level of 0.05. More plainly, there is not enough evidence to indicate that their is not an independence for myocardial infractions between aspirin usage and placebos with high confidence.
-\end{enumerate}
-	\text{Have a nice day!}
 \end{enumerate}
 
 \end{document}
