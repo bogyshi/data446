@@ -280,11 +280,15 @@ with X,Y i.i.d N(0,1) and $-1<\rho<1$. Find $E[W|Z] \, \& \, \Var(W|Z)$
 \begin{enumerate}
 	\item Find $E[X_1|X_2]$ and $\Var(X_1|X_2)$
 	\begin{gather}
-		f_{t,w}=f_{x,y}
+		X_1,X_3,X_4,X_5 | X_2 \sim Mult_4(n-X_2,p') \text{ with }\\
+		p'=(p_1',p_3',p_4',p_5')\text{ and } p_i'= \frac{p_i}{1-p_2}
 	\end{gather}
 	\item Find $E[X_1|X_2+X_3]$ 
+	\\
+	Similar to above, we can determine a new multinomial
 	\begin{gather}
-		f(t) = \int_{-\infty}^{\infty} f(t,w) dw = \int_{-\infty}^{\infty}
+		X_1,X_4,X_5 | X_2+X_3 \sim Mult_3(n-(X_2+X_3),p') \text{ with }\\
+		p'=(p_1',p_4',p_5')\text{ and } p_i'= \frac{p_i}{1-(p_2+p_3)}
 	\end{gather}
 \end{enumerate}
 \item Show that the following version of LOTP follows from Adam’s law: for any event A and continuous random variable X with PDF $f_X$:
@@ -300,6 +304,15 @@ with X,Y i.i.d N(0,1) and $-1<\rho<1$. Find $E[W|Z] \, \& \, \Var(W|Z)$
 \item Let $N \sim Pois(\lambda_1)$ be the number of movies that will be released next year. Suppose that for each movie the number of tickets sold is $Pois(\lambda_2)$, independently
 \begin{enumerate}
 	\item Find the mean and the variance of the number of movie tickets that will be sold next year.
+	\\
+	We can describe the number of tickets sold overall as the conditional probability on tickets sold per movie given the number of movies released that year. We get the following
+	\begin{gather}
+		\text{tickets sold} = E[M_1+M_2+...+M_n|N=n] \text{ with} M_i \sim Pois(\lambda_2)\\
+		= E[M_1|N=n]...+E[M_n|N=n] \text{ by linearity of expectation}\\
+		= n*\lambda_2 => S = N*\lambda_2 \text{ where S is a random variable expressing tickets sold next year }\\=> E[S] = E[N]*\lambda_2 = \lambda_1*\lambda_2
+		\\
+		\Var(S) = \Var(\lambda_2N) = \lambda_2^2\Var(N) = \lambda_2^2*\lambda_1
+	\end{gather}
 	\item Use simulations in R (the statistical programming language) to numerically estimate mean and the
 	variance of the number of movie tickets that will be sold next year assuming that the mean number of movies
 	released each year in the US is 700, and that, on average, 800000 tickets were sold for each movie.
@@ -327,6 +340,12 @@ with X,Y i.i.d N(0,1) and $-1<\rho<1$. Find $E[W|Z] \, \& \, \Var(W|Z)$
 	\end{gather}
 	Here $E(\theta| Y = y)$ is the mean of the distribution $P(\theta | Y = y)$, and $E(\theta)$ is the mean of the distribution
 		$P(\theta) = Beta(a, b)$.
+	\begin{gather}
+		E[\theta|Y=y] = \int_{-\infty}^{\infty} \theta f(\theta|Y=y) d\theta\\
+		f(\theta|Y=y)=\frac{P(Y|\theta) * P(\theta)}{P(Y)} \text{By bayes rule}\\
+		\text{We recognize that the numerator is a new beta distribution with new } \alpha \beta\\
+		\text{Resultingly, depending on which one is large, y and n or a and b, the exepected alue will lie between them?}
+	\end{gather}
 	\item Show that if $P(\theta) = Unif(0,1)$\\
 	We have $\Var(\theta|Y=y)\le \Var(\theta)$\\
 	Here $\Var(\theta|Y=y)$ is the variance of the distribution of$ P(\theta |Y=y)$ and $\Var(\theta)$ is the variance of the distribution $P(\theta) = Unif(0,1)$
