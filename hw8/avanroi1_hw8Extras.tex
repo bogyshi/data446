@@ -1,0 +1,410 @@
+\documentclass[11pt]{article}
+\usepackage{amsgen,amsmath,amstext,amsbsy,amsopn,amssymb}
+%\usepackage[dvips]{graphicx,color}
+\usepackage{graphicx,color}
+\usepackage{graphicx,color,bm}
+\usepackage{epsfig}
+\usepackage{enumerate}
+\usepackage{float}
+
+%\setlength{\oddsidemargin}{0.1 in} \setlength{\evensidemargin}{-0.1
+%in} \setlength{\topmargin}{-0.6 in} \setlength{\textwidth}{6.5 in}
+%\setlength{\textheight}{8.5 in} \setlength{\headsep}{0.75 in}
+%\setlength{\parindent}{0 in} \setlength{\parskip}{0.1 in}
+
+\textwidth 6.3in \textheight 8.8in \topmargin -0.5truein
+\oddsidemargin .15truein
+\parskip .1in
+\renewcommand{\baselinestretch}{1.53}  % double spaced
+
+
+\newcommand{\homework}[9]{
+	\pagestyle{myheadings}
+	\thispagestyle{plain}
+	\newpage
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{
+			\vbox{\vspace{2mm}
+				\hbox to 6.28in { {\bf Math531:~Regression - I  \hfill} }
+				\vspace{6mm}
+				\hbox to 6.28in { {\Large \hfill #1 (#2)  \hfill} }
+				\vspace{6mm}
+				\hbox to 6.28in { {\it Instructor: #3 \hfill} }
+				\hbox to 6.28in { {\it Office hours: #4  \hfill #6}}
+				\vspace{2mm}}
+		}
+	\end{center}
+	\markboth{#1}{#1}
+	\vspace*{4mm}
+}
+
+% ----------------------- MATH -------------------------
+\def\av{\boldsymbol a}
+\def\bv{\boldsymbol b}
+\def\cv{\boldsymbol c}
+\def\dv{\boldsymbol d}
+\def\ev{\boldsymbol e}
+\def\fv{\boldsymbol f}
+\def\gv{\boldsymbol g}
+\def\hv{\boldsymbol h}
+\def\iv{\boldsymbol i}
+\def\gv{\boldsymbol j}
+\def\kv{\boldsymbol k}
+\def\lv{\boldsymbol l}
+\def\mv{\boldsymbol m}
+\def\nv{\boldsymbol n}
+\def\ov{\boldsymbol o}
+\def\pv{\boldsymbol p}
+\def\qv{\boldsymbol q}
+\def\rv{\boldsymbol r}
+\def\sv{\boldsymbol s}
+\def\tv{\boldsymbol t}
+\def\uv{\boldsymbol u}
+\def\vv{\boldsymbol v}
+\def\wv{\boldsymbol w}
+\def\xv{\boldsymbol x}
+\def\yv{\boldsymbol y}
+\def\zv{\boldsymbol z}
+\def\Av{\boldsymbol A}
+\def\Bv{\boldsymbol B}
+\def\Cv{\boldsymbol C}
+\def\Dv{\boldsymbol D}
+\def\Ev{\boldsymbol E}
+\def\Fv{\boldsymbol F}
+\def\Gv{\boldsymbol G}
+\def\Hv{\boldsymbol H}
+\def\Iv{\boldsymbol I}
+\def\Gv{\boldsymbol J}
+\def\Kv{\boldsymbol K}
+\def\Lv{\boldsymbol L}
+\def\Mv{\boldsymbol M}
+\def\Nv{\boldsymbol N}
+\def\Ov{\boldsymbol O}
+\def\Pv{\boldsymbol P}
+\def\Qv{\boldsymbol Q}
+\def\Rv{\boldsymbol R}
+\def\Sv{\boldsymbol S}
+\def\Tv{\boldsymbol T}
+\def\Uv{\boldsymbol U}
+\def\Vv{\boldsymbol V}
+\def\Wv{\boldsymbol W}
+\def\Xv{\boldsymbol X}
+\def\Yv{\boldsymbol Y}
+\def\Zv{\boldsymbol Z}
+\def\Abf{\mathbf A}
+\def\Bbf{\mathbf B}
+\def\Cbf{\mathbf C}
+\def\Dbf{\mathbf D}
+\def\Ebf{\mathbf E}
+\def\Fbf{\mathbf F}
+\def\Gbf{\mathbf G}
+\def\Hbf{\mathbf H}
+\def\Ibf{\mathbf I}
+\def\Gbf{\mathbf J}
+\def\Kbf{\mathbf K}
+\def\Lbf{\mathbf L}
+\def\Mbf{\mathbf M}
+\def\Nbf{\mathbf N}
+\def\Obf{\mathbf O}
+\def\Pbf{\mathbf P}
+\def\Qbf{\mathbf Q}
+\def\Rbf{\mathbf R}
+\def\Sbf{\mathbf S}
+\def\Tbf{\mathbf T}
+\def\Ubf{\mathbf U}
+\def\Vbf{\mathbf V}
+\def\Wbf{\mathbf W}
+\def\Xbf{\mathbf X}
+\def\Ybf{\mathbf Y}
+\def\Jbf{\mathbf J}
+\def\Zbf{\mathbf Z}
+\def\Am{\mathrm A}
+\def\Bm{\mathrm B}
+\def\Cm{\mathrm C}
+\def\Dm{\mathrm D}
+\def\Em{\mathrm E}
+\def\Fm{\mathrm F}
+\def\Gm{\mathrm G}
+\def\Hm{\mathrm H}
+\def\Im{\mathrm I}
+\def\Gm{\mathrm J}
+\def\Km{\mathrm K}
+\def\Lm{\mathrm L}
+\def\Mm{\mathrm M}
+\def\Nm{\mathrm N}
+\def\Om{\mathrm O}
+\def\Pm{\mathrm P}
+\def\Qm{\mathrm Q}
+\def\Rm{\mathrm R}
+\def\Sm{\mathrm S}
+\def\Tm{\mathrm T}
+\def\Um{\mathrm U}
+\def\mv{\mathrm V}
+\def\Wm{\mathrm W}
+\def\Xm{\mathrm X}
+\def\Ym{\mathrm Y}
+\def\Zm{\mathrm Z}
+\newcommand{\Ac}{\mathcal{A}}
+\newcommand{\Bc}{\mathcal{B}}
+\newcommand{\Cc}{\mathcal{C}}
+\newcommand{\Dc}{\mathcal{D}}
+\newcommand{\Ec}{\mathcal{E}}
+\newcommand{\Fc}{\mathcal{F}}
+\newcommand{\Gc}{\mathcal{G}}
+\newcommand{\Hc}{\mathcal{H}}
+\newcommand{\Ic}{\mathcal{I}}
+\newcommand{\Jc}{\mathcal{J}}
+\newcommand{\Kc}{\mathcal{K}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Mc}{\mathcal{M}}
+\newcommand{\Nc}{\mathcal{N}}
+\newcommand{\Oc}{\mathcal{O}}
+\newcommand{\Pc}{\mathcal{P}}
+\newcommand{\Qc}{\mathcal{Q}}
+\newcommand{\Rc}{\mathcal{R}}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\Tc}{\mathcal{T}}
+\newcommand{\Uc}{\mathcal{U}}
+\newcommand{\Vc}{\mathcal{V}}
+\newcommand{\Wc}{\mathcal{W}}
+\newcommand{\Xc}{\mathcal{X}}
+\newcommand{\Yc}{\mathcal{Y}}
+\newcommand{\Zc}{\mathcal{Z}}
+\newcommand{\alphav}{\mbox{\boldmath{$\alpha$}}}
+\newcommand{\betav}{\mbox{\boldmath{$\beta$}}}
+\newcommand{\gammav}{\mbox{\boldmath{$\gamma$}}}
+\newcommand{\deltav}{\mbox{\boldmath{$\delta$}}}
+\newcommand{\epsilonv}{\mbox{\boldmath{$\epsilon$}}}
+\newcommand{\zetav}{\mbox{\boldmath$\zeta$}}
+\newcommand{\etav}{\mbox{\boldmath{$\eta$}}}
+\newcommand{\iotav}{\mbox{\boldmath{$\iota$}}}
+\newcommand{\kappav}{\mbox{\boldmath{$\kappa$}}}
+\newcommand{\lambdav}{\mbox{\boldmath{$\lambda$}}}
+\newcommand{\muv}{\mbox{\boldmath{$\mu$}}}
+\newcommand{\nuv}{\mbox{\boldmath{$\nu$}}}
+\newcommand{\xiv}{\mbox{\boldmath{$\xi$}}}
+\newcommand{\omicronv}{\mbox{\boldmath{$\omicron$}}}
+\newcommand{\piv}{\mbox{\boldmath{$\pi$}}}
+\newcommand{\rhov}{\mbox{\boldmath{$\rho$}}}
+\newcommand{\sigmav}{\mbox{\boldmath{$\sigma$}}}
+\newcommand{\tauv}{\mbox{\boldmath{$\tau$}}}
+\newcommand{\upsilonv}{\mbox{\boldmath{$\upsilon$}}}
+\newcommand{\phiv}{\mbox{\boldmath{$\phi$}}}
+\newcommand{\varphiv}{\mbox{\boldmath{$\varphi$}}}
+\newcommand{\chiv}{\mbox{\boldmath{$\chi$}}}
+\newcommand{\psiv}{\mbox{\boldmath{$\psi$}}}
+\newcommand{\omegav}{\mbox{\boldmath{$\omega$}}}
+\newcommand{\Sigmav}{\mbox{\boldmath{$\Sigma$}}}
+\newcommand{\Lambdav}{\mbox{\boldmath{$\Lambda$}}}
+\newcommand{\Deltav}{\mbox{\boldmath{$\Delta$}}}
+\newcommand{\Omegav}{\mbox{\boldmath{$\Omega$}}}
+\newcommand{\varepsilonv}{\mbox{\boldmath{$\varepsilon$}}}
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\epsv}{\mbox{\boldmath{$\varepsilon$}}}
+
+\def\1v{\mathbf 1}
+\def\0v{\mathbf 0}
+\def\Id{\mathbf I} % identity matrix
+\newcommand{\ind}[1]{\mathbbm{1}_{\left[ {#1} \right] }}
+\newcommand{\Ind}[1]{\mathbbm{1}_{\left\{ {#1} \right\} }}
+\newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+\newcommand{\QED}{\begin{flushright} {\bf QED} \end{flushright}}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Real}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\E}{\mathbb E}
+\newcommand{\sgn}{\mathop{\mathrm{sign}}}
+\def\Pr{\mathrm P}
+\def\pr{\mathrm P}
+\newcommand{\Var}{\mathop{\rm Var}}
+\newcommand{\var}{\mathop{\rm Var}}
+\newcommand{\Cov}{\mathop{\rm Cov}}
+\newcommand{\cov}{\mathop{\rm Cov}}
+\newcommand{\Corr}{\mathop{\rm Corr}}
+\newcommand{\ang}{\mathop{\rm Angle}}
+\newcommand{\tr}{\mathop{\rm trace}}
+\newcommand{\proj}{\mathop{\rm Proj}}
+\newcommand{\rank}{\mathop{\rm rank}}
+
+\newcommand{\diag}{\mathop{\rm diag}}
+\newcommand{\Diag}{\mathop{\rm diag}}
+\newcommand{\sk}{\vspace{0.5cm}}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mb}{\mbox}
+\newcommand{\wh}{\widehat}
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+
+\newcommand{\To}{\longrightarrow}
+
+\def\equalLaw{\stackrel{\mathcal{L}}{=}}
+\def\equallaw{\stackrel{\mathcal{L}}{=}}
+
+\def\half{\frac{1}{2}}
+
+\usepackage{caption}
+
+\begin{document}
+	
+	\begin{title}
+		{\Large\bf Homework 8, DATA 556: Due Tuesday, 11/20/2018}
+	\end{title}
+	
+	\author{\bf Alexander Van Roijen}
+	
+	\maketitle
+	
+	\newpage
+	Please complete the following:
+	\begin{enumerate}
+		\item Problem 1
+		Let Z,W be bivariate Normal defined as
+		\begin{gather}
+		Z=X\\
+		W=\rho X + \sqrt{1-\rho^2}Y
+		\end{gather}
+		with X,Y i.i.d N(0,1) and $-1<\rho<1$. Find $E[W|Z] \, \& \, \Var(W|Z)$
+		\begin{gather}
+		E[W|Z] = E[\rho X + \sqrt{1-\rho^2}Y|Z=z] = E[\rho X + \sqrt{1-\rho^2}Y|X=z]\\
+		= \rho z + \sqrt{1-\rho^2}E[Y] \text{ by linearity of expectation}\\
+		= Z\rho
+		\\
+		Var(W|Z) = E[W^2|Z]-E[W|Z]^2 = E[(\rho X + \sqrt{1-\rho^2}Y)^2|Z=z] - z^2 \rho^2\\ = E[\rho^2z^2 + (1-\rho^2)Y^2 + 2\rho z\sqrt{1-\rho^2}Y] - z^2\rho^2\\
+		= \rho^2z^2 + (1-\rho^2)E[Y^2] + 2\rho z\sqrt{1-\rho^2}E[Y] - z^2\rho^2\text{ by linearity of expectation}\\
+		\text{We also know }E[Y^2]=Var(Y)+E[Y]^2 = 1\\
+		=>Var(W|Z) =  \rho^2z^2 + 1 - \rho^2 + 2\rho z\sqrt{1-\rho^2} - z^2\rho^2 = 1 - \rho^2 + 2\rho Z\sqrt{1-\rho^2}
+		\end{gather}
+		\item Let $X = (X_1,X_2,X_3,X_4,X_5) \sim Mult_5(n,\boldmath{p})$ with $p = (p_1,p_2,p_3,p_4,p_5)$
+		\begin{enumerate}
+			\item Find $E[X_1|X_2]$ and $\Var(X_1|X_2)$
+			\begin{gather}
+			X_1,X_3,X_4,X_5 | X_2 \sim Mult_4(n-X_2,p') \text{ with }\\
+			p'=(p_1',p_3',p_4',p_5')\text{ and } p_i'= \frac{p_i}{1-p_2}\\
+			\text{ Now we recognize that } P(X_i=x_i) \text{ in either distribution is }
+			\binom{N'}{x_i}p_1^{x_i}(1-p_i)^{N'-x_i}\\
+			\text{Where we know that } N'-x_1 = \text{ remaining possible successes} \\
+			\text{Thus, we see a binomial distribution for }X_i\\
+			=> E[X_1|X_2] = N'*p_1'= (n-X_2)p_1'\\
+			=> Var[X_1|X_2] = N'p_1'(1-p_1') = (n-X_2)p_1'(1-p_1')\\
+			\text{This further makes sense as we expect both values to be functions of our RV } X_2
+			\end{gather}
+			\item Find $E[X_1|X_2+X_3]$ 
+			\\
+			Similar to above, we can determine a new multinomial
+			\begin{gather}
+			X_1,X_4,X_5 | X_2+X_3 \sim Mult_3(n-(X_2+X_3),p') \text{ with }\\
+			p'=(p_1',p_4',p_5')\text{ and } p_i'= \frac{p_i}{1-(p_2+p_3)}\\
+			\text{By the same logic as above, we determine that} X_1 \sim Binom(N',p_1')\\
+			=>E[X_1|X_2+X_3] = N'*p_1'= (n-(X_2+X_3))p_1'
+			\end{gather}
+		\end{enumerate}
+		\item Show that the following version of LOTP follows from Adam’s law: for any event A and continuous random variable X with PDF $f_X$:
+		\begin{gather}
+		P(A) = \int_{-\infty}^{\infty}P(A|X=x)f_X(x)dx\\
+		\text{Let's use indicator variables to prove this}\\
+		I_A = \text{Inidicator for when event A occurs}\\
+		E[I_A] = P(A) \text{ and } E[I_A|X=x]=P(A|X=x) \text{By the fundamental bridge} \\ 
+		E[I_A] = E[E[I_A|X]] \text{ Adam's Law}\\
+		\text{all together we get }\\
+		P(A)= E[E[I_A|X]]=E[P(A|X=x)] = \int_{-\infty}^{\infty}P(A|X=x)f_X(x)dx \text{ by lotus}\square	
+		\end{gather}
+		\item Let $N \sim Pois(\lambda_1)$ be the number of movies that will be released next year. Suppose that for each movie the number of tickets sold is $Pois(\lambda_2)$, independently
+		\begin{enumerate}
+			\item Find the mean and the variance of the number of movie tickets that will be sold next year.
+			\\
+			We can describe the number of tickets sold overall as the conditional probability on tickets sold per movie given the number of movies released that year. We get the following
+			\begin{gather}
+			\text{tickets sold} = E[M_1+M_2+...+M_n|N=n] \text{ with} M_i \sim Pois(\lambda_2)\\
+			= E[M_1|N=n]...+E[M_n|N=n] \text{ by linearity of expectation}\\
+			= n*\lambda_2 => S = N*\lambda_2 \text{ where S is a random variable expressing tickets sold next year }\\=> E[S] = E[N]*\lambda_2 = \lambda_1*\lambda_2
+			\\
+			\Var(S) = \Var(\lambda_2N) = \lambda_2^2\Var(N) = \lambda_2^2*\lambda_1
+			\end{gather}
+			\item Use simulations in R (the statistical programming language) to numerically estimate mean and the
+			variance of the number of movie tickets that will be sold next year assuming that the mean number of movies
+			released each year in the US is 700, and that, on average, 800000 tickets were sold for each movie.
+		\end{enumerate}
+		\item Show that if $E(Y | X) = c$ is a constant, then X and Y are uncorrelated.
+		\begin{gather}
+		Corr(X,Y) = \frac{Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)}}\\
+		Cov(X,Y) = E[XY] - E[X]E[Y]\\
+		\text{By Adam's law we get }E[E[Y|X]] = E[Y] => E[Y] = E[c] = c\\
+		E[XY] = \sum_{x\in X}E[XY|X=x]P(X=x) = \sum_{x\in X}xE[Y]P(X=x) = c\sum_{x\in X}xP(X=x) = cE[X]\\
+		=> Cov(X,Y) = E[XY] - E[X]E[Y] = cE[X]-cE[X] = 0\\
+		\text{Thus X and Y are uncorrelated }\square
+		\end{gather}
+		\item Show that for any random variables X and Y,
+		\begin{gather}
+		E[Y|E[Y|X]]=E[Y|X]
+		\end{gather}
+		\item Let Y denote the number of heads in n flips of a coin, whose probability of heads is $\theta$.
+		\begin{enumerate}
+			\item Suppose $\theta$ follows a distribution $P(\theta) = Beta(a, b)$, and then you observe y heads out of n flips.
+			Show algebraically that the mean $E(\theta | Y = y)$ always lies between the mean $E(\theta)$ and the observed
+			relative frequency of heads
+			\begin{gather}
+			min\left\{E[\theta],\frac{y}{n}\right\}\le E(\theta | Y = y) \le max\left\{E[\theta],\frac{y}{n}\right\}
+			\end{gather}
+			Here $E(\theta| Y = y)$ is the mean of the distribution $P(\theta | Y = y)$, and $E(\theta)$ is the mean of the distribution
+			$P(\theta) = Beta(a, b)$.
+			\begin{gather}
+			E[\theta|Y=y] = \int_{-\infty}^{\infty} \theta f(\theta|Y=y) d\theta\\
+			f(\theta|Y=y)=\frac{P(Y|\theta) * P(\theta)}{P(Y)} \text{By bayes rule}\\
+			\text{We recognize that the numerator is a new beta distribution with new } \alpha \beta\\
+			\text{Resultingly, depending on which one is large, y and n or a and b, the exepected alue will lie between them?}
+			\end{gather}
+			\item Show that if $P(\theta) = Unif(0,1)$\\
+			We have $\Var(\theta|Y=y)\le \Var(\theta)$\\
+			Here $\Var(\theta|Y=y)$ is the variance of the distribution of$ P(\theta |Y=y)$ and $\Var(\theta)$ is the variance of the distribution $P(\theta) = Unif(0,1)$
+		\end{enumerate}
+		\item
+		Let A, B and C be independent random variables with the following distributions:
+		\begin{gather}
+		P(A = 1) = 0.4; P(A = 2) = 0.6\\
+		P(B = -3) = 0.25; P(B = -2) = 0.25; P(B = -1) = 0.25; P(B = 1) = 0.25\\
+		P(C = 1) = 0.5; P(C = 2) = 0.4; P(C = 3) = 0.1
+		\end{gather}
+		\begin{enumerate}
+			\item What is the probability of the quadratic equation $Ax^2+Bx+C=0$ has two real roots that are different?
+			\begin{gather}
+			\text{we are solving} \frac{-B \pm \sqrt{B^2-4AC}}{2A}\\
+			\text{For our roots to be real and different, we require } B^2-4AC > 0 \, \, \, \& B^2-4AC \ne 0\\
+			\text{With some thinking, we can see that this is only satisfied in the following cases}\\
+			A=1,C=1,B=-3\\
+			A=1,C=2,B=-3\\
+			A=2,C=1,B=-3\\
+			\end{gather}
+			If A or C were both 2 or either was great than two, we would only have negative roots as $B^2$ can only take the maximum value of 9 at any time.\\
+			Thus we simply add the probabilities of these three joint events
+			\begin{gather}
+			P(A=1,C=1,B=-3)+P(A=2,C=1,B=-3)+P(A=1,C=2,B=-3)\\
+			= .4*.5*.25+.6*.5*.25+.4*.4*.25 = 0.165
+			\end{gather}
+			\item What is the probability that the quadratic equation  $Ax^2+Bx+C=0$
+			has two real roots and are both strictly positive.
+			\begin{gather}
+			\text{we are solving} \frac{-B \pm \sqrt{B^2-4AC}}{2A}\\
+			\text{For our roots to be real positive, we require } B^2-4AC \ge 0 \, \, \, \& -B - \sqrt{B^2-4AC} > 0\\
+			\text{With some thinking, we can see that this is only satisfied in the following cases}\\
+			A=1,C=1,B=-2\\
+			A=1,C=1,B=-3\\
+			A=1,C=2,B=-3\\
+			A=2,C=1,B=-3\\
+			\end{gather}
+			We can see that unlike the last problem, we can allow our roots to be one in the same, so we add another case where $-B - \sqrt{B^2-4AC} = 0$\\
+			we get the following
+			\begin{gather}
+			P(A=1,C=1,B=-3)+P(A=2,C=1,B=-3)+P(A=1,C=2,B=-3)+P(A=1,C=1,B=-2)\\
+			= .4*.5*.25+.6*.5*.25+.4*.4*.25+.4*.5*.25 = 0.215
+			\end{gather}
+		\end{enumerate}
+	\end{enumerate}
+	\text{Have a great thanksgiving!}
+\end{document}
