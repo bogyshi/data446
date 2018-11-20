@@ -265,30 +265,44 @@
 Please complete the following:
 \begin{enumerate}
 \item Problem 1
-Let Z,W be bivariate Normal defined as
-\begin{gather}
+	Let Z,W be bivariate Normal defined as
+	\begin{gather}
 	Z=X\\
 	W=\rho X + \sqrt{1-\rho^2}Y
-\end{gather}
-with X,Y i.i.d N(0,1) and $-1<\rho<1$. Find $E[W|Z] \, \& \, \Var(W|Z)$
-\begin{gather}
-	E[W|Z] 
+	\end{gather}
+	with X,Y i.i.d N(0,1) and $-1<\rho<1$. Find $E[W|Z] \, \& \, \Var(W|Z)$
+	\begin{gather}
+	E[W|Z] = E[\rho X + \sqrt{1-\rho^2}Y|Z=z] = E[\rho X + \sqrt{1-\rho^2}Y|X=z]\\
+	= \rho z + \sqrt{1-\rho^2}E[Y] \text{ by linearity of expectation}\\
+	= Z\rho
 	\\
-	Var(W|Z)
-\end{gather}
+	Var(W|Z) = E[W^2|Z]-E[W|Z]^2 = E[(\rho X + \sqrt{1-\rho^2}Y)^2|Z=z] - z^2 \rho^2\\ = E[\rho^2z^2 + (1-\rho^2)Y^2 + 2\rho z\sqrt{1-\rho^2}Y] - z^2\rho^2\\
+	= \rho^2z^2 + (1-\rho^2)E[Y^2] + 2\rho z\sqrt{1-\rho^2}E[Y] - z^2\rho^2\text{ by linearity of expectation}\\
+	\text{We also know }E[Y^2]=Var(Y)+E[Y]^2 = 1\\
+	=>Var(W|Z) =  \rho^2z^2 + 1 - \rho^2 + 2\rho z\sqrt{1-\rho^2} - z^2\rho^2 = 1 - \rho^2 + 2\rho Z\sqrt{1-\rho^2}
+	\end{gather}
 \item Let $X = (X_1,X_2,X_3,X_4,X_5) \sim Mult_5(n,\boldmath{p})$ with $p = (p_1,p_2,p_3,p_4,p_5)$
 \begin{enumerate}
 	\item Find $E[X_1|X_2]$ and $\Var(X_1|X_2)$
 	\begin{gather}
-		X_1,X_3,X_4,X_5 | X_2 \sim Mult_4(n-X_2,p') \text{ with }\\
-		p'=(p_1',p_3',p_4',p_5')\text{ and } p_i'= \frac{p_i}{1-p_2}
+	X_1,X_3,X_4,X_5 | X_2 \sim Mult_4(n-X_2,p') \text{ with }\\
+	p'=(p_1',p_3',p_4',p_5')\text{ and } p_i'= \frac{p_i}{1-p_2}\\
+	\text{ Now we recognize that } P(X_i=x_i) \text{ in either distribution is }
+	\binom{N'}{x_i}p_1^{x_i}(1-p_i)^{N'-x_i}\\
+	\text{Where we know that } N'-x_1 = \text{ remaining possible successes} \\
+	\text{Thus, we see a binomial distribution for }X_i\\
+	=> E[X_1|X_2] = N'*p_1'= (n-X_2)p_1'\\
+	=> Var[X_1|X_2] = N'p_1'(1-p_1') = (n-X_2)p_1'(1-p_1')\\
+	\text{This further makes sense as we expect both values to be functions of our RV } X_2
 	\end{gather}
 	\item Find $E[X_1|X_2+X_3]$ 
 	\\
 	Similar to above, we can determine a new multinomial
 	\begin{gather}
-		X_1,X_4,X_5 | X_2+X_3 \sim Mult_3(n-(X_2+X_3),p') \text{ with }\\
-		p'=(p_1',p_4',p_5')\text{ and } p_i'= \frac{p_i}{1-(p_2+p_3)}
+	X_1,X_4,X_5 | X_2+X_3 \sim Mult_3(n-(X_2+X_3),p') \text{ with }\\
+	p'=(p_1',p_4',p_5')\text{ and } p_i'= \frac{p_i}{1-(p_2+p_3)}\\
+	\text{By the same logic as above, we determine that} X_1 \sim Binom(N',p_1')\\
+	=>E[X_1|X_2+X_3] = N'*p_1'= (n-(X_2+X_3))p_1'
 	\end{gather}
 \end{enumerate}
 \item Show that the following version of LOTP follows from Adam’s law: for any event A and continuous random variable X with PDF $f_X$:
@@ -316,6 +330,31 @@ with X,Y i.i.d N(0,1) and $-1<\rho<1$. Find $E[W|Z] \, \& \, \Var(W|Z)$
 	\item Use simulations in R (the statistical programming language) to numerically estimate mean and the
 	variance of the number of movie tickets that will be sold next year assuming that the mean number of movies
 	released each year in the US is 700, and that, on average, 800000 tickets were sold for each movie.
+	\begin{verbatim}
+		> set.seed(123)
+		> numReleased=700
+		> numSold=800000
+		> numTrials=100000
+		> numMovies = rpois(numTrials,numReleased)
+		> counter = 0
+		> oneYearTix=0
+		> total=numeric()
+		> while(counter<=numTrials)
+		+ {
+		+   oneYearTix = rpois(numMovies[counter],numSold)
+		+   total[counter] = sum(oneYearTix)
+		+   counter = counter+1
+		+ }
+		> print(mean(total))
+		[1] 560023366
+		> print(numSold*numReleased)
+		[1] 5.6e+08
+		> print(var(total))
+		[1] 4.47973e+14
+		> print(numSold^2 * numReleased)
+		[1] 4.48e+14
+	\end{verbatim}
+	Look at that. How wonderful! It matches our expectations!
 \end{enumerate}
 \item Show that if $E(Y | X) = c$ is a constant, then X and Y are uncorrelated.
 \begin{gather}
