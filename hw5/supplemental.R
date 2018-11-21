@@ -33,5 +33,5 @@ getMedianandMode(n,"uniform")
 
 #this is 2a
 set.seed(123)
-n=10000
+n=10000000
 expoMedMode(n,.7)

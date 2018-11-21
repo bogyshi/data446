@@ -279,7 +279,7 @@ Please complete the following:
 	Var(W|Z) = E[W^2|Z]-E[W|Z]^2 = E[(\rho X + \sqrt{1-\rho^2}Y)^2|Z=z] - z^2 \rho^2\\ = E[\rho^2z^2 + (1-\rho^2)Y^2 + 2\rho z\sqrt{1-\rho^2}Y] - z^2\rho^2\\
 	= \rho^2z^2 + (1-\rho^2)E[Y^2] + 2\rho z\sqrt{1-\rho^2}E[Y] - z^2\rho^2\text{ by linearity of expectation}\\
 	\text{We also know }E[Y^2]=Var(Y)+E[Y]^2 = 1\\
-	=>Var(W|Z) =  \rho^2z^2 + 1 - \rho^2 + 2\rho z\sqrt{1-\rho^2} - z^2\rho^2 = 1 - \rho^2 + 2\rho Z\sqrt{1-\rho^2}
+	=>Var(W|Z) =  \rho^2z^2 + 1 - \rho^2 - z^2\rho^2 = 1 - \rho^2
 	\end{gather}
 \item Let $X = (X_1,X_2,X_3,X_4,X_5) \sim Mult_5(n,\boldmath{p})$ with $p = (p_1,p_2,p_3,p_4,p_5)$
 \begin{enumerate}
@@ -291,7 +291,7 @@ Please complete the following:
 	\binom{N'}{x_i}p_1^{x_i}(1-p_i)^{N'-x_i}\\
 	\text{Where we know that } N'-x_1 = \text{ remaining possible successes} \\
 	\text{Thus, we see a binomial distribution for }X_i\\
-	=> E[X_1|X_2] = N'*p_1'= (n-X_2)p_1'\\
+	=> E[X_1|X_2] = N'*p_i'= (n-X_2)p_1'\\
 	=> Var[X_1|X_2] = N'p_1'(1-p_1') = (n-X_2)p_1'(1-p_1')\\
 	\text{This further makes sense as we expect both values to be functions of our RV } X_2
 	\end{gather}
@@ -325,7 +325,8 @@ Please complete the following:
 		= E[M_1|N=n]...+E[M_n|N=n] \text{ by linearity of expectation}\\
 		= n*\lambda_2 => S = N*\lambda_2 \text{ where S is a random variable expressing tickets sold next year }\\=> E[S] = E[N]*\lambda_2 = \lambda_1*\lambda_2
 		\\
-		\Var(S) = \Var(\lambda_2N) = \lambda_2^2\Var(N) = \lambda_2^2*\lambda_1
+		\Var(\text{Tickets Sold}) = E[\Var(M_1+...M_n|N=n)] + \Var(E[M_1+...M_n|N=n]) \\
+		= E[\lambda_2+\lambda_2...+\lambda_2] + \Var(\lambda_2N) = E[N\lambda_2] + \Var(N\lambda_2) = \lambda_1\lambda_2+\lambda_2^2\lambda_1 
 	\end{gather}
 	\item Use simulations in R (the statistical programming language) to numerically estimate mean and the
 	variance of the number of movie tickets that will be sold next year assuming that the mean number of movies
@@ -367,7 +368,15 @@ Please complete the following:
 \end{gather}
 \item Show that for any random variables X and Y,
 \begin{gather}
-	E[Y|E[Y|X]]=E[Y|X]
+	E[Y|E[Y|X]]=E[Y|X]\\
+	\text{We know }E[Y|X] \text{ is a function of X, call it }h(X)\\
+	=> E[Y|E[Y|X]]=E[Y|h(X)]\text{ Inuitively, it makes sense that this equals } E[Y|X]\\
+	\text{ As knowing a function of X details us the same information as knowing X}\\
+	\text{However, we will be more rigorous using Adams law with extra conditioning}\\
+	E[Y|h(X)] = E[E[Y|h(X),M]|h(X)] \text{ Now we let } M=X\\
+	= E[E[Y|h(X),X]|h(X)] = E[E[Y|X]|h(X)] \text{ as the event g(X) is known with X}\\
+	= E[h(X)|h(X)] \text{ by substituting from our earlier definition}
+	= h(X) = E[Y|X]\square	
 \end{gather}
 \item Let Y denote the number of heads in n flips of a coin, whose probability of heads is $\theta$.
 \begin{enumerate}
@@ -388,6 +397,21 @@ Please complete the following:
 	\item Show that if $P(\theta) = Unif(0,1)$\\
 	We have $\Var(\theta|Y=y)\le \Var(\theta)$\\
 	Here $\Var(\theta|Y=y)$ is the variance of the distribution of$ P(\theta |Y=y)$ and $\Var(\theta)$ is the variance of the distribution $P(\theta) = Unif(0,1)$
+	\begin{gather}
+		\Var(\theta)=\frac{1}{12} \text{ Known about the distribution}\\
+		\text{Similarly to above, we use bayes rule to find} f(\theta|Y=y)=\frac{P(Y|\theta) * P(\theta)}{P(Y)}\\
+		=> f(\theta)|Y=y \propto \binom{n}{y}\theta^y(1-\theta)^{n-y} * 1 \sim Beta(Y,n-Y)\\
+		\Var(Beta(Y,n-Y)) = \frac{Y(n-Y)}{(Y+n-Y)^2(Y+n-Y+1)} = \frac{Y(n-Y)}{(n)^2(n+1)}\\
+		\text{Now lets analyze the derivate of this variance with respect to Y}\\
+		\text{This makes sense as our variance should be some function of Y}\\
+		\frac{d}{dy}\frac{Y(n-Y)}{(n)^2(n+1)} \propto n-2y\\
+		\text{This function is negative with Y and thus decreasing for all y.}\\
+		\text{We can easily see that there is a point of maximum return at } y=\frac{n}{2}\\
+		\text{Plug this into our original equation we get }\\
+		\Var(Beta(Y,n-Y)) = \frac{Y(n-Y)}{(Y+n-Y)^2(Y+n-Y+1)} =\frac{1}{4(n+1)}\\
+		\text{Since n is strictly positive and $y=\frac{n}{2}$, this value is highest with lowest n possible, } n=2\\
+		=> max(\Var(Beta(Y,n-Y))) = \frac{1}{4*(2+1)} = \frac{1}{12} \le \Var(\theta) \square
+	\end{gather}
 \end{enumerate}
 \item
 Let A, B and C be independent random variables with the following distributions:
