@@ -25,7 +25,9 @@ while(counter<=numTrials)
 print(mean(total))
 print(numSold*numReleased)
 print(var(total))
-print(numSold^2 * numReleased)
+print(numSold^2 * numReleased + numSold*numReleased)
+
+
 numTicks = rpois(numMovies,numSold)
 print(sum(numTicks))
 print(numReleased*numSold)
