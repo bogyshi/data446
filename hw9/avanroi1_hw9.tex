@@ -1,0 +1,429 @@
+\documentclass[11pt]{article}
+\usepackage{amsgen,amsmath,amstext,amsbsy,amsopn,amssymb}
+%\usepackage[dvips]{graphicx,color}
+\usepackage{graphicx,color}
+\usepackage{graphicx,color,bm}
+\usepackage{epsfig}
+\usepackage{enumerate}
+\usepackage{float}
+
+%\setlength{\oddsidemargin}{0.1 in} \setlength{\evensidemargin}{-0.1
+%in} \setlength{\topmargin}{-0.6 in} \setlength{\textwidth}{6.5 in}
+%\setlength{\textheight}{8.5 in} \setlength{\headsep}{0.75 in}
+%\setlength{\parindent}{0 in} \setlength{\parskip}{0.1 in}
+
+\textwidth 6.3in \textheight 8.8in \topmargin -0.5truein
+\oddsidemargin .15truein
+\parskip .1in
+\renewcommand{\baselinestretch}{1.53}  % double spaced
+
+
+\newcommand{\homework}[9]{
+	\pagestyle{myheadings}
+	\thispagestyle{plain}
+	\newpage
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{
+			\vbox{\vspace{2mm}
+				\hbox to 6.28in { {\bf Math531:~Regression - I  \hfill} }
+				\vspace{6mm}
+				\hbox to 6.28in { {\Large \hfill #1 (#2)  \hfill} }
+				\vspace{6mm}
+				\hbox to 6.28in { {\it Instructor: #3 \hfill} }
+				\hbox to 6.28in { {\it Office hours: #4  \hfill #6}}
+				\vspace{2mm}}
+		}
+	\end{center}
+	\markboth{#1}{#1}
+	\vspace*{4mm}
+}
+
+% ----------------------- MATH -------------------------
+\def\av{\boldsymbol a}
+\def\bv{\boldsymbol b}
+\def\cv{\boldsymbol c}
+\def\dv{\boldsymbol d}
+\def\ev{\boldsymbol e}
+\def\fv{\boldsymbol f}
+\def\gv{\boldsymbol g}
+\def\hv{\boldsymbol h}
+\def\iv{\boldsymbol i}
+\def\gv{\boldsymbol j}
+\def\kv{\boldsymbol k}
+\def\lv{\boldsymbol l}
+\def\mv{\boldsymbol m}
+\def\nv{\boldsymbol n}
+\def\ov{\boldsymbol o}
+\def\pv{\boldsymbol p}
+\def\qv{\boldsymbol q}
+\def\rv{\boldsymbol r}
+\def\sv{\boldsymbol s}
+\def\tv{\boldsymbol t}
+\def\uv{\boldsymbol u}
+\def\vv{\boldsymbol v}
+\def\wv{\boldsymbol w}
+\def\xv{\boldsymbol x}
+\def\yv{\boldsymbol y}
+\def\zv{\boldsymbol z}
+\def\Av{\boldsymbol A}
+\def\Bv{\boldsymbol B}
+\def\Cv{\boldsymbol C}
+\def\Dv{\boldsymbol D}
+\def\Ev{\boldsymbol E}
+\def\Fv{\boldsymbol F}
+\def\Gv{\boldsymbol G}
+\def\Hv{\boldsymbol H}
+\def\Iv{\boldsymbol I}
+\def\Gv{\boldsymbol J}
+\def\Kv{\boldsymbol K}
+\def\Lv{\boldsymbol L}
+\def\Mv{\boldsymbol M}
+\def\Nv{\boldsymbol N}
+\def\Ov{\boldsymbol O}
+\def\Pv{\boldsymbol P}
+\def\Qv{\boldsymbol Q}
+\def\Rv{\boldsymbol R}
+\def\Sv{\boldsymbol S}
+\def\Tv{\boldsymbol T}
+\def\Uv{\boldsymbol U}
+\def\Vv{\boldsymbol V}
+\def\Wv{\boldsymbol W}
+\def\Xv{\boldsymbol X}
+\def\Yv{\boldsymbol Y}
+\def\Zv{\boldsymbol Z}
+\def\Abf{\mathbf A}
+\def\Bbf{\mathbf B}
+\def\Cbf{\mathbf C}
+\def\Dbf{\mathbf D}
+\def\Ebf{\mathbf E}
+\def\Fbf{\mathbf F}
+\def\Gbf{\mathbf G}
+\def\Hbf{\mathbf H}
+\def\Ibf{\mathbf I}
+\def\Gbf{\mathbf J}
+\def\Kbf{\mathbf K}
+\def\Lbf{\mathbf L}
+\def\Mbf{\mathbf M}
+\def\Nbf{\mathbf N}
+\def\Obf{\mathbf O}
+\def\Pbf{\mathbf P}
+\def\Qbf{\mathbf Q}
+\def\Rbf{\mathbf R}
+\def\Sbf{\mathbf S}
+\def\Tbf{\mathbf T}
+\def\Ubf{\mathbf U}
+\def\Vbf{\mathbf V}
+\def\Wbf{\mathbf W}
+\def\Xbf{\mathbf X}
+\def\Ybf{\mathbf Y}
+\def\Jbf{\mathbf J}
+\def\Zbf{\mathbf Z}
+\def\Am{\mathrm A}
+\def\Bm{\mathrm B}
+\def\Cm{\mathrm C}
+\def\Dm{\mathrm D}
+\def\Em{\mathrm E}
+\def\Fm{\mathrm F}
+\def\Gm{\mathrm G}
+\def\Hm{\mathrm H}
+\def\Im{\mathrm I}
+\def\Gm{\mathrm J}
+\def\Km{\mathrm K}
+\def\Lm{\mathrm L}
+\def\Mm{\mathrm M}
+\def\Nm{\mathrm N}
+\def\Om{\mathrm O}
+\def\Pm{\mathrm P}
+\def\Qm{\mathrm Q}
+\def\Rm{\mathrm R}
+\def\Sm{\mathrm S}
+\def\Tm{\mathrm T}
+\def\Um{\mathrm U}
+\def\mv{\mathrm V}
+\def\Wm{\mathrm W}
+\def\Xm{\mathrm X}
+\def\Ym{\mathrm Y}
+\def\Zm{\mathrm Z}
+\newcommand{\Ac}{\mathcal{A}}
+\newcommand{\Bc}{\mathcal{B}}
+\newcommand{\Cc}{\mathcal{C}}
+\newcommand{\Dc}{\mathcal{D}}
+\newcommand{\Ec}{\mathcal{E}}
+\newcommand{\Fc}{\mathcal{F}}
+\newcommand{\Gc}{\mathcal{G}}
+\newcommand{\Hc}{\mathcal{H}}
+\newcommand{\Ic}{\mathcal{I}}
+\newcommand{\Jc}{\mathcal{J}}
+\newcommand{\Kc}{\mathcal{K}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Mc}{\mathcal{M}}
+\newcommand{\Nc}{\mathcal{N}}
+\newcommand{\Oc}{\mathcal{O}}
+\newcommand{\Pc}{\mathcal{P}}
+\newcommand{\Qc}{\mathcal{Q}}
+\newcommand{\Rc}{\mathcal{R}}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\Tc}{\mathcal{T}}
+\newcommand{\Uc}{\mathcal{U}}
+\newcommand{\Vc}{\mathcal{V}}
+\newcommand{\Wc}{\mathcal{W}}
+\newcommand{\Xc}{\mathcal{X}}
+\newcommand{\Yc}{\mathcal{Y}}
+\newcommand{\Zc}{\mathcal{Z}}
+\newcommand{\alphav}{\mbox{\boldmath{$\alpha$}}}
+\newcommand{\betav}{\mbox{\boldmath{$\beta$}}}
+\newcommand{\gammav}{\mbox{\boldmath{$\gamma$}}}
+\newcommand{\deltav}{\mbox{\boldmath{$\delta$}}}
+\newcommand{\epsilonv}{\mbox{\boldmath{$\epsilon$}}}
+\newcommand{\zetav}{\mbox{\boldmath$\zeta$}}
+\newcommand{\etav}{\mbox{\boldmath{$\eta$}}}
+\newcommand{\iotav}{\mbox{\boldmath{$\iota$}}}
+\newcommand{\kappav}{\mbox{\boldmath{$\kappa$}}}
+\newcommand{\lambdav}{\mbox{\boldmath{$\lambda$}}}
+\newcommand{\muv}{\mbox{\boldmath{$\mu$}}}
+\newcommand{\nuv}{\mbox{\boldmath{$\nu$}}}
+\newcommand{\xiv}{\mbox{\boldmath{$\xi$}}}
+\newcommand{\omicronv}{\mbox{\boldmath{$\omicron$}}}
+\newcommand{\piv}{\mbox{\boldmath{$\pi$}}}
+\newcommand{\rhov}{\mbox{\boldmath{$\rho$}}}
+\newcommand{\sigmav}{\mbox{\boldmath{$\sigma$}}}
+\newcommand{\tauv}{\mbox{\boldmath{$\tau$}}}
+\newcommand{\upsilonv}{\mbox{\boldmath{$\upsilon$}}}
+\newcommand{\phiv}{\mbox{\boldmath{$\phi$}}}
+\newcommand{\varphiv}{\mbox{\boldmath{$\varphi$}}}
+\newcommand{\chiv}{\mbox{\boldmath{$\chi$}}}
+\newcommand{\psiv}{\mbox{\boldmath{$\psi$}}}
+\newcommand{\omegav}{\mbox{\boldmath{$\omega$}}}
+\newcommand{\Sigmav}{\mbox{\boldmath{$\Sigma$}}}
+\newcommand{\Lambdav}{\mbox{\boldmath{$\Lambda$}}}
+\newcommand{\Deltav}{\mbox{\boldmath{$\Delta$}}}
+\newcommand{\Omegav}{\mbox{\boldmath{$\Omega$}}}
+\newcommand{\varepsilonv}{\mbox{\boldmath{$\varepsilon$}}}
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\epsv}{\mbox{\boldmath{$\varepsilon$}}}
+
+\def\1v{\mathbf 1}
+\def\0v{\mathbf 0}
+\def\Id{\mathbf I} % identity matrix
+\newcommand{\ind}[1]{\mathbbm{1}_{\left[ {#1} \right] }}
+\newcommand{\Ind}[1]{\mathbbm{1}_{\left\{ {#1} \right\} }}
+\newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+\newcommand{\QED}{\begin{flushright} {\bf QED} \end{flushright}}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Real}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\E}{\mathbb E}
+\newcommand{\sgn}{\mathop{\mathrm{sign}}}
+\def\Pr{\mathrm P}
+\def\pr{\mathrm P}
+\newcommand{\Var}{\mathop{\rm Var}}
+\newcommand{\var}{\mathop{\rm Var}}
+\newcommand{\Cov}{\mathop{\rm Cov}}
+\newcommand{\cov}{\mathop{\rm Cov}}
+\newcommand{\Corr}{\mathop{\rm Corr}}
+\newcommand{\ang}{\mathop{\rm Angle}}
+\newcommand{\tr}{\mathop{\rm trace}}
+\newcommand{\proj}{\mathop{\rm Proj}}
+\newcommand{\rank}{\mathop{\rm rank}}
+
+\newcommand{\diag}{\mathop{\rm diag}}
+\newcommand{\Diag}{\mathop{\rm diag}}
+\newcommand{\sk}{\vspace{0.5cm}}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mb}{\mbox}
+\newcommand{\wh}{\widehat}
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+
+\newcommand{\To}{\longrightarrow}
+
+\def\equalLaw{\stackrel{\mathcal{L}}{=}}
+\def\equallaw{\stackrel{\mathcal{L}}{=}}
+
+\def\half{\frac{1}{2}}
+
+\usepackage{caption}
+
+\begin{document}
+
+\begin{title}
+	{\Large\bf Homework 9, DATA 556: Due Tuesday, 11/27/2018}
+\end{title}
+
+\author{\bf Alexander Van Roijen}
+
+\maketitle
+
+\newpage
+Please complete the following:
+\begin{enumerate}
+\item Let X be a continuous random variable with PDF f(x) and CDF F(x). For a fixed number $x_0$ such that $F(x_0) < 1$, define the function
+	\begin{gather}
+	g(x) = 
+	\begin{cases}
+		\frac{f(x)}{1-F(x_0)} & x \ge x_0\\
+		0 , & x < x_0
+	\end{cases}
+	\end{gather}
+Prove the g(x) is a pdf
+\begin{gather}
+	g(x)\ge 0 \forall x \in X \\
+	\text{Trivial, as } 1-F(x_0) > 0 \& f(x)>0 \forall x \in X => g(x)=\frac{f(x)}{1-F(x_0)} \ge 0 \text{ or } g(x) = 0\\
+	\int_{-\infty}^{\infty}g(x)dx = 1\\
+	\int_{x_0}^{\infty}\frac{f(x)}{1-F(x_0)}dx = \frac{1}{1-F(x_0)}\int_{x_0}^{\infty}f(x)dx = \frac{1}{1-F(x_0)}\int_{-\infty}^{\infty}f(x)dx - \int_{-\infty}^{x_0}f(x)dx\\
+	=\frac{1}{1-F(x_0)} (1 - F(x_0)) = 1 \square
+\end{gather}
+\item Let X be a random variable with PDF $f(x) = \frac{1}{2}(1+x)$ for $-1<x<1$\\
+Note that $0<x^2<1$
+\begin{enumerate}
+	\item Find the pdf of $Y=X^2$
+	\begin{gather}
+	f_y(y)= \frac{d}{dy} P(Y\le y) = \frac{d}{dy} P(X^2\le y) = \frac{d}{dy} P(-\sqrt{y} \le X \le \sqrt{y}) \\
+	= 	\frac{d}{dy} \int_{-1}^{\sqrt{y}} f(x)dx - \int_{-1}^{-\sqrt{y}} f(x)dx = \frac{d}{dy} \frac{x}{2}|_{-1}^{\sqrt{y}} + \frac{x^2}{4}|_{-1}^{\sqrt{y}} - (\frac{x}{2}|_{-1}^{-\sqrt{y}} + \frac{x^2}{4}|_{-1}^{-\sqrt{y}})\\
+	=\frac{d}{dy} \frac{\sqrt{y}}{2} + \frac{1}{2} + \frac{y}{4} - \frac{1}{4} + \frac{\sqrt{y}}{2} - \frac{1}{2} -\frac{y}{4}+\frac{1}{4} = \frac{d}{dy} \sqrt{y} = \frac{1}{2\sqrt{y}} 0<y<1, 0 \text{ otherwise}
+	\end{gather}
+	\item Find the mean $E[Y]$ and the variance $\var(Y)$ of the RV Y
+	\begin{gather}
+	E[Y]= E[g(x)] \text{ with } g(x) = x^2 => \int_{-1}^{1}x^2\frac{1}{2}(1+x)dx\\
+	= \int_{-1}^{1}\frac{x^2}{2}dx + \int_{-1}^{1}\frac{x^3}{2}dx \\
+	= \frac{x^3}{6}|_{-1}^{1} +  \frac{x^4}{8}|_{-1}^{1} = \frac{1}{6} + \frac{1}{6} + 0 = \frac{1}{3}\\
+	E[Y^2] = E[g(x)] \text{ with } g(x) = x^4  => \int_{-1}^{1}x^4\frac{1}{2}(1+x)dx\\
+	= \int_{-1}^{1}\frac{x^4}{2}dx + \int_{-1}^{1}\frac{x^5}{2}dx \\
+	= \frac{x^5}{10}|_{-1}^{1} +  \frac{x^6}{12}|_{-1}^{1} = \frac{1}{10} + \frac{1}{10} + 0 = \frac{1}{5}\\
+	\var(Y) = E[Y^2]-E[Y]^2 = \frac{1}{5} - \frac{1}{9} = \frac{4}{45}
+	\end{gather}
+\end{enumerate}
+\item Let X be a random variable with moment generating function $M_X(t)$, for $-h<t<h$. Prove that
+\begin{enumerate}
+	\item $P(X\ge a) \le e^{-at}M_X(t) \text{ for } 0<t<h$\\
+	Let us define a function $g(t) = e^{t(X-a)} - I_{X\ge a}$. We have two cases
+	\begin{gather}
+		X\ge a=> g(t)\ge 0 \text{ as } X-a \ge 0 => e^{t(X-a)} \ge 1 = I_{X\ge a}\\
+		X < a=> g(t)\ge 0 \text{ as } X-a < 0 => e^{t(X-a)} \ge 0 = I_{X\ge a}
+	\end{gather}
+	If we take the expectation of $g(t)$ we get the following inequality\\
+	\begin{gather}
+		E[e^{t(X-a)}] \ge [I_{X\ge a}] = e^{-at}M_X(t) \ge P(X\ge a)
+	\end{gather}
+	The above is true due to the fundamental bridge and the fact we have shown in both cases that $e^{t(X-a)} \ge I_{X\ge a}$. Note that $0<t<h$ is important as it determines that the sign of our exponential follows the sign of the difference of $X-a$. If this werent the case, our inequality would need to flip as we will see below.
+	\item $P(X\le a) \le e^{-at}M_X(t) \text{ for } -h<t<0$
+	Let us define a function $g(t) = e^{t(X-a)} - I_{X\le a}$. We have two cases
+	\begin{gather}
+	X\le a=> g(t)\ge 0 \text{ as } t*(X-a) \le 0 => e^{t(X-a)} \ge 1 = I_{X\le a}\\
+	\text{Note that the negative value of t made $X-a$ a positive exponentent, thus greater than 1}\\
+	\text{The same occurs below in the second case}\\
+	X > a=> g(t)\ge 0 \text{ as } t*(X-a) > 0 => e^{t(X-a)} \ge 0 = I_{X \le a}\\
+	\end{gather}
+	If we take the expectation of $g(t)$ we get the following inequality\\
+	\begin{gather}
+	E[e^{t(X-a)}] \ge [I_{X\le a}] = e^{-at}M_X(t) \ge P(X\le a)
+	\end{gather}
+	The above is true due to the same reasons as part a, except that the negative sign of our exponent will flip the inequality in the exponent allowing for all this to be true in the first place.
+\end{enumerate}
+\item Let $X \sim N(\mu,\sigma^2)$. Find the values of $\mu,\sigma$ s.t.
+\begin{gather}
+	P(|X|<2) = P(-2<X<2) = P(X<2) - P(X<-2) =\frac{1}{2}\\
+	\text{Now let} \frac{X-\mu}{\sigma} \sim N(0,1)\\
+	=>  P(\frac{X-\mu}{\sigma}<\frac{2-\mu}{\sigma}) - P(\frac{X-\mu}{\sigma}<\frac{-2-\mu}{\sigma}) =\frac{1}{2}\\
+	=> \phi(\frac{2-\mu}{\sigma}) - \phi(\frac{-2-\mu}{\sigma}) = \phi(\frac{2-\mu}{\sigma}) - (1-\phi(\frac{2-\mu}{\sigma})) = 2\phi(\frac{2-\mu}{\sigma})-1= \frac{1}{2}\\
+	\text{We also have} P(|X|>2) = P(X<-2) + P(X>2) = \frac{1}{2}\\
+	=>  P(\frac{X-\mu}{\sigma}<\frac{-2-\mu}{\sigma}) + P(\frac{X-\mu}{\sigma}>\frac{2-\mu}{\sigma}) = P(\frac{X-\mu}{\sigma}<\frac{-2-\mu}{\sigma}) + 1-P(\frac{X-\mu}{\sigma}<\frac{2-\mu}{\sigma}) =\frac{1}{2}\\
+	 = 1+\phi(\frac{-2-\mu}{\sigma}) - \phi(\frac{2-\mu}{\sigma}) = 1+1-\phi(\frac{2-\mu}{\sigma})- \phi(\frac{2-\mu}{\sigma}) = \frac{1}{2}\\
+	 = 2 - 2\phi(\frac{2-\mu}{\sigma}) = \frac{1}{2}\\
+	 \text{simplifying, we get} \phi(\frac{2-\mu}{\sigma})=\frac{3}{4}\\
+	 => \frac{2-\mu}{\sigma} = \phi^{-1}(\frac{3}{4}) => 2-\sigma\phi^{-1}(\frac{3}{4}) = \mu \square
+\end{gather}
+It is easy to see that since the mean and variance are not limited in any particular way, there are many solutions to this inequality and do exist. Thus we are done.
+\item Find $P(	X>\sqrt{Y})$ if X and Y are jointly distributed with
+\begin{gather}
+	f_{X,Y}(x,y)=x+y \text{ for } 0\le x \le 1 \& 0\le y\le1\\
+	P(X>\sqrt{Y}) = \int_{0}^{1} \int_{\sqrt{y}}^{1} x+y dx dy = \int_{0}^{1} (\frac{x^2}{2}|_{\sqrt{y}}^1 + xy|_{\sqrt{y}}^1)dy = \int_{0}^{1} (\frac{1}{2}-\frac{y}{2} + y -y^{3/2})dy\\
+	= \int_{0}^{1} (\frac{1}{2} + \frac{y}{2} - y^{3/2})dy = \frac{1}{2} + \frac{1}{4} - \frac{2}{5} = \frac{7}{20}
+\end{gather}
+\item Suppose X and Y are independent N(0,1) random variables. 
+\begin{enumerate}
+	\item Find $P(X^2<1)$\\
+	We know that the chi-squared dsitribution is a sum of squared normal distributions. We can consider the above as a sum of 1 squared normal distribution, and thus can equivalently find $P(Z<1)$ with Z $\sim \chi_1^2$. The one indicates the one degree of freedom for our distribution.
+	\\
+	We get
+	\begin{verbatim}
+	> print(pchisq(1,1))
+	[1] 0.6826895
+	\end{verbatim}
+	$P(X^2<1)$ = .68269
+	\item Find $P(X^2+Y^2)<1$
+	Similar to the one above, we have a chisquared distribution ,but now up our degrees of freedom to 2 $Z \sim \chi_2^2$.\\
+	We get the following.
+	\begin{verbatim}
+	> print(pchisq(1,2))
+	[1] 0.3934693
+	\end{verbatim}
+	$P(X^2+Y^2)<1 = .3934693$
+\end{enumerate}
+\item Let $X \sim N(\mu,\sigma^2)$, and let $Y \sim N(\tau,\sigma^2)$. Suppose X and Y are independent. Define two random variables U = X+Y and V = X-Y. 
+\begin{enumerate}
+	\item Show that U and V are independent Normal random variables.\\
+	Intuitively, if we can show this follows a bivariate normal distribution with no covariance between them we have satisfied this question. This property is describe in one of our earlier lectures.\\
+	Note, we already know and have shown in previous assignments and lectures that a sum or difference of independent normal distributions are $N(\mu_1+\mu_2,2\sigma^2)$ and $N(\mu_1-\mu_2,2\sigma^2)$ respectively
+	\begin{gather}
+		U,V = X+Y,X-Y \sim
+		\begin{bmatrix}
+		E[U] \\
+		E[V]
+		\end{bmatrix} , 
+		\begin{bmatrix}
+		\Var[U] & Cov(U,V) \\
+		Cov(V,U) & \Var[V]
+		\end{bmatrix} 
+	\end{gather}
+	We do not need to even bother ourselves with determining the variance of the random variables U and V, even though this would be rather easy. We only need to show that Cov(U,V) = 0\\
+	\begin{gather}
+		Cov(U,V)=E(UV)-E(U)E(V) = E[X^2-Y^2]-E[X+Y]E[X-Y] \\
+		= E[X^2]-E[Y^2]-(E[X]+E[Y])(E[X]-E[Y]) \text{ by linearity of expecation}\\
+		= \sigma^2 +\mu^2 - (\sigma^2 + \tau^2) - (\mu+\tau)(\mu - \tau) = \mu^2-\tau^2 - \mu^2 +\mu\tau - \mu\tau +\tau^2 = 0
+	\end{gather}
+	Thus, we have shown U,V are uncorrelated and have zero covariance. Consequently they are independent Normals $\square$
+	\item Find the distribution of U. \\
+	We have already stated the distribution of U and V above, but we will do a quick proof here to show the result.
+	\begin{gather}
+		P(U\le u) = P(X+Y\le u) = \int_{-\infty}^{\infty}P(X+y\le u|Y=y)f_y(y)dy\\
+		=\int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}\sqrt{2\pi}\sigma^2}e^{-1\frac{(u-y-\mu)^2+(y-\tau)^2}{2\sigma^2}}dy\\
+		\text{The remainder of this proof is manipulating the completed squares to achieve the following}\\
+		P(U\le u)= \frac{1}{\sqrt{4\pi}\sigma}e^{-1\frac{(u-(\tau + \mu))^2}{\sigma^2}} \sim N(\mu+\tau,2\sigma^2)\\
+		\text{The integral evaluates to 1 as it is a kernel of a normal distrib}
+	\end{gather}
+	\item Find the distribution of V.\\
+	The proof will be very similar to the one above and has been done in homework 7. The result is below.
+	\begin{gather}
+	P(U\le u) = P(X-Y\le u) = \int_{-\infty}^{\infty}P(X-y\le u|Y=y)f_y(y)dy\\
+	P(U\le u)= \frac{1}{\sqrt{4\pi}\sigma}e^{-1\frac{(u-(\tau - \mu))^2}{\sigma^2}} \sim N(\mu-\tau,2\sigma^2)\\
+	\end{gather}
+\end{enumerate}
+\item A random variable X is defined by the transformation Z = log(X), where the mean of the random variable Z is E(Z) = 0. Is E(X) greater than, less than, or equal to 1?
+\begin{gather}
+	E[Z]=E[log(X)]=E[g(x)] = \int_{-\infty}^{\infty}log(x)f(x)dx\\
+	\text{We are interested in }E[X] = \int_{-\infty}^{\infty}xf(x)dx
+\end{gather}
+Since f(x) stays the same, we really want to analyze the difference between $log(x)$ and x. So lets try to find the minimum distance of the following 
+\begin{gather}
+	y = x-log(x)\\
+	\frac{dy}{dx} = 1 - \frac{1}{x} = 0 => \frac{1}{x} = 1 => x = 1\\
+	y(1) = 1-0 = 1\\
+	\frac{d^2y}{dx^2} = \frac{1}{x^2}\ge 0 
+\end{gather}
+This implies that at our value of x=1 we are at a local minimum, which in this case is the global minimum, and all other values of x result in a large difference. Thus this means
+\begin{gather}
+	E[X]\ge 1
+\end{gather}
+This should make sense, as if this were to be a discrete RV, which happens to take only probability at X=1, or Z =0, then $E[X]=1$ and $E[Z]=0$. If we have either a discrete or continuous RV with values with probability outside of X=1 and Z=0 s.t. E[Z]=0 still holds true, then we know that the distance between $x- log(x) > 1$ which would make $E[X]>1$. Thus we are done $\square$  
+Thu
+\end{enumerate}
+\text{Have a great Holiday Season!}
+\end{document}

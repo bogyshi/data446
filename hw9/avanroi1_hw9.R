@@ -1,0 +1,11 @@
+library(ggplot2)
+library("faraway")
+require(faraway)
+library("leaps")
+require(MASS)
+library("data.table", lib.loc="~/R/win-library/3.5")
+library("MLmetrics", lib.loc="~/R/win-library/3.5")
+library(reshape2)
+
+print(pchisq(1,1))
+print(pchisq(1,2))
