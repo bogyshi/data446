@@ -351,7 +351,92 @@ Please complete the following:
 	P(X = x, Y = y) = P(X = x)P(Y = y);
 	for all x in the support of X and all y in the support of Y.
 \end{enumerate}
-
+\item chapter 3: Expectation
+\begin{enumerate}
+	\item\textbf{ Proposition (Monotonicity of expectation).} Let X and Y be random variables such that X $\ge$ Y with probability 1. Then E(X)$\ge$E(Y), with equality holding if and only if X = Y with probability 1. 
+	\item A hypergeometric can be considered a sum of bernoulli random variables, but with their probabilities conditioned on the previous iteration. However, when calculating hte expectation, each of the bernoullis are equally like to be picked first, so the expecation is n * p where p = w/w+b
+	\item \textbf{Theorem. Properties of Indicator Random Variables}\\
+	1. $I_A^k=I_A$\\
+	2. $I_{A^c} = 1 - I_A$\\
+	3. $I_{A\cap B} = I_AI_B$\\
+	4. $I_{A\Cup B} - I_A + I_B - I_{A\cap B}$
+	\item Inclusion Exclusion \\
+	$P(A_1\cup ... A_n) = \sum_iP(A_i)-\sum_{j>i}P(A_i\cap A_j) + ... (-1)^nP(A_1...A_n)$
+	\item Negative Binomial: Number of failures till a fixed number of successes. $=> NBin(r,p)P(X=x) = \binom{x+r-1}{r-1}p^rq^{x}$
+	\item \textcolor{red}{\textbf{Poisson}} Note $\sum_{k=1}^{\infty}\frac{x^{k-1}}{(k-1)!} = e^x$ Useful for determining expectations and such. its a kernel
+	\item \textbf{Theorem. Sum of independent poisson is poisson} if $X\sim Pois(\lambda_1) \, \, \, \& \, \, \, Y \sim Pois(\lambda_2) \, \, X+Y \sim Pois(\lambda_1+\lambda_2)$
+	\item \textcolor{red}{\textbf{Theorem. Poisson given a sum of Poissons is Binomial}} $X\sim Pois(\lambda_1) \, \, \, \& \, \, \, Y \sim Pois(\lambda_2) \, \, \, PoisX=k|X+Y=n \sim Binom(n,\lambda_1/(\lambda_1+\lambda_2))$
+\end{enumerate}
+\item Chapter 4: Continuous
+\begin{enumerate}
+	\item \textbf{Universality of the Uniform}. This is useful as it can simulate a RV with any discrete Distribution from the Unif.
+	\\
+	ex\\
+	$F(x) = \frac{e^x}{1+e^x} \, \, F^{-1}(u) = log(\frac{u}{1-u}) \sim $logistic with $U \sim Unif(0,1)$ 
+	\item \textbf{Normal distribution}\\
+	Note that the normal is symmetric, meaning tail areas are symmetric, andi n general $\phi(z)=\phi(-z)$
+	\item \textbf{exponential distribution} This is the continuous version of the geometric distribution. $f(x) = \lambda e^{-\lambda x} x>0$
+	\item \textcolor{red}{\textbf{Generalize exponential  }}$Y = \frac{X}{\lambda} \sim Expo(\lambda)$ with $X \sim Expo(1)$
+	\item see notes for further elaboration on this section and bayesian view point of statistics
+\end{enumerate}
+\item Chapter 5: Moments
+\begin{enumerate}
+	\item \textbf{ Definition (Median).} We say that c is a median of a random variable X if $P(X \le c) \ge .5 and P(X \ge c) \ge .5$
+	\item \textbf{Definition (Mode).} For a discrete random variable X, we say that c is a mode of X if it maximizes the PMF:
+	$P(X = c) \ge P(X = x)$ for all x. For a continuous random variable X with PDF f , we say that c is the mode
+	if it maximizes the PDF: $f(c) \ge f (x)$ for all x.\\
+	Note we can have multiple modes and medians but not means!
+	\item \textbf{Theorem. }Let X be a random variable with mean $\mu$, and let m be the median of X.
+	\\The value of c that minimizes the mean squared error $E(X - c)^2$ is c = $\mu$.
+	\\A value of c that minimizes the mean absolute error $E|X - c|$ is c = m.
+	\item\textbf{ Definition (Symmetry of a random variable). }We say that a random variable X has a symmetric distribution
+	about $\mu$ if $X-\mu$ has the same distribution as $\mu - X$. The number $\mu$ must be the mean E(X) if it exists, and
+	must also be a median of the distribution of X.
+	\item \textcolor{red}{\textbf{Proposition (Symmetry in terms of the PDF).}} Let X be a continuous random variable with PDF f . Then X
+	is symmetric about $\mu$ if and only if $f (x) = f (2\mu - x)$ for all x.
+	\item\textbf{ Definition (Kinds of moments)}. Let X be a random variable with mean $\mu$ and variance $\sigma^2$. For any positive
+	integer n, the nth moment of X is $E(X^n)$, the nth central moment is $E[(X-\mu)^n]$, and the nth standardized
+	moment is$E((\frac{X-\mu}{\sigma^2})^n)$
+	The mean is the first moment and the variance is the second central moment
+	\item \textcolor{red}{\textbf{ Definition (Skewness).}} The skewness of a random variable X with mean $\mu$ and variance $\sigma^2$ is the third
+	standardized moment of X \\
+	Skew(X) = $E[(\frac{X-\mu}{\sigma^2})^3]$
+	\item \textcolor{red}{\textbf{Proposition (Odd central moments of a symmetric distribution). }}Let X be symmetric about its mean $\mu$. Then
+	for any odd number m, the mth central moment $E(X -\mu)^m$ is 0 if it exists.
+	\item \textbf{kurtosis} This represents how diffent a distributiobns pdf is , large kurtosis means sharp peak in the middle, heavy tails, and low shoulders.
+	\item \textbf{Definition (Sample moments)}. Let X1, X2, ... Xn be i.i.d. random variables. The kth sample moment is the random variable\\
+	$M_k = \frac{1}{n}\sum_{j=1}^{n}X^k$\\ and
+	$E[M_k] = E[\frac{1}{n}\sum_{j=1}^{n}X^k] = E[X_1^k]$ Hence it is an unbiased estimator of the true kth moment
+	\item $Var(\bar{X_n}) = \frac{\sigma^2}{n}$
+	\item \textbf{Sample variance} = $S_n^2=\frac{1}{n-1}\sum_{j=1}^{n}(X_j-\bar{X_n})^2$
+	\item \textcolor{red}{\textbf{Example: Bernoulli MGF}}
+	For $X \sim Bern(p)$, the MGF is
+	$M(t) = E(e^{tX}) = e^{t0}P(X = 0) + e^{t}P(X = 1) = pet + q$
+	where q = 1 - p. Since M(t) is finite for any t $\in$ R, the MGF of a Bernoulli random variable is defined on the entire real line.
+	\item \textcolor{red}{\textbf{Example: Geometric MGF}}
+	For $X \sim Geom(p)$, the MGF is
+	$M(t) = E(e^{tX}) =
+	\sum_{k=0}^{\infty}
+	e^{tk}P(X = k) = \sum_{k=0}^{\infty}e^{tk}q^kp = \frac{p}{1-qe^t}$
+	for $q^{et} < 1$ or, equivalently, for $(-\infty, log(1/q))$,
+	\item \textbf{Theorem (Moments via derivatives of MGFs).} Given the MGF M(t) of a random variable X, we can get
+	the nth moment of X by evaluating its nth derivative of the MGF at 0
+	$E(X^n) = M^{(n')}(0)$
+	\item \textcolor{red}{\textbf{Theorem (MGF determines the distribution). }}The MGF of a random variable determines its distribution: if
+	two random variables have the same MGF, they must have the same distribution.
+	\item \textcolor{red}{\textbf{Theorem (MGF of a sum of independent random variables).}} If X and Y are independent, then the MGF of
+	X + Y is the product of the individual MGFs:
+	$M_{X+Y} (t) = M_X(t)M_Y(t)$\\
+	Using this result, we can obtain the MGFs of the Binomial and Negative Binomial, which are sums of
+	independent Bernoulli and Geometric i.i.d. random variables.\\
+	\textbf{Example: Binomial MGF}
+	The MGF of a Bern(p) random variable is$ pe^t + q$, so the MGF of a Bin(n, p) random variable is
+	$M(t) = (pe^t + q)^n$
+\end{enumerate}
+\item Chapter 6 : Joint Distributions
+\begin{enumerate}
+	\item
+\end{enumerate}
 \end{enumerate}
 \text{Happy holidays!}
 \end{document}
