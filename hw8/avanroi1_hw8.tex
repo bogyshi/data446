@@ -352,10 +352,10 @@ Please complete the following:
 		[1] 5.6e+08
 		> print(var(total))
 		[1] 4.47973e+14
-		> print(numSold^2 * numReleased)
-		[1] 4.48e+14
+		> print(numSold^2 * numReleased + numSold*numReleased)
+		[1] 4.480006e+14
 	\end{verbatim}
-	Look at that. How wonderful! It matches our expectations!
+	Look at that. How wonderful! It matches our expectations! Do note that for such large values, it is tough to see the difference in variances or expectations for small arithmetic mistakes. I learned this the hard way as I theoretically computer the wrong variance initially as the $\Var(M_i..+..M_n|N=n)$ rather than the $\Var(\text{Tickets sold this year})$. Which are surprisingly close at $\lambda_1\lambda_2+\lambda_2^2\lambda_1 $ and $\lambda_2^2\lambda_1$ respectively. This small factor is unnoticeable for large values of lambda
 \end{enumerate}
 \item Show that if $E(Y | X) = c$ is a constant, then X and Y are uncorrelated.
 \begin{gather}
@@ -375,8 +375,8 @@ Please complete the following:
 	\text{However, we will be more rigorous using Adams law with extra conditioning}\\
 	E[Y|h(X)] = E[E[Y|h(X),M]|h(X)] \text{ Now we let } M=X\\
 	= E[E[Y|h(X),X]|h(X)] = E[E[Y|X]|h(X)] \text{ as the event g(X) is known with X}\\
-	= E[h(X)|h(X)] \text{ by substituting from our earlier definition}
-	= h(X) = E[Y|X]\square	
+	= E[h(X)|h(X)] = h(X) \text{ by substituting from our earlier definition and removing constants}\\
+	=>	E[Y|E[Y|X]] = h(X) = E[Y|X]\square	
 \end{gather}
 \item Let Y denote the number of heads in n flips of a coin, whose probability of heads is $\theta$.
 \begin{enumerate}
@@ -386,13 +386,36 @@ Please complete the following:
 	\begin{gather}
 		min\left\{E[\theta],\frac{y}{n}\right\}\le E(\theta | Y = y) \le max\left\{E[\theta],\frac{y}{n}\right\}
 	\end{gather}
-	Here $E(\theta| Y = y)$ is the mean of the distribution $P(\theta | Y = y)$, and $E(\theta)$ is the mean of the distribution
-		$P(\theta) = Beta(a, b)$.
+	Here $E(\theta| Y = y)$ is the mean of the distribution $P(\theta | Y = y)$, and $E(\theta)$ is the mean of the distribution $P(\theta) = Beta(a, b)$.
 	\begin{gather}
 		E[\theta|Y=y] = \int_{-\infty}^{\infty} \theta f(\theta|Y=y) d\theta\\
 		f(\theta|Y=y)=\frac{P(Y|\theta) * P(\theta)}{P(Y)} \text{By bayes rule}\\
 		\text{We recognize that the numerator is a new beta distribution with new } \alpha \beta\\
-		\text{Resultingly, depending on which one is large, y and n or a and b, the exepected alue will lie between them?}
+		f(\theta|Y=y) \propto P(Y|\theta) * P(\theta) = \binom{n}{y}\theta^y\theta^{n-y} \frac{\theta^{a-1}(1-\theta)^{b-1}}{B(a,b)} \text{ Where B(a,b)} = \frac{(a-1)!(b-1)!}{(a+b-1)!}\\
+		= \binom{n}{y}\frac{\theta^{y+a-1}(1-\theta)^{b+n-y-1}}{B(a,b)} \text{ and with some normalization we ultimatley get }\\
+		=> \theta|Y=y \sim Beta(a+Y,b+n-Y) \text{ which makes sense as it is a function of Y}\\
+		\text{The expectation of such a distribution is readily known}\\
+		E[Beta(a+Y,b+n-Y)] = \frac{a+Y}{a+Y+b+n-Y} = \frac{a+Y}{a+b+n}\\
+		\text{ Now we want to make sense of our inequalities and ascertain how }	\\
+		min\left\{E[\theta],\frac{y}{n}\right\}\le E(\theta | Y = y) \le max\left\{E[\theta],\frac{y}{n}\right\}
+				\end{gather}
+				\begin{gather}
+		\text{We know } E[\theta] = \frac{a}{a+b}\\
+		\text{What we want to show is that } \\
+		min\left\{\frac{a}{a+b},\frac{y}{n}\right\}\le E(\theta | Y = y) \le max\left\{\frac{a}{a+b},\frac{y}{n}\right\}
+		\text{Thus we have two cases}\\
+		\text{Case 1:} \frac{a}{a+b}<\frac{y}{n}\\
+		\text{In this case, we want to show } \frac{a}{a+b}\le\frac{a+y}{a+b+n}\le\frac{y}{n}\\
+		\text{Proof by contradiction, assume }\frac{a+y}{a+b+n}\ge\frac{y}{n} => \frac{y}{n}-\frac{a+y}{a+b+n}\le 0\\
+		= \frac{ya+yb+yn}{n(a+b+n)}-\frac{an+yn}{n(a+b+n)} \le 0\\
+		 => \frac{ya+yb-an}{n(a+b+n)}\le 0=>ya+yb-an\le 0 = ya+yb \le an\\
+		\text{but we know } \frac{a}{a+b}<\frac{y}{n} => an < ay+by \text{  Contradiction!}\\
+		\text{Thus, it must be that }\frac{a+y}{a+b+n}\le\frac{y}{n}\\
+	\end{gather}
+	The rest of this proof is very similar and proven in the same ways.This applies for both cases where $\frac{a}{a+b}<\frac{y}{n}$ and $\frac{a}{a+b}\ge\frac{y}{n}$ For sake of time and effort, these details will be omitted. This fact may be more easily proven or thought of intuitively, but this was how I approached the problem.\\
+	Thus in the end, we will have achieved
+	\begin{gather}
+			min\left\{E[\theta],\frac{y}{n}\right\}\le E(\theta | Y = y) \le max\left\{E[\theta],\frac{y}{n}\right\} \square
 	\end{gather}
 	\item Show that if $P(\theta) = Unif(0,1)$\\
 	We have $\Var(\theta|Y=y)\le \Var(\theta)$\\
@@ -450,7 +473,8 @@ Let A, B and C be independent random variables with the following distributions:
 	We can see that unlike the last problem, we can allow our roots to be one in the same, so we add another case where $-B - \sqrt{B^2-4AC} = 0$\\
 	we get the following
 	\begin{gather}
-	P(A=1,C=1,B=-3)+P(A=2,C=1,B=-3)+P(A=1,C=2,B=-3)+P(A=1,C=1,B=-2)\\
+	P(A=1,C=1,B=-3)+P(A=2,C=1,B=-3)+\\
+	P(A=1,C=2,B=-3)+P(A=1,C=1,B=-2)\\
 	= .4*.5*.25+.6*.5*.25+.4*.4*.25+.4*.5*.25 = 0.215
 	\end{gather}
 \end{enumerate}
