@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.18)  29 NOV 2018 23:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.2.18)  30 NOV 2018 14:57
 entering extended mode
 **./finalReview.tex
 (finalReview.tex
@@ -225,53 +225,42 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {C:/Users/BDVR/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+Missing character: There is no â in font cmbx10!
+Missing character: There is no € in font cmbx10!
+Missing character: There is no ™ in font cmbx10!
+ [2]
+Missing character: There is no â in font cmbx10!
+Missing character: There is no € in font cmbx10!
+Missing character: There is no ™ in font cmbx10!
 
-LaTeX Font Warning: Command \boldmath invalid in math mode on input line 284.
-
-
-LaTeX Font Warning: Command \mathversion invalid in math mode on input line 284
-.
-
-[2]
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ™ in font cmr10!
- [3] [4]
-Overfull \hbox (24.57285pt too wide) in paragraph at lines 358--359
-\OT1/cmr/m/n/10.95 vari-ance ini-tially as the $[](\OML/cmm/m/it/10.95 M[]:: \O
-T1/cmr/m/n/10.95 + \OML/cmm/m/it/10.95 ::M[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/
-10.95 N \OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 n\OT1/cmr/m/n/10.95 )$ rather 
-than the $[]([])$.
- []
-
-[5] [6] [7] [8] [9] [10] [11] (finalReview.aux) ) 
+[3] [4] (finalReview.aux) ) 
 Here is how much of TeX's memory you used:
- 3500 strings out of 493622
- 48622 string characters out of 3135547
- 123491 words of memory out of 3000000
- 6867 multiletter control sequences out of 15000+200000
- 16156 words of font info for 60 fonts, out of 3000000 for 9000
+ 3487 strings out of 493622
+ 48493 string characters out of 3135547
+ 114491 words of memory out of 3000000
+ 6860 multiletter control sequences out of 15000+200000
+ 14427 words of font info for 53 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 36i,13n,38p,574b,394s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/BDVR/AppData/Local/P
-rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/BDVR/App
-Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Us
-ers/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi1
-0.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmmi6.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmmi8.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/BDVR/AppData/Local/Programs/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/BDVR/AppData/Local/
+ 36i,6n,38p,255b,268s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/BDVR/AppData/Local/Programs/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/BDVR/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/BDVR/A
+ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/
+Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmm
+i6.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmmi8.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmr10.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/BDVR/AppData/Local/Programs/M
+iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/BDVR/AppData/Local/
 Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/BDVR/AppD
 ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Use
 rs/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.
 pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmsy8.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
-lic/amsfonts/cm/cmtt10.pfb><C:/Users/BDVR/AppData/Local/Programs/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on finalReview.pdf (11 pages, 176027 bytes).
+s/cm/cmsy8.pfb>
+Output written on finalReview.pdf (4 pages, 154497 bytes).
 PDF statistics:
- 90 PDF objects out of 1000 (max. 8388607)
+ 67 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

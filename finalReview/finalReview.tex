@@ -254,7 +254,7 @@
 \begin{document}
 
 \begin{title}
-	{\Large\bf Homework 8, DATA 556: Due Tuesday, 11/20/2018}
+	{\Large\bf Final Review}
 \end{title}
 
 \author{\bf Alexander Van Roijen}
@@ -264,220 +264,94 @@
 \newpage
 Please complete the following:
 \begin{enumerate}
-\item Problem 1
-	Let Z,W be bivariate Normal defined as
-	\begin{gather}
-	Z=X\\
-	W=\rho X + \sqrt{1-\rho^2}Y
-	\end{gather}
-	with X,Y i.i.d N(0,1) and $-1<\rho<1$. Find $E[W|Z] \, \& \, \Var(W|Z)$
-	\begin{gather}
-	E[W|Z] = E[\rho X + \sqrt{1-\rho^2}Y|Z=z] = E[\rho X + \sqrt{1-\rho^2}Y|X=z]\\
-	= \rho z + \sqrt{1-\rho^2}E[Y] \text{ by linearity of expectation}\\
-	= Z\rho
-	\\
-	Var(W|Z) = E[W^2|Z]-E[W|Z]^2 = E[(\rho X + \sqrt{1-\rho^2}Y)^2|Z=z] - z^2 \rho^2\\ = E[\rho^2z^2 + (1-\rho^2)Y^2 + 2\rho z\sqrt{1-\rho^2}Y] - z^2\rho^2\\
-	= \rho^2z^2 + (1-\rho^2)E[Y^2] + 2\rho z\sqrt{1-\rho^2}E[Y] - z^2\rho^2\text{ by linearity of expectation}\\
-	\text{We also know }E[Y^2]=Var(Y)+E[Y]^2 = 1\\
-	=>Var(W|Z) =  \rho^2z^2 + 1 - \rho^2 - z^2\rho^2 = 1 - \rho^2
-	\end{gather}
-\item Let $X = (X_1,X_2,X_3,X_4,X_5) \sim Mult_5(n,\boldmath{p})$ with $p = (p_1,p_2,p_3,p_4,p_5)$
+\item Lecture 1. Basics of Probability
 \begin{enumerate}
-	\item Find $E[X_1|X_2]$ and $\Var(X_1|X_2)$
-	\begin{gather}
-	X_1,X_3,X_4,X_5 | X_2 \sim Mult_4(n-X_2,p') \text{ with }\\
-	p'=(p_1',p_3',p_4',p_5')\text{ and } p_i'= \frac{p_i}{1-p_2}\\
-	\text{ Now we recognize that } P(X_i=x_i) \text{ in either distribution is }
-	\binom{N'}{x_i}p_1^{x_i}(1-p_i)^{N'-x_i}\\
-	\text{Where we know that } N'-x_1 = \text{ remaining possible successes} \\
-	\text{Thus, we see a binomial distribution for }X_i\\
-	=> E[X_1|X_2] = N'*p_i'= (n-X_2)p_1'\\
-	=> Var[X_1|X_2] = N'p_1'(1-p_1') = (n-X_2)p_1'(1-p_1')\\
-	\text{This further makes sense as we expect both values to be functions of our RV } X_2
-	\end{gather}
-	\item Find $E[X_1|X_2+X_3]$ 
-	\\
-	Similar to above, we can determine a new multinomial
-	\begin{gather}
-	X_1,X_4,X_5 | X_2+X_3 \sim Mult_3(n-(X_2+X_3),p') \text{ with }\\
-	p'=(p_1',p_4',p_5')\text{ and } p_i'= \frac{p_i}{1-(p_2+p_3)}\\
-	\text{By the same logic as above, we determine that} X_1 \sim Binom(N',p_1')\\
-	=>E[X_1|X_2+X_3] = N'*p_1'= (n-(X_2+X_3))p_1'
-	\end{gather}
-\end{enumerate}
-\item Show that the following version of LOTP follows from Adam’s law: for any event A and continuous random variable X with PDF $f_X$:
-\begin{gather}
-	P(A) = \int_{-\infty}^{\infty}P(A|X=x)f_X(x)dx\\
-	\text{Let's use indicator variables to prove this}\\
-	I_A = \text{Inidicator for when event A occurs}\\
-	E[I_A] = P(A) \text{ and } E[I_A|X=x]=P(A|X=x) \text{By the fundamental bridge} \\ 
-	E[I_A] = E[E[I_A|X]] \text{ Adam's Law}\\
-	\text{all together we get }\\
-	 P(A)= E[E[I_A|X]]=E[P(A|X=x)] = \int_{-\infty}^{\infty}P(A|X=x)f_X(x)dx \text{ by lotus}\square	
-\end{gather}
-\item Let $N \sim Pois(\lambda_1)$ be the number of movies that will be released next year. Suppose that for each movie the number of tickets sold is $Pois(\lambda_2)$, independently
-\begin{enumerate}
-	\item Find the mean and the variance of the number of movie tickets that will be sold next year.
-	\\
-	We can describe the number of tickets sold overall as the conditional probability on tickets sold per movie given the number of movies released that year. We get the following
-	\begin{gather}
-		\text{tickets sold} = E[M_1+M_2+...+M_n|N=n] \text{ with} M_i \sim Pois(\lambda_2)\\
-		= E[M_1|N=n]...+E[M_n|N=n] \text{ by linearity of expectation}\\
-		= n*\lambda_2 => S = N*\lambda_2 \text{ where S is a random variable expressing tickets sold next year }\\=> E[S] = E[N]*\lambda_2 = \lambda_1*\lambda_2
-		\\
-		\Var(\text{Tickets Sold}) = E[\Var(M_1+...M_n|N=n)] + \Var(E[M_1+...M_n|N=n]) \\
-		= E[\lambda_2+\lambda_2...+\lambda_2] + \Var(\lambda_2N) = E[N\lambda_2] + \Var(N\lambda_2) = \lambda_1\lambda_2+\lambda_2^2\lambda_1 
-	\end{gather}
-	\item Use simulations in R (the statistical programming language) to numerically estimate mean and the
-	variance of the number of movie tickets that will be sold next year assuming that the mean number of movies
-	released each year in the US is 700, and that, on average, 800000 tickets were sold for each movie.
-	\begin{verbatim}
-		> set.seed(123)
-		> numReleased=700
-		> numSold=800000
-		> numTrials=100000
-		> numMovies = rpois(numTrials,numReleased)
-		> counter = 0
-		> oneYearTix=0
-		> total=numeric()
-		> while(counter<=numTrials)
-		+ {
-		+   oneYearTix = rpois(numMovies[counter],numSold)
-		+   total[counter] = sum(oneYearTix)
-		+   counter = counter+1
-		+ }
-		> print(mean(total))
-		[1] 560023366
-		> print(numSold*numReleased)
-		[1] 5.6e+08
-		> print(var(total))
-		[1] 4.47973e+14
-		> print(numSold^2 * numReleased + numSold*numReleased)
-		[1] 4.480006e+14
-	\end{verbatim}
-	Look at that. How wonderful! It matches our expectations! Do note that for such large values, it is tough to see the difference in variances or expectations for small arithmetic mistakes. I learned this the hard way as I theoretically computer the wrong variance initially as the $\Var(M_i..+..M_n|N=n)$ rather than the $\Var(\text{Tickets sold this year})$. Which are surprisingly close at $\lambda_1\lambda_2+\lambda_2^2\lambda_1 $ and $\lambda_2^2\lambda_1$ respectively. This small factor is unnoticeable for large values of lambda
-\end{enumerate}
-\item Show that if $E(Y | X) = c$ is a constant, then X and Y are uncorrelated.
-\begin{gather}
-	Corr(X,Y) = \frac{Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)}}\\
-	Cov(X,Y) = E[XY] - E[X]E[Y]\\
-	\text{By Adam's law we get }E[E[Y|X]] = E[Y] => E[Y] = E[c] = c\\
-	E[XY] = \sum_{x\in X}E[XY|X=x]P(X=x) = \sum_{x\in X}xE[Y]P(X=x) = c\sum_{x\in X}xP(X=x) = cE[X]\\
-	=> Cov(X,Y) = E[XY] - E[X]E[Y] = cE[X]-cE[X] = 0\\
-	\text{Thus X and Y are uncorrelated }\square
-\end{gather}
-\item Show that for any random variables X and Y,
-\begin{gather}
-	E[Y|E[Y|X]]=E[Y|X]\\
-	\text{We know }E[Y|X] \text{ is a function of X, call it }h(X)\\
-	=> E[Y|E[Y|X]]=E[Y|h(X)]\text{ Inuitively, it makes sense that this equals } E[Y|X]\\
-	\text{ As knowing a function of X details us the same information as knowing X}\\
-	\text{However, we will be more rigorous using Adams law with extra conditioning}\\
-	E[Y|h(X)] = E[E[Y|h(X),M]|h(X)] \text{ Now we let } M=X\\
-	= E[E[Y|h(X),X]|h(X)] = E[E[Y|X]|h(X)] \text{ as the event g(X) is known with X}\\
-	= E[h(X)|h(X)] = h(X) \text{ by substituting from our earlier definition and removing constants}\\
-	=>	E[Y|E[Y|X]] = h(X) = E[Y|X]\square	
-\end{gather}
-\item Let Y denote the number of heads in n flips of a coin, whose probability of heads is $\theta$.
-\begin{enumerate}
-	\item Suppose $\theta$ follows a distribution $P(\theta) = Beta(a, b)$, and then you observe y heads out of n flips.
-	Show algebraically that the mean $E(\theta | Y = y)$ always lies between the mean $E(\theta)$ and the observed
-	relative frequency of heads
-	\begin{gather}
-		min\left\{E[\theta],\frac{y}{n}\right\}\le E(\theta | Y = y) \le max\left\{E[\theta],\frac{y}{n}\right\}
-	\end{gather}
-	Here $E(\theta| Y = y)$ is the mean of the distribution $P(\theta | Y = y)$, and $E(\theta)$ is the mean of the distribution $P(\theta) = Beta(a, b)$.
-	\begin{gather}
-		E[\theta|Y=y] = \int_{-\infty}^{\infty} \theta f(\theta|Y=y) d\theta\\
-		f(\theta|Y=y)=\frac{P(Y|\theta) * P(\theta)}{P(Y)} \text{By bayes rule}\\
-		\text{We recognize that the numerator is a new beta distribution with new } \alpha \beta\\
-		f(\theta|Y=y) \propto P(Y|\theta) * P(\theta) = \binom{n}{y}\theta^y\theta^{n-y} \frac{\theta^{a-1}(1-\theta)^{b-1}}{B(a,b)} \text{ Where B(a,b)} = \frac{(a-1)!(b-1)!}{(a+b-1)!}\\
-		= \binom{n}{y}\frac{\theta^{y+a-1}(1-\theta)^{b+n-y-1}}{B(a,b)} \text{ and with some normalization we ultimatley get }\\
-		=> \theta|Y=y \sim Beta(a+Y,b+n-Y) \text{ which makes sense as it is a function of Y}\\
-		\text{The expectation of such a distribution is readily known}\\
-		E[Beta(a+Y,b+n-Y)] = \frac{a+Y}{a+Y+b+n-Y} = \frac{a+Y}{a+b+n}\\
-		\text{ Now we want to make sense of our inequalities and ascertain how }	\\
-		min\left\{E[\theta],\frac{y}{n}\right\}\le E(\theta | Y = y) \le max\left\{E[\theta],\frac{y}{n}\right\}
-				\end{gather}
-				\begin{gather}
-		\text{We know } E[\theta] = \frac{a}{a+b}\\
-		\text{What we want to show is that } \\
-		min\left\{\frac{a}{a+b},\frac{y}{n}\right\}\le E(\theta | Y = y) \le max\left\{\frac{a}{a+b},\frac{y}{n}\right\}
-		\text{Thus we have two cases}\\
-		\text{Case 1:} \frac{a}{a+b}<\frac{y}{n}\\
-		\text{In this case, we want to show } \frac{a}{a+b}\le\frac{a+y}{a+b+n}\le\frac{y}{n}\\
-		\text{Proof by contradiction, assume }\frac{a+y}{a+b+n}\ge\frac{y}{n} => \frac{y}{n}-\frac{a+y}{a+b+n}\le 0\\
-		= \frac{ya+yb+yn}{n(a+b+n)}-\frac{an+yn}{n(a+b+n)} \le 0\\
-		 => \frac{ya+yb-an}{n(a+b+n)}\le 0=>ya+yb-an\le 0 = ya+yb \le an\\
-		\text{but we know } \frac{a}{a+b}<\frac{y}{n} => an < ay+by \text{  Contradiction!}\\
-		\text{Thus, it must be that }\frac{a+y}{a+b+n}\le\frac{y}{n}\\
-	\end{gather}
-	The rest of this proof is very similar and proven in the same ways.This applies for both cases where $\frac{a}{a+b}<\frac{y}{n}$ and $\frac{a}{a+b}\ge\frac{y}{n}$ For sake of time and effort, these details will be omitted. This fact may be more easily proven or thought of intuitively, but this was how I approached the problem.\\
-	Thus in the end, we will have achieved
-	\begin{gather}
-			min\left\{E[\theta],\frac{y}{n}\right\}\le E(\theta | Y = y) \le max\left\{E[\theta],\frac{y}{n}\right\} \square
-	\end{gather}
-	\item Show that if $P(\theta) = Unif(0,1)$\\
-	We have $\Var(\theta|Y=y)\le \Var(\theta)$\\
-	Here $\Var(\theta|Y=y)$ is the variance of the distribution of$ P(\theta |Y=y)$ and $\Var(\theta)$ is the variance of the distribution $P(\theta) = Unif(0,1)$
-	\begin{gather}
-		\Var(\theta)=\frac{1}{12} \text{ Known about the distribution}\\
-		\text{Similarly to above, we use bayes rule to find} f(\theta|Y=y)=\frac{P(Y|\theta) * P(\theta)}{P(Y)}\\
-		=> f(\theta)|Y=y \propto \binom{n}{y}\theta^y(1-\theta)^{n-y} * 1 \sim Beta(Y,n-Y)\\
-		\Var(Beta(Y,n-Y)) = \frac{Y(n-Y)}{(Y+n-Y)^2(Y+n-Y+1)} = \frac{Y(n-Y)}{(n)^2(n+1)}\\
-		\text{Now lets analyze the derivate of this variance with respect to Y}\\
-		\text{This makes sense as our variance should be some function of Y}\\
-		\frac{d}{dy}\frac{Y(n-Y)}{(n)^2(n+1)} \propto n-2y\\
-		\text{This function is negative with Y and thus decreasing for all y.}\\
-		\text{We can easily see that there is a point of maximum return at } y=\frac{n}{2}\\
-		\text{Plug this into our original equation we get }\\
-		\Var(Beta(Y,n-Y)) = \frac{Y(n-Y)}{(Y+n-Y)^2(Y+n-Y+1)} =\frac{1}{4(n+1)}\\
-		\text{Since n is strictly positive and $y=\frac{n}{2}$, this value is highest with lowest n possible, } n=2\\
-		=> max(\Var(Beta(Y,n-Y))) = \frac{1}{4*(2+1)} = \frac{1}{12} \le \Var(\theta) \square
-	\end{gather}
+	\item \textbf{Definition (Sample space and event).} The sample space S of an experiment is the set of all possible outcomes
+	of the experiment. An event A is a subset of the sample space S , and we say that A occurred if the
+	actual outcome is in A.
+	\item \textbf{Definition (General definition of probability).} A probability space consists of a sample space S and a
+	probability function P(.) which takes an event A $\subset$ S as input and returns P(A), a real number between 0
+	and 1, as output. The probability function must satisfy the following axioms: $P(\emptyset) = 0 \, P(S)=1$ and for a union of disjoint events, we get $P(A_1\cup...A_n) = P(A_1)+...P(A_n)$ 
+	\item \textbf{Theorem. Properties of probability.} A probability function has the following properties, for any events A
+	and B.
+	\begin{enumerate}
+		\item $P(A^c)=1-P(A)$
+		\item if $A\subset B P(A)\le P(B)$
+		\item $P(A\cup B) = P(A)+P(B) - P(A\cap B)$ \text{ which can be extended}\\
+		$P(A\cup B \cup C) = P(A) + P(B) + P(C) - P(A\cap B) - P(A \cap C) - P(B \cap C) - P(A \cap B \cap C)$
+	\end{enumerate}
+	\item\textbf{ Definition (Conditional probability).} If A and B are events with $P(B) > 0$, then the conditional probability
+	of A given B, denoted by $P(A|B)$, is defined as:
+	$P(A | B) =\frac{
+	P(A \cap B)}
+	{P(B)}$
+	Further note that all probabilities are in fact conditional. We like to think of P(A) as our prior beliefs of an event, and P(A|B) as our posterior, or what we think it is given something is already known.
+	\item \textbf{Theorem.} For any events A1,..An with positive probabilities,\\
+	$P(A1,...An) = P(A1)P(A2|A1)P(A3|A1,A2)...P(An|A1,...A_{n-1})$
+	\item\textbf{ Theorem (Bayes’ rule).}
+	$P(A|B) = \frac{P(B|A)P(A)}{P(B)}$
+	\item \textcolor{red}{\textbf{Theorem (Law of total probability (LOTP)).}} Let A1,...An be a partition of the sample space S with
+	$P(Ai) > 0$ for all i. Then\\
+	$P(B) = \sum_{i=1}^{n}P(B|A_i)P(A_i)$\\
+	When we condition on an event E, we update our beliefs
+	to be consistent with this knowledge, effectively putting ourselves in a universe where we know that E
+	occurred. Within our new universe, however, the laws of probability operate just as before. Conditional
+	probability satisfies all the properties of probability!
+	\item\textbf{ Theorem (Bayes’ rule with extra conditioning). }Provided that $P(A\cap E) > 0$ and $P(B \cap E) > 0$, we have
+	$P(A | B, E) =
+	\frac{P(B | A, E)P(A | E)}
+	{P(B | E)}$
+	\item T\textbf{heorem (Law of total probability (LOTP) with extra conditioning).} Let A1... An be a partition of the
+	sample space S with $P(Ai | E) > 0$ for all i. Then \\
+	$P(B|E) = \sum_{i=1}^{n}P(B|A_i,E)P(A_i|E)$
+	\item\textbf{ Definition (Independence of two events).} Events A and B are independent if P(A \ B) = P(A)P(B). If
+	P(A) > 0 and P(B) > 0, then this is equivalent with P(A j B) = P(A), and also equivalent with P(B j A) =
+	P(B). Independence is a symmetric relation.
+	\item \textbf{Proposition.} If A and B are independent, then $A^c$ and $B$ are independent, $A^c$ and $B^c$ are independent, and
+	A and $B^c$ are independent.
+	\item Definition (Independence of three events). Events A, B and C are said to be independent if all of the
+	following relations hold:\\
+	$P(A \cap B) = P(A)P(B);\\
+	P(A \cap C) = P(A)P(C);\\
+	P(B \cap C) = P(B)P(C);\\
+	P(A \cap B \cap C) = P(A)P(B)P(C)$
+	\item \textbf{Definition (Conditional independence).} Events A and B are said to be conditionally independent given E if
+	$P(A \cap B | E) = P(A | E)P(B | E).$
+	\item Problems shown: Monty Hall, and Positive test of conditionitis and bayes rule
 \end{enumerate}
 \item
-Let A, B and C be independent random variables with the following distributions:
-\begin{gather}
-	P(A = 1) = 0.4; P(A = 2) = 0.6\\
-	P(B = -3) = 0.25; P(B = -2) = 0.25; P(B = -1) = 0.25; P(B = 1) = 0.25\\
-	P(C = 1) = 0.5; P(C = 2) = 0.4; P(C = 3) = 0.1
-\end{gather}
 \begin{enumerate}
-	\item What is the probability of the quadratic equation $Ax^2+Bx+C=0$ has two real roots that are different?
-	\begin{gather}
-		\text{we are solving} \frac{-B \pm \sqrt{B^2-4AC}}{2A}\\
-		\text{For our roots to be real and different, we require } B^2-4AC > 0 \, \, \, \& B^2-4AC \ne 0\\
-		\text{With some thinking, we can see that this is only satisfied in the following cases}\\
-		A=1,C=1,B=-3\\
-		A=1,C=2,B=-3\\
-		A=2,C=1,B=-3\\
-	\end{gather}
-	If A or C were both 2 or either was great than two, we would only have negative roots as $B^2$ can only take the maximum value of 9 at any time.\\
-	Thus we simply add the probabilities of these three joint events
-	\begin{gather}
-		P(A=1,C=1,B=-3)+P(A=2,C=1,B=-3)+P(A=1,C=2,B=-3)\\
-		 = .4*.5*.25+.6*.5*.25+.4*.4*.25 = 0.165
-	\end{gather}
-	\item What is the probability that the quadratic equation  $Ax^2+Bx+C=0$
-	has two real roots and are both strictly positive.
-	\begin{gather}
-	\text{we are solving} \frac{-B \pm \sqrt{B^2-4AC}}{2A}\\
-	\text{For our roots to be real positive, we require } B^2-4AC \ge 0 \, \, \, \& -B - \sqrt{B^2-4AC} > 0\\
-	\text{With some thinking, we can see that this is only satisfied in the following cases}\\
-	A=1,C=1,B=-2\\
-	A=1,C=1,B=-3\\
-	A=1,C=2,B=-3\\
-	A=2,C=1,B=-3\\
-	\end{gather}
-	We can see that unlike the last problem, we can allow our roots to be one in the same, so we add another case where $-B - \sqrt{B^2-4AC} = 0$\\
-	we get the following
-	\begin{gather}
-	P(A=1,C=1,B=-3)+P(A=2,C=1,B=-3)+\\
-	P(A=1,C=2,B=-3)+P(A=1,C=1,B=-2)\\
-	= .4*.5*.25+.6*.5*.25+.4*.4*.25+.4*.5*.25 = 0.215
-	\end{gather}
+	\item \textbf{Definition (Random variable).} Given an experiment with sample space S , a random variable is a function
+	from the sample space S to the real numbers R. It is common, but not required, to denote random variables
+	by capital letters. P(X=x) = P(X=X(s))
+	\item Discrete PMFs are non negative, and sum to one over their support.
+	\item \textbf{Definition (Bernoulli distribution). }An random variable X is said to have a Bernoulli distribution with
+	parameter p if P(X = 1) = p and P(X = 0) = 1 $\sim$ p, where $0 < p < 1$. We write this as X $\sim$ Bern(p).
+	\item \textbf{Theorem. }Let X $\sim Bin(n, p)$, and $q = 1 - p$ (often taken to denote the failure of a Bernoulli trial). Then
+	$n - X \sim Bin(n, q)$.
+	\item \textbf{Theorem (Hypergeometric PMF).} Consider an urn with w white balls and b blacks balls. We draw n balls
+	out of the urn at random without replacement such that all the
+	$\binom{w+b}{n}$
+	samples are equally likely. Let X be the
+	number of white balls in the sample. Then X is said to have the Hypergeometric distribution with parameters
+	w, b and n: $X \sim HGeom(w, b, n)$. Then the PMF of X is\\
+	$P(X=k)=\frac{\binom{w}{k}\binom{b}{n-k}}{\binom{b+w}{n}}$
+	\item \textcolor{red}{\textbf{Theorem.}} If $X \sim HGeom(w, b, n)$ and $Y \sim HGeom(n,w+b-n,w)$, then X and Y have the same distribution.
+	\item \textbf{Theorem.} If X $\sim$ Bin(n,p), Y $\sim$ Bin(m,p), and X is independent of Y, then the conditional distribution of
+	$X|X+Y=r \sim$ hgeom(n,m,r).
+	\item \textbf{Theorem (Binomial as a limiting case of the Hypergeometric).} If X$\sim$ HGeom(w, b, n) and N = w+b approaches infinity
+	such that p = w/(w + b) remains fixed, then the PMF of X converges to the Bin(n, p) PMF.
+	\item \textbf{ Theorem (PMF of g(X))}. Let X be a discrete random variable and $g R->R$. Then the support of g(X) is
+	the set of all y such that g(x) = y for at least one x in the support of X, and the PMF of g(X) is
+	$P(g(X) = Y) = \sum_{x:g(x)=y} P(X=x)$
+	\item \textbf{Definition (Independence of two random variables).} Random variables X and Y are said to be independent
+	if
+	$P(X \le x, Y \le y) = P(X \le x)P(Y \le y)$
+	for all $x, y \in R$. In the discrete case, this is equivalent to the condition
+	P(X = x, Y = y) = P(X = x)P(Y = y);
+	for all x in the support of X and all y in the support of Y.
 \end{enumerate}
+
 \end{enumerate}
-\text{Have a great thanksgiving!}
+\text{Happy holidays!}
 \end{document}
