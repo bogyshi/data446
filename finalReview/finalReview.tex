@@ -304,9 +304,9 @@ Please complete the following:
 	\item T\textbf{heorem (Law of total probability (LOTP) with extra conditioning).} Let A1... An be a partition of the
 	sample space S with $P(Ai | E) > 0$ for all i. Then \\
 	$P(B|E) = \sum_{i=1}^{n}P(B|A_i,E)P(A_i|E)$
-	\item\textbf{ Definition (Independence of two events).} Events A and B are independent if P(A \ B) = P(A)P(B). If
-	P(A) > 0 and P(B) > 0, then this is equivalent with P(A j B) = P(A), and also equivalent with P(B j A) =
-	P(B). Independence is a symmetric relation.
+	\item\textbf{ Definition (Independence of two events).} Events A and B are independent if $P(A \cap B) = P(A)P(B)$. If
+	$P(A) > 0$ and $P(B) > 0$, then this is equivalent with $P(A | B) = P(A)$, and also equivalent with $P(B | A) =
+	P(B)$. Independence is a symmetric relation.
 	\item \textbf{Proposition.} If A and B are independent, then $A^c$ and $B$ are independent, $A^c$ and $B^c$ are independent, and
 	A and $B^c$ are independent.
 	\item Definition (Independence of three events). Events A, B and C are said to be independent if all of the
@@ -377,6 +377,13 @@ Please complete the following:
 	Note that the normal is symmetric, meaning tail areas are symmetric, andi n general $\phi(z)=\phi(-z)$
 	\item \textbf{exponential distribution} This is the continuous version of the geometric distribution. $f(x) = \lambda e^{-\lambda x} x>0$
 	\item \textcolor{red}{\textbf{Generalize exponential  }}$Y = \frac{X}{\lambda} \sim Expo(\lambda)$ with $X \sim Expo(1)$
+	\item $E[X]$ with  $X\sim Expo(\lambda) = \frac{1}{\lambda}$
+	\item $Var[X]$ with $ X\sim Expo(\lambda) = \frac{1}{\lambda^2}$
+	\item Exponential RV is the only memoryless Random Variable $=> P(X\ge s + t| X\ge s ) = P(X\ge t)$
+	\item \textcolor{red}{`\textbf{Poisson Process}} A poisson process is the process of arrivels with a rate $\lambda$ if \\
+	1.The number of arrivals that occur in an interval of length t is a $Pois(\lambda t)$ random variable.\\
+	2.The number of arrivals that occur in disjoint time intervals are independent of each other.
+	\item doisjoint intervals of the poisson process are all exponential distributions, but their sums are not exponential, they are gamma
 	\item see notes for further elaboration on this section and bayesian view point of statistics
 \end{enumerate}
 \item Chapter 5: Moments
@@ -435,7 +442,96 @@ Please complete the following:
 \end{enumerate}
 \item Chapter 6 : Joint Distributions
 \begin{enumerate}
-	\item
+	\item \textcolor{red}{\textbf{Using 2d lotus to get Expected Value}}\\
+	$X,Y \sim N(0,1) \text{ find }E[|X-Y|] = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} |x-y|\frac{1}{\sqrt{2\pi}}e^{-x^2/2}\frac{1}{\sqrt{2\pi}}e^{-y^2/2}dxdy$\\
+	we know $X-Y \sim N(0,2) => X-Y=\sqrt{2}Z $ with $ Z \sim N(0,1) =>
+	E[|X-Y|] = \sqrt{2}E[|Z|] = \sqrt{2}\int_{-\infty}^{\infty}|z|e^{-z^2/2}dz$\\
+	$=2\sqrt{2}\int_{0}^{\infty}ze^{-z^2/2}dz = \frac{2}{\sqrt{\pi}}$ \\
+	\item \textcolor{red}{\textbf{Properties of Covariance}}// 
+	4. Cov(aX,Y) = aCov(X,Y) for any constant a in R\\
+	5. Cov(X + Y,Z) = Cov(X,Z) + Cov(Y,Z).\\
+	6. Cov(X + Y,Z + W) = Cov(X,Z) + Cov(X,W) + Cov(Y,Z) + Cov(Y,W).\\
+	7. Var(X + Y) = Var(X) + Var(Y) + 2Cov(X,Y).\\
+	8. For any X1 X2 ... Xn  $Var(X1+X2+..Xn) = Var(X1)+...Var(Xn) + 2\sum_{i<j}Cov(X_i,X_j)$
+	\item \textbf{Theorem (Multinomial joint PMF)}. If $X \sim Multk(n, p)$, then the joint PMF of the random vector X is
+	$P(X_1 = n_1...X_k = n_k) = \frac{n!}{n_1!...n_k!}p_1^{n_1}...p_k^{n_k}$
+	where n1 + n2 + ... + nk = n.
+	\item \textbf{Theorem (Multinomial margins)}. If $X \sim Multk(n, p)$, then $Xj \sim Bin(n, p_j).$
+	\item \textbf{Theorem (Multinomial lumping)}. If$X \sim Multk(n, p)$, then for any distinct i and j,$ Xi + Xj \sim Bin(n, pi + pj).$
+	The random vector of counts obtained from merging categories i and j is still Multinomial. For example,	merging categories 1 and 2 gives
+	$(X1 + X2, X3,... Xk) \sim Mult_{k1}(n, (p1 + p2, p3, ... , pk))$
+	\item \textbf{Theorem (Multinomial conditioning)}. If$ X \sim Multk(n, p)$, then
+	$(X2,..,Xk) | X1 = n1 \sim Mult_{k-1}(n - n1, (p2',...pk'));$
+	where$p_j' = \frac{p_j}{p_2+...p_k}$
+	\item \textcolor{red}{\textbf{Definition (Multivariate Normal distribution).}} A random vector X = (X1,...,Xk) is said to have a Multivariate Normal (MVN) distribution if \textbf{every} linear combination of the Xj has a Normal distribution. That is, we require t1X1 + t2X2 + ... + tkXk to have a Normal distribution for any t1, t2,..., tk in R. For k = 2 this distribution is called the Bivariate Normal (BVN). The marginal distribution of any component Xj of the random vector X is Normal which
+	can be seen by taking tj = 1 and tj' = 0 for j, $!=$ j.
+	\item Consider Z andW to be i.i.d. N(0, 1). Then (Z,W) is Bivariate Normal since the sum of independent Normals
+	is also Normal. Furthermore, (Z + 2W, 3Z + 5W) is also Bivariate Normal since any linear combination of its	components can be expressed as a linear combination of Z and W:
+	t1(Z + 2W) + t2(3Z + 5W) = (t1 + 3t2)Z + (2t1 + 5t2)W.
+	\item Note that subsets of Multivariate normals are also multivariate normal. Further, combinations of multivariate normals which are \textbf{independent of one another} they are also multivariate normals jointly.
+	\item these are described with a mean vector and variance covariance matrix
+	\item\textbf{ Definition (Joint Moment Generating Function (MGF))}. The joint MGF of a random vector X = (X1,...,Xk)
+	is the function which takes a vector of constants t' = (t1,...,tk) and returns	\\
+	$M(t) = E[e^{t'X}] = E[e^{t_1X_1+...+t_kX_k}]\\
+	$ With $ = e^{t_jE[X_j] + \frac{1}{2} t_j^2Var(X_j)}$\\
+	$=> E[e^{t'X}] = E[e^{t_1X_1+...+t_kX_k}] = e^{t_1E[X_1] + ... t_kE[X_k] + \frac{1}{2} Var(t_1X_1+...t_kX_k)} $
+	\item \textcolor{red}{\textbf{Theorem.}} Within a Multivariate Normal random vector, uncorrelated implies independence. That is, if
+	X = (X1,X2) is Multivariate Normal, where X1 and X2 are subvectors, and every component of X1 is uncorrelated with every component of X2, then X1 and X2 are independent. In particular, if (X, Y) is	Bivariate Normal with Corr(X, Y) = 0, then X and Y are independent.
+	
+\end{enumerate}
+\item Transformations
+\begin{enumerate}
+	\item \textcolor{red}{\textbf{Theorem (Change of variables).}} Let X = (X1,...,Xn) be a continuous random vector with joint PDF $f_X(x)$,
+	and let Y = g(X) where g is an invertible function from $R^n to R^n$. Let y = g(x) which implies $x = g^{-1}(y)$. We
+	consider the Jacobian matrix which is the matrix of all the partial derivatives $\frac{dx_i}{dy_j}$ that are assumed to exist
+	and be continuous:\\
+	$\frac{dX}{dY}=\begin{bmatrix}
+	\frac{dx_1}{dy_1} & \frac{dx_1}{dy_2} & ... \frac{dx_1}{dy_n}\\
+	\frac{dx_2}{dy_1} & \frac{dx_2}{dy_2} & ... \\
+	\frac{dx_n}{dy_1} & ... &\frac{dx_n}{dy_n}
+	\end{bmatrix}$\\
+	and joint pdf $f_Y(y) = f_X(X)|\frac{dX}{dY}|$ and $|\frac{dX}{dY}| = |\frac{dY}{dX}|^{-1}$ 
+	\item \textcolor{red}{\textbf{Example: Bivariate Normal joint PDF}}
+	We find the PDF of the vector (Z,W) which follows a Bivariate Normal distribution with N(0, 1) marginals
+	and $Corr(Z,W) = \rho \in(-1, 1)$. We construct (Z,W) by transforming another vector (X, Y) with $X, Y \sim
+	N(0, 1)$, and X independent of Y as follows:
+	$Z = X$
+	$W = \rho X + \sqrt{1-\rho^2}Y;$
+	The inverse transformation that maps (Z,W) into (X, Y) is
+	$X = Z$
+	$Y = -\frac{\rho}{\sqrt{1-\rho^2}}Z 	+ \frac{1}{\sqrt{1-\rho^2}}W$
+	The Jacobian matrix is
+	$\frac{d(x,y)}{d(z,w)} = \begin{bmatrix}
+		1 & 0 \\
+		-\frac{\rho}{\sqrt{1-\rho^2}} & \frac{1}{\sqrt{1-\rho^2}}
+	\end{bmatrix}$\\
+	$=>f_{Z,W}=f_(x,y)(x,y)* |\frac{d(x,y)}{d(z,w)}| = f_(x,y)(x,y)* \frac{1}{\sqrt{1-\rho^2}} $
+	\item \textcolor{red}{\textbf{Theorem (Convolution sums and integrals). }}If X and Y are independent discrete random variables, then
+	the PMF of their sum T = X + Y is
+	$P(T = t) =\sum_{x}P(Y=t-x)P(X=x) = \sum_{y}P(X=t-y)P(Y=y)$ \\
+	and\\
+	$f_T(t) = \int_{-\infty}^{\infty}f_y(t-x)f_x(x)dx = \int_{-\infty}^{\infty}f_x(t-y)f_y(y)dx$
+	\item \textbf{Example: Uniform convolution}
+	Let X, Y be i.i.d. Unif(0; 1). Find the distribution of T = X + Y.
+	Solution: The PDF of X and of Y is $g(x) = 1 if x \in (0, 1) and g(x) = 0$, otherwise. The convolution formula gives:\\
+	$\int_{-\infty}^{\infty}f_y(t-x)f(x)dx =\int_{-\infty}^{\infty}g(t-x)g(x)dx  $\\
+	we can see that we must have \\
+	$0<t-x<1 \& 0<x<1 => x<t<1+x \& 0 < x < 1 => 0<x<t<1+x<2$ Depending on the value of t, $t<1$ or $t\ge1$ x falls in either $0<x<t$ or $t-1<x<1$\\
+	$=> f_T(t) = \begin{cases}
+	\int_{0}^{t}dx = t & 0<t\le1\\
+	\int_{t-1}^{1}dx = t & 1<t\le2	
+	\end{cases}$\\
+	\item \textcolor{red}{\textbf{Beta Distribution }} A random variable X is said to have the Beta distribution with parameters
+	$a > 0 $and $b > 0$ if its PDF is\\
+	$\frac{1}{\beta(a,b)} x^{a-1}(1-x)^{b-1} \, \, 0<x<1$
+	\item $\Gamma(a) = (a-1)!$
+	\item \textbf{Definition (Gamma distribution).} A random variable Y is said to have the Gamma distribution with parameters	a and $\lambda$, where $a > 0$ and $\lambda > 0$, if its PDF is\\
+	$f(y) = \frac{1}{\Gamma(a)}(\lambda y)^ae^{-\lambda y}\frac{1}{y}$
+	\item The general $Gamma(a,\lambda)$ distribution can be constructed from the $X \sim Gamma(a, 1)$ by a scale transformation. \\
+	Consider the random variable $Y = \frac{X}{\lambda}$ for some $\lambda > 0$. By the change of variables formula with $x = \lambda y$ and
+	$\frac{dx}{dy} = \lambda$, the PDF of Y is \\
+	$f_y(y) = f_x(x)|\frac{dx}{dy}| = \frac{1}{\Gamma(a)}(x)^ae^{-x}\frac{1}{x} * \lambda $ \\
+	substituting for $x=\lambda y$ and cancelling we get\\ $\frac{1}{\Gamma(a)}(\lambda y)^ae^{-\lambda y}\frac{1}{y}$ 
 \end{enumerate}
 \end{enumerate}
 \text{Happy holidays!}
