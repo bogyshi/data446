@@ -533,6 +533,33 @@ Please complete the following:
 	$f_y(y) = f_x(x)|\frac{dx}{dy}| = \frac{1}{\Gamma(a)}(x)^ae^{-x}\frac{1}{x} * \lambda $ \\
 	substituting for $x=\lambda y$ and cancelling we get\\ $\frac{1}{\Gamma(a)}(\lambda y)^ae^{-\lambda y}\frac{1}{y}$ 
 \end{enumerate}
+\item Conditional Expectation:
+\begin{enumerate}
+	\item \textbf{Definition (Conditional expectation given an event).} Let A be an event with positive probability, P(A) > 0. 
+	\\
+	Discrete: $E[X|A] = \sum_{x\in X} x*P(X=x|A)$\\
+	Continuous $E[X|A] = \int_{-\infty}xf_x(x|A)dx$ with $f_x(x|A) = \frac{d}{dx} P(X\le x|A) = \frac{d}{dx} F(x|A)$
+	\\
+	\textcolor{red}{\textbf{Using Bayes Rule}}
+	$f(x|A) = \frac{P(A|x=x)f_x(x)}{P(A)}$
+	\item T\textbf{heorem(Law of total expectation). }Let A1,A2,...,An be a partition of a sample space,with P(Ai) > 0 for all i = 1,2,...,n. Let Y be a random variable on this sample space. Then $E(Y) = \sum_{i=1}^{n}E(Y | Ai)P(Ai). $
+	\\
+	The law of total probability is a specific case of this law using indicator random variables and the fundadmental bridge.
+	\item Conditional Expectations are functions of the conditioned variable.\\
+	$E[Y|X] = g(X)$. thus we can ask for $E[g(x)] Var(g(X)) $ ...
+	\item \textcolor{red}{\textbf{Theorem(Taking out what is known)}}. For any function h(·), we have E(h(X)Y | X) = h(X)E(Y | X).\\
+	Note that the above equality means that the random variable g1(X) = E(h(X)Y | X) is equal with the random variable g2(X) = h(X)E(Y | X). 
+	\item Linearity : $E[X_1+X_2..X_n|Y] = E[X_1|Y] + E[X_2|Y] .. E[X_n|Y]$
+	\item Adams law: $E[E[X|Y]] = E[X]$
+	\item Adams Law w/Extra conditioning : $E[E[Y|X,Z]|Z] = E[Y|Z]$
+	\item \textcolor{red}{\textbf{Theorem(Projection interpretation).}} For any function $h(·)$,the random variable $Y-E[Y|X]$ is uncorrelated with $h(X)$. Since $E(Y-E(Y|X)) = E(Y)-E(E(Y|X)) = E(Y)-E(Y) = 0$, this is equivalent with $E((Y-E(Y|X))h(X)) = 0$. Main point being that $E[Y|X]$ minimizes the function $|Y - E[Y|X]|$ 
+	\item \textcolor{red}{\textbf{Definition(Conditional variance).}} The conditional variance of Y given X is $Var(Y | X) = E[[Y-E(Y|X)]^2|X]$
+	\\
+	This is equivalent to $Var(Y|X) = E(Y^2|X)-(E(Y|X))^2$ .
+	\item \textcolor{red}{\textbf{Theorem(Eve’slaw: connecting conditional variance to unconditional variance)}}. For any random variables X and Y, we have $Var(Y) = E(Var(Y | X)) + Var(E(Y | X))$. This relation is known as the law of total variance, or as the variance decomposition formula.
+	\\
+	Aka there is variance within a group, and there is a variance between groups 
+\end{enumerate}
 \end{enumerate}
 \text{Happy holidays!}
 \end{document}
